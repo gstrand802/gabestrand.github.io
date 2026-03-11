@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabe Strand - Architectural Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        stone: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            800: '#292524',
+                            900: '#1c1917',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .project-card:hover .project-image {
+            transform: scale(1.05);
+        }
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 font-sans antialiased selection:bg-stone-800 selection:text-white">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6 px-8 md:px-16 flex justify-between items-center text-stone-900">
+        <a id="nav-logo" href="#home" class="font-display text-2xl tracking-[0.2em] font-medium z-50 relative uppercase opacity-0 pointer-events-none transition-opacity duration-300">GABE STRAND</a>
+        
+        <div class="hidden md:flex space-x-8 text-sm tracking-widest uppercase font-display font-light">
+            <a href="#work" class="hover:text-stone-500 transition-colors">Work</a>
+            <a href="#about" class="hover:text-stone-500 transition-colors">About</a>
+            <a href="#contact" class="hover:text-stone-500 transition-colors">Contact</a>
+        </div>
+
+        <button id="mobile-menu-btn" class="md:hidden z-50 relative text-stone-900 focus:outline-none">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+
+        <div id="mobile-menu" class="fixed inset-0 bg-stone-900 text-white flex flex-col justify-center items-center space-y-8 text-2xl font-display uppercase tracking-widest font-light opacity-0 pointer-events-none transition-opacity duration-300 z-40">
+            <a href="#work" class="mobile-link hover:text-stone-400">Work</a>
+            <a href="#about" class="mobile-link hover:text-stone-400">About</a>
+            <a href="#contact" class="mobile-link hover:text-stone-400">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="relative h-screen flex items-center justify-center overflow-hidden bg-white">
+        <div class="absolute inset-0 z-0">
+            <!-- Main Cover Photo -->
+            <img src="citysketchscan.png" alt="Architecture Sketch Background" class="w-full h-full object-cover object-center" />
+        </div>
+
+        <!-- Hero Content - Shifted Upward significantly to clear the sketch -->
+        <div class="relative z-10 text-center text-stone-900 px-4 fade-up -translate-y-48 md:-translate-y-64 lg:-translate-y-80">
+            <h1 class="font-display text-4xl md:text-5xl lg:text-7xl mb-6 font-light tracking-[0.15em] uppercase">PORTFOLIO</h1>
+            <p class="text-base md:text-lg font-light tracking-wide max-w-2xl mx-auto opacity-80 leading-relaxed">Architecture and Computational Design by Gabe Strand</p>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <a href="#work" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 text-stone-900 animate-bounce">
+            <i data-lucide="chevron-down" class="w-8 h-8 opacity-40"></i>
+        </a>
+    </header>
+
+    <main>
+        <!-- Selected Works Section -->
+        <section id="work" class="py-24 px-4 md:px-8 max-w-screen-2xl mx-auto">
+            <div class="mb-16 fade-up">
+                <h2 class="font-display text-3xl md:text-4xl text-stone-900 uppercase tracking-[0.15em] font-light">SELECTED WORKS</h2>
+                <p class="text-stone-500 text-sm tracking-[0.15em] uppercase mt-4 font-light">Academic Projects from 2025&ndash;2026</p>
+                <div class="w-12 h-[1px] bg-stone-900 mt-6"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 md:gap-12">
+                
+                <!-- Project 1: Modern Home -->
+                <div class="project-card relative overflow-hidden group cursor-pointer aspect-[3/2] fade-up"
+                     data-title="Modern Home"
+                     data-category="BIM Coordination"
+                     data-image="modern-home-detail.jpg"
+                     data-description="Designed to emulate professional BIM coordination, this project was developed entirely within a Revit (and Twinmotion) environment. The assignment required a workflow that mirrored real-world practice, beginning with conceptual massing, and finishing with a set of construction documents. This process required coordination between spatial form, exterior landscape, and structural integrity.">
+                    <img src="modern-home-cover.jpg" alt="Modern Home" class="project-image w-full h-full object-cover transition-transform duration-700 ease-in-out">
+                    <div class="project-overlay absolute inset-0 bg-stone-900/60 opacity-0 transition-opacity duration-500 flex flex-col justify-end p-10 text-white">
+                        <span class="text-xs tracking-[0.2em] uppercase mb-2 opacity-80 font-display">BIM Coordination</span>
+                        <h3 class="font-display text-2xl uppercase tracking-widest font-light">Modern Home</h3>
+                    </div>
+                </div>
+
+                <!-- Project 2: Biophilic Overlay -->
+                <div class="project-card relative overflow-hidden group cursor-pointer aspect-[3/2] fade-up" style="transition-delay: 100ms;"
+                     data-title="Biophilic Overlay"
+                     data-category="Parametric Design"
+                     data-image="biophilic-overlay-detail.jpg"
+                     data-description="Developed using the Rhino environment, this project highlights the intersection of heavy infrastructure and natural topography, reimagining a transit hub as a continuation of the pre-existing landscape. By wrapping a rigid steel frame in a parametric wooden exterior, this 'Biophilic Overlay' functions as a permeable enclosure, shading the rooftop patio and merging the boundaries of the built environment and its surroundings.">
+                    <img src="biophilic-overlay-cover.jpg" alt="Biophilic Overlay" class="project-image w-full h-full object-cover transition-transform duration-700 ease-in-out">
+                    <div class="project-overlay absolute inset-0 bg-stone-900/60 opacity-0 transition-opacity duration-500 flex flex-col justify-end p-10 text-white">
+                        <span class="text-xs tracking-[0.2em] uppercase mb-2 opacity-80 font-display">Parametric Design</span>
+                        <h3 class="font-display text-2xl uppercase tracking-widest font-light">Biophilic Overlay</h3>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24 bg-stone-100">
+            <div class="max-w-screen-xl mx-auto px-4 md:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                    <!-- Headshot -->
+                    <div class="fade-up relative lg:col-span-3">
+                        <div class="aspect-[3/4] overflow-hidden bg-stone-200 max-w-[260px] mx-auto lg:mx-0">
+                            <img src="portrait.jpeg" alt="Gabe Strand Portrait" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500">
+                        </div>
+                        <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-stone-300 hidden md:block -z-10"></div>
+                    </div>
+                    
+                    <div class="fade-up lg:col-span-9">
+                        <h2 class="font-display text-3xl md:text-4xl text-stone-900 uppercase tracking-[0.15em] font-light mb-8">ABOUT ME</h2>
+                        <p class="text-stone-700 font-light tracking-wide text-sm md:text-base mb-6 leading-relaxed">
+                            I am a community-focused professional transitioning to architecture, driven by a commitment to contributing to equity-driven, sustainable, and innovative environments. 
+                        </p>
+                        <p class="text-stone-700 font-light tracking-wide text-sm md:text-base mb-12 leading-relaxed">
+                            Leveraging a background in community development and recent certification in Digital Design & Visualization, I apply self-directed technical upskilling to solve complex design problems and streamline production across professional and academic settings. My goal is to combine rigorous industry experience with my passion for the built environment.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-stone-300 pt-12">
+                            <div>
+                                <h3 class="font-display text-lg uppercase tracking-widest mb-6 font-medium text-stone-900">Technical Skills</h3>
+                                <ul class="text-sm font-light tracking-wide text-stone-700 space-y-4">
+                                    <li><strong class="font-medium text-stone-900 block mb-1">BIM & 3D Modeling</strong> Revit, Rhino 3D, SketchUp Pro, Blender</li>
+                                    <li><strong class="font-medium text-stone-900 block mb-1">Computational Design</strong> Grasshopper, Dynamo</li>
+                                    <li><strong class="font-medium text-stone-900 block mb-1">Visualization</strong> Enscape, Twinmotion</li>
+                                    <li><strong class="font-medium text-stone-900 block mb-1">Graphics</strong> Photoshop, Illustrator, InDesign</li>
+                                    <li><strong class="font-medium text-stone-900 block mb-1">Data & Dev</strong> Salesforce Admin, Flow Automation</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="font-display text-lg uppercase tracking-widest mb-6 font-medium text-stone-900">Education</h3>
+                                <div class="space-y-6 text-sm font-light tracking-wide text-stone-700">
+                                    <div>
+                                        <div class="font-medium text-stone-900 mb-1">Boston Architectural College</div>
+                                        <div class="italic mb-1">Certificate in Digital Design and Visualization</div>
+                                        <div class="text-xs tracking-widest uppercase text-stone-500">Dec 2026</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium text-stone-900 mb-1">University of Vermont</div>
+                                        <div class="italic mb-1">B.S. Community Development & Economics<br>Minor in Green Building and Design</div>
+                                        <div class="text-xs tracking-widest uppercase text-stone-500">May 2020</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-32 px-4 md:px-8 max-w-screen-md mx-auto text-center fade-up">
+            <h2 class="font-display text-3xl md:text-4xl text-stone-900 uppercase tracking-[0.15em] font-light mb-6">CONNECT</h2>
+            <p class="text-stone-700 mb-4 text-sm md:text-base leading-loose font-light tracking-wide">Currently seeking opportunities to gain rigorous industry experience.</p>
+            <div class="text-stone-600 mb-10 text-sm space-y-2 font-light tracking-widest uppercase">
+                <p>Needham, MA 02492</p>
+                <p>(802) 345-0670</p>
+            </div>
+            <a href="mailto:gabestrand@gmail.com" class="inline-block border border-stone-900 text-stone-900 px-10 py-4 uppercase tracking-[0.2em] font-display text-xs hover:bg-stone-900 hover:text-white transition-colors duration-300">
+                Email Me
+            </a>
+        </section>
+    </main>
+
+    <footer class="bg-stone-900 text-stone-400 py-12 px-8 text-xs tracking-widest uppercase text-center font-display">
+        <p>&copy; 2026 Gabe Strand. All rights reserved.</p>
+    </footer>
+
+    <!-- Project Pop-up Modal -->
+    <div id="project-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-stone-900/95 opacity-0 pointer-events-none transition-opacity duration-300 px-4 py-8 overflow-y-auto">
+        <div class="bg-white max-w-6xl w-full mx-auto relative flex flex-col md:flex-row shadow-2xl transform scale-95 transition-transform duration-300" id="modal-content">
+            <button id="close-modal-btn" class="absolute top-4 right-4 text-stone-900 hover:text-stone-500 z-10 transition-colors focus:outline-none">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+            <div class="w-full md:w-1/2 aspect-[4/3] md:aspect-auto bg-stone-100">
+                <img id="modal-image" src="" alt="Project Image" class="w-full h-full object-cover">
+            </div>
+            <div class="w-full md:w-1/2 p-8 md:p-14 flex flex-col justify-center">
+                <span id="modal-category" class="text-xs tracking-[0.2em] uppercase mb-4 text-stone-500 font-display">Category</span>
+                <h3 id="modal-title" class="font-display text-3xl mb-6 uppercase tracking-widest font-light text-stone-900">Project Title</h3>
+                <div class="w-12 h-[1px] bg-stone-300 mb-6"></div>
+                <p id="modal-description" class="text-stone-700 font-light tracking-wide text-sm md:text-base leading-relaxed mb-10">Description</p>
+                <div class="mt-auto">
+                    <button id="close-modal-bottom" class="uppercase tracking-widest text-xs font-display text-stone-500 hover:text-stone-900 transition-colors border-b border-transparent hover:border-stone-900 pb-1 focus:outline-none">Close Project</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        const navbar = document.getElementById('navbar');
+        const navLogo = document.getElementById('nav-logo');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-white', 'shadow-sm', 'py-4');
+                navbar.classList.remove('py-6');
+                navLogo.classList.remove('opacity-0', 'pointer-events-none');
+                navLogo.classList.add('opacity-100', 'pointer-events-auto');
+            } else {
+                navbar.classList.remove('bg-white', 'shadow-sm', 'py-4');
+                navbar.classList.add('py-6');
+                navLogo.classList.add('opacity-0', 'pointer-events-none');
+                navLogo.classList.remove('opacity-100', 'pointer-events-auto');
+            }
+        });
+
+        // Mobile Menu
+        const mobileMenu = document.getElementById('mobile-menu');
+        let isMenuOpen = false;
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+                mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
+                mobileMenuBtn.innerHTML = '<i data-lucide="x" class="w-6 h-6 text-white"></i>';
+            } else {
+                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+                mobileMenuBtn.innerHTML = '<i data-lucide="menu" class="w-6 h-6"></i>';
+            }
+            lucide.createIcons();
+        }
+        mobileMenuBtn.addEventListener('click', toggleMenu);
+        document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Modal
+        const modal = document.getElementById('project-modal');
+        const modalContent = document.getElementById('modal-content');
+        function openModal(card) {
+            document.getElementById('modal-image').src = card.getAttribute('data-image');
+            document.getElementById('modal-category').textContent = card.getAttribute('data-category');
+            document.getElementById('modal-title').textContent = card.getAttribute('data-title');
+            document.getElementById('modal-description').textContent = card.getAttribute('data-description');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+            document.body.style.overflow = 'hidden'; 
+        }
+        function closeModal() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            document.body.style.overflow = ''; 
+            setTimeout(() => {
+                if (modal.classList.contains('opacity-0')) {
+                    document.getElementById('modal-image').src = '';
+                }
+            }, 300);
+        }
+        document.querySelectorAll('.project-card').forEach(card => card.addEventListener('click', () => openModal(card)));
+        document.getElementById('close-modal-btn').addEventListener('click', closeModal);
+        document.getElementById('close-modal-bottom').addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => e.target === modal && closeModal());
+
+        // Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('visible'));
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // Anti-theft
+        document.addEventListener('contextmenu', e => e.target.tagName === 'IMG' && e.preventDefault());
+        document.addEventListener('dragstart', e => e.target.tagName === 'IMG' && e.preventDefault());
+    </script>
+</body>
+</html>
