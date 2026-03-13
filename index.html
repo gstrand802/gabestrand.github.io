@@ -537,6 +537,14 @@
             z-index: 2;
         }
 
+        /* Specific Fading Hero Effect */
+        .project-modal.fade-hero .modal-background img {
+            object-fit: contain; /* Shows entire image */
+            padding: 2rem; /* Creates breathing room from edges */
+            -webkit-mask-image: radial-gradient(ellipse 85% 90% at 50% 50%, black 60%, transparent 100%);
+            mask-image: radial-gradient(ellipse 85% 90% at 50% 50%, black 60%, transparent 100%);
+        }
+
         .modal-overlay {
             position: absolute;
             top: 0;
@@ -662,6 +670,11 @@
             width: calc(100% + 2rem);
         }
 
+        .gallery-item.blend-image img {
+            box-shadow: none !important;
+            background-color: transparent;
+        }
+
         .gallery-text {
             grid-column: span 1;
             font-size: 1.25rem;
@@ -704,13 +717,13 @@
             color: #fff;
         }
         .project-modal.theme-dark .modal-overlay {
-            background-color: rgba(20, 20, 20, 0.95);
+            background-color: rgba(0, 0, 0, 0.98); /* Pure black for seamless blending */
         }
         .project-modal.theme-dark .modal-header {
             color: #fff;
         }
         .project-modal.theme-dark .modal-header.scrolled {
-            background-color: rgba(20, 20, 20, 0.9);
+            background-color: rgba(0, 0, 0, 0.95);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         .project-modal.theme-dark .modal-title,
@@ -852,28 +865,11 @@
 
     <!-- Fixed Background Layer for Main Page (Slideshow) -->
     <div class="main-background-fixed">
-        <img src="mainpagehero01.png" alt="Hero Slide" class="hero-slide active">
-        <img src="project01-popup-image4.jpg" alt="Hero Slide" class="hero-slide">
-        <img src="project02-popup-image2.jpg" alt="Hero Slide" class="hero-slide">
-        <img src="mainpagehero02.png" alt="Hero Slide" class="hero-slide">
-        <img src="project03-popup-hero-image copy.png" alt="Hero Slide" class="hero-slide">
-        <img src="mainpagehero04.png" alt="Hero Slide" class="hero-slide">
-        <img src="modern-home-cover.jpg" alt="Hero Slide" class="hero-slide">
-        <img src="project01-popup-image5.jpg" alt="Hero Slide" class="hero-slide">
-        <img src="project02-popup-image4.jpg" alt="Hero Slide" class="hero-slide">
-        <img src="mainpagehero05.png" alt="Hero Slide" class="hero-slide">
-        <img src="project03-popup-image-first-image.jpg" alt="Hero Slide" class="hero-slide">
+        <img src="modern-home-cover.jpg" alt="Hero Slide" class="hero-slide active">
+        <img src="02biophilic-overlay-geroimage-main-page.jpg" alt="Hero Slide" class="hero-slide">
+        <img src="03boston-public-garden-3graphic-installations-hero-main-page.png" alt="Hero Slide" class="hero-slide">
         <img src="project01-popup-image6.jpg" alt="Hero Slide" class="hero-slide">
-        <img src="02biophilic-overlay-hero-imgage-popup.jpg" alt="Hero Slide" class="hero-slide">
-        <img src="mainpagehero06.png" alt="Hero Slide" class="hero-slide">
-        <img src="project01-popup-image3.jpg" alt="Hero Slide" class="hero-slide">
-        <img src="project02-popup-image3.jpg" alt="Hero Slide" class="hero-slide">
-        <img src="project03-popup-image-cluster1-image01.jpg" alt="Hero Slide" class="hero-slide">
-        <img src="mainpagehero07.png" alt="Hero Slide" class="hero-slide">
-        <img src="project01-popup-image2.jpg" alt="Hero Slide" class="hero-slide">
-        <img src="project02-popup-image1.jpg" alt="Hero Slide" class="hero-slide">
-        <img src="project01-popup-image1.jpg" alt="Hero Slide" class="hero-slide">
-        <img src="project03-popup-image-cluster1-image02.jpg" alt="Hero Slide" class="hero-slide">
+        <img src="project01-popup-image5.jpg" alt="Hero Slide" class="hero-slide">
         <div id="main-overlay-fixed" class="main-overlay-fixed"></div>
     </div>
 
@@ -1236,13 +1232,14 @@
                 type: 'Parametric Design',
                 collab: 'Individual',
                 theme: 'dark',
-                hero: '02biophilic-overlay-hero-imgage-popup.jpg',
+                fadeHero: true,
+                hero: 'project02-popup-image3.jpg',
                 content: [
                     { type: 'text', text: 'Developed using the Rhino environment, this project highlights the intersection of heavy infrastructure and natural topography, reimagining a transit hub as a continuation of the pre-existing landscape. By wrapping a rigid steel frame in a parametric wooden exterior, this "Biophilic Overlay" functions as a permeable enclosure, shading the rooftop patio and merging the boundaries of the built environment and its surroundings.' },
                     { type: 'image', layout: 'landscape', url: 'project02-popup-image2.jpg' },
                     { type: 'image', layout: 'landscape', url: 'project02-popup-image4.jpg' },
                     { type: 'image', layout: 'landscape', url: 'project02-popup-image3.jpg' },
-                    { type: 'image', layout: 'landscape', url: 'project02-popup-image1.jpg' }
+                    { type: 'image', layout: 'landscape blend-image', url: 'project02-popup-image1.jpg' }
                 ]
             },
             'boston': {
@@ -1256,11 +1253,13 @@
                 content: [
                     { type: 'text', text: 'Experimenting with a Post Digital Collage Workflow: Rhino 3D + Adobe Illustrator (Vector Work) + Adobe Photoshop (Collage and Detailing).\n\nSituated in the Boston Public Garden, this project introduces three landscape installations designed to transform traditional commuter walkways into a destination. By carving "Third Spaces" into the landscape, the design highlights the areas steepest topography through hardscape switchbacks and integrated seating. The goal of these design aspects is to promote seamless transition from the busy street to the heart of the public garden and to transform walkways into a social environment.' },
                     { type: 'image', layout: 'full-bleed', url: 'project03-popup-image-first-image.jpg' },
+                    { type: 'image', layout: 'full-bleed', url: 'popup03-image6.png' },
+                    { type: 'image', layout: 'full-bleed', url: 'popup03-image5.jpg' },
                     { type: 'cluster', images: [
                         'project03-popup-image-cluster1-image01.jpg', 
                         'project03-popup-image-cluster1-image02.jpg',
-                        'popup03-image5.jpg',
-                        'popup03-image6.png'
+                        'plaza-popup-image-clusteraddon.png',
+                        '03boston-public-garden-3graphic-installations-hero-main-page.png'
                     ]}
                 ]
             }
@@ -1456,9 +1455,12 @@
 
                 if (data) {
                     // Apply visual theme
-                    modal.classList.remove('theme-dark', 'theme-light');
+                    modal.classList.remove('theme-dark', 'theme-light', 'fade-hero');
                     if (data.theme) {
                         modal.classList.add(`theme-${data.theme}`);
+                    }
+                    if (data.fadeHero) {
+                        modal.classList.add('fade-hero');
                     }
 
                     document.getElementById('modal-title').innerText = data.title;
