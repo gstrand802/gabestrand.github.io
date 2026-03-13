@@ -565,20 +565,6 @@
             z-index: 2;
         }
 
-        /* Specific Fading Hero Effect - Adjusted for seamless blending */
-        .project-modal.fade-hero .modal-background img {
-            object-fit: contain; 
-            width: 90vw; 
-            height: 80vh; 
-            margin: auto;
-            position: absolute;
-            top: 10vh;
-            left: 5vw;
-            /* Precise radial gradient ensures the mask ends before the image borders */
-            -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 75%);
-            mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 75%);
-        }
-
         .modal-overlay {
             position: absolute;
             top: 0;
@@ -1374,7 +1360,6 @@
                 type: 'Parametric Design',
                 collab: 'Individual',
                 theme: 'dark',
-                fadeHero: true,
                 hero: 'project02-popup-image3.jpg',
                 content: [
                     { type: 'text', text: 'Developed using the Rhino environment, this project highlights the intersection of heavy infrastructure and natural topography, reimagining a transit hub as a continuation of the pre-existing landscape. By wrapping a rigid steel frame in a parametric wooden exterior, this "Biophilic Overlay" functions as a permeable enclosure, shading the rooftop patio and merging the boundaries of the built environment and its surroundings.' },
@@ -1612,12 +1597,9 @@
 
                 if (data) {
                     // Apply visual theme
-                    modal.classList.remove('theme-dark', 'theme-light', 'fade-hero');
+                    modal.classList.remove('theme-dark', 'theme-light');
                     if (data.theme) {
                         modal.classList.add(`theme-${data.theme}`);
-                    }
-                    if (data.fadeHero) {
-                        modal.classList.add('fade-hero');
                     }
 
                     document.getElementById('modal-title').innerText = data.title;
