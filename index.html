@@ -111,7 +111,7 @@
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            transition: opacity 3s ease-in-out; /* Slow, mellow crossfade */
+            transition: opacity 3s ease-in-out; 
         }
 
         .main-background-fixed img.hero-slide.active {
@@ -167,7 +167,7 @@
 
         .hero p.hero-subtext {
             font-size: clamp(1rem, 2vw, 1.25rem);
-            margin-top: -3rem;
+            margin-top: 0; /* Changed from -3rem to 0 to prevent text overlap */
             margin-bottom: 4rem;
             text-transform: uppercase;
             letter-spacing: 2px;
