@@ -111,10 +111,9 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: 0% center; /* Starts left, pans right on scroll */
+            object-position: center; 
             opacity: 0;
             transition: opacity 3s ease-in-out; 
-            will-change: object-position; /* Optimization for smooth panning */
         }
 
         .main-background-fixed img.hero-slide.active {
@@ -221,7 +220,7 @@
         /* Staggered Masonry Layout Logic */
         .work-item:nth-child(1) { width: 85%; align-self: flex-start; }
         .work-item:nth-child(2) { width: 65%; align-self: flex-end; }
-        .work-item:nth-child(3) { width: 75%; align-self: center; }
+        .work-item:nth-child(3) { width: 85%; align-self: center; }
 
         .work-image {
             width: 100%;
@@ -234,6 +233,8 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
+            will-change: object-position; 
             transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
         }
 
@@ -244,7 +245,7 @@
         .work-info {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             text-transform: uppercase;
         }
 
@@ -254,10 +255,27 @@
             font-weight: 800;
             font-size: 1.1rem;
             color: var(--text-color);
+            align-items: flex-start;
+        }
+
+        .title-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
         }
 
         .work-title {
             letter-spacing: 0;
+        }
+
+        .work-subtitle {
+            font-size: 0.8rem;
+            color: #777;
+            font-weight: 500;
+            text-transform: none;
+            letter-spacing: 0;
+            max-width: 600px;
+            line-height: 1.4;
         }
 
         .work-year {
@@ -542,9 +560,9 @@
         /* Specific Fading Hero Effect */
         .project-modal.fade-hero .modal-background img {
             object-fit: contain; 
-            padding: 2rem; 
-            -webkit-mask-image: radial-gradient(ellipse 85% 90% at 50% 50%, black 60%, transparent 100%);
-            mask-image: radial-gradient(ellipse 85% 90% at 50% 50%, black 60%, transparent 100%);
+            padding: 4rem; 
+            -webkit-mask-image: radial-gradient(ellipse 65% 75% at 50% 50%, black 40%, transparent 80%);
+            mask-image: radial-gradient(ellipse 65% 75% at 50% 50%, black 40%, transparent 80%);
         }
 
         .modal-overlay {
@@ -676,6 +694,12 @@
             box-shadow: none !important;
             background-color: transparent;
         }
+        
+        .gallery-item.invert-drawing img {
+            filter: invert(1) hue-rotate(180deg);
+            background-color: transparent !important;
+            box-shadow: none !important;
+        }
 
         .gallery-text {
             grid-column: span 1;
@@ -712,6 +736,11 @@
         
         .gallery-cluster .gallery-item {
             width: 100%;
+        }
+
+        .gallery-cluster .gallery-item:first-child {
+            grid-column: span 2; /* Forces the first image to span fully across the cluster */
+            margin-bottom: 1rem;
         }
 
         /* Modal Theming */
@@ -752,10 +781,6 @@
 
         /* Responsive Mobile Layout Adjustments */
         @media (max-width: 768px) {
-            .main-background-fixed img.hero-slide {
-                object-fit: contain; 
-                object-position: center;
-            }
             .hero {
                 padding: 2rem 1.5rem;
             }
@@ -855,6 +880,9 @@
                 padding: 0;
                 margin-top: 2rem;
             }
+            .gallery-cluster .gallery-item:first-child {
+                grid-column: span 1; /* Reset on mobile */
+            }
         }
         @media (max-width: 480px) {
             .modal-meta-grid {
@@ -865,18 +893,15 @@
 </head>
 <body>
 
-    <!-- Fixed Background Layer for Main Page (Slideshow) -->
     <div class="main-background-fixed">
         <img src="modern-home-cover.jpg" alt="Hero Slide" class="hero-slide active">
         <img src="02biophilic-overlay-geroimage-main-page.jpg" alt="Hero Slide" class="hero-slide">
         <img src="03boston-public-garden-3graphic-installations-hero-main-page.png" alt="Hero Slide" class="hero-slide">
-        <img src="project01-popup-image6.jpg" alt="Hero Slide" class="hero-slide">
-        <img src="project01-popup-image5.jpg" alt="Hero Slide" class="hero-slide">
-        <img src="mainpagehero01.png" alt="Hero Slide" class="hero-slide">
+        <img src="mainpagehero05.png" alt="Hero Slide" class="hero-slide">
+        <img src="mainpagehero06.png" alt="Hero Slide" class="hero-slide">
         <div id="main-overlay-fixed" class="main-overlay-fixed"></div>
     </div>
 
-    <!-- Main Page Content -->
     <div id="main-content" style="position: relative; z-index: 1;">
         <header id="main-header">
             <div class="logo">GABE STRAND</div>
@@ -909,7 +934,9 @@
                     <div class="work-info">
                         <div class="work-title-group">
                             <span>(01)</span>
-                            <span class="work-title">Modern House</span>
+                            <div class="title-stack">
+                                <span class="work-title">Modern House</span>
+                            </div>
                         </div>
                         <span class="work-year">2025</span>
                     </div>
@@ -921,7 +948,10 @@
                     <div class="work-info">
                         <div class="work-title-group">
                             <span>(02)</span>
-                            <span class="work-title">Biophillic Overlay</span>
+                            <div class="title-stack">
+                                <span class="work-title">Biophillic Overlay</span>
+                                <span class="work-subtitle">Adapting the Industrial Grid for Public Passage</span>
+                            </div>
                         </div>
                         <span class="work-year">2025</span>
                     </div>
@@ -933,7 +963,10 @@
                     <div class="work-info">
                         <div class="work-title-group">
                             <span>(03)</span>
-                            <span class="work-title">Boston Public Garden: Three Graphic Installations</span>
+                            <div class="title-stack">
+                                <span class="work-title">Boston Public Garden: Three Graphic Installations</span>
+                                <span class="work-subtitle">Experimenting with a Post Digital Collage Workflow: Rhino 3D + Adobe Illustrator (Vector Work) + Adobe Photoshop (Collage and Detailing)</span>
+                            </div>
                         </div>
                         <span class="work-year">2025</span>
                     </div>
@@ -995,7 +1028,6 @@
             </div>
         </section>
 
-        <!-- About Section -->
         <section id="about" class="about-section">
             <div class="about-image-container">
                 <span class="meta-label">( About Me )</span>
@@ -1068,16 +1100,13 @@
         </footer>
     </div>
 
-    <!-- Project Modal -->
     <div id="project-modal" class="project-modal">
         
-        <!-- Fixed Background Layer -->
         <div class="modal-background">
             <img id="modal-hero-img" src="" alt="Project Hero">
             <div id="modal-overlay" class="modal-overlay"></div>
         </div>
         
-        <!-- Scrolling Content Layer -->
         <div id="modal-scroll-area" class="modal-scroll-area">
             
             <div id="modal-header" class="modal-header">
@@ -1112,23 +1141,19 @@
                 </div>
 
                 <div id="modal-gallery" class="modal-gallery">
-                    <!-- Javascript will inject images here -->
-                </div>
+                    </div>
             </div>
             
         </div>
     </div>
 
-    <!-- Process Modal -->
     <div id="process-modal" class="project-modal">
         
-        <!-- Fixed Background Layer -->
         <div class="modal-background">
             <img id="process-modal-hero-img" src="" alt="Process Hero">
             <div id="process-modal-overlay" class="modal-overlay"></div>
         </div>
         
-        <!-- Scrolling Content Layer -->
         <div id="process-modal-scroll-area" class="modal-scroll-area">
             
             <div id="process-modal-header" class="modal-header">
@@ -1163,8 +1188,7 @@
                 </div>
 
                 <div id="process-modal-gallery" class="modal-gallery">
-                    <!-- Javascript will inject images here -->
-                </div>
+                    </div>
             </div>
             
         </div>
@@ -1174,7 +1198,7 @@
         // Main Page Apple-style Scroll Fade Effect
         const mainOverlay = document.getElementById('main-overlay-fixed');
         const mainHeader = document.getElementById('main-header');
-        const heroSlides = document.querySelectorAll('.hero-slide');
+        const workThumbnails = document.querySelectorAll('.work-image img');
         
         window.addEventListener('scroll', () => {
             const scrollTop = window.scrollY;
@@ -1196,21 +1220,27 @@
                 mainHeader.classList.remove('scrolled');
             }
 
-            // Interactive Pan Effect for Hero Images
+            // Interactive Pan Effect for Project Thumbnails ONLY
             if (window.innerWidth > 768) {
-                const panFraction = Math.min(scrollTop / fadeEnd, 1);
-                const xPos = panFraction * 100; // 0% to 100%
-                heroSlides.forEach(slide => {
-                    slide.style.objectPosition = `${xPos}% center`;
+                workThumbnails.forEach(img => {
+                    const rect = img.parentElement.getBoundingClientRect();
+                    // Calculate how far the image is through the viewport
+                    let progress = (windowHeight - rect.top) / (windowHeight + rect.height);
+                    progress = Math.max(0, Math.min(1, progress));
+                    
+                    // Pan dynamically based on scroll position
+                    const xPos = progress * 100;
+                    img.style.objectPosition = `${xPos}% center`;
                 });
             } else {
-                heroSlides.forEach(slide => {
-                    slide.style.objectPosition = 'center';
+                workThumbnails.forEach(img => {
+                    img.style.objectPosition = 'center';
                 });
             }
         });
 
         // Hero Image Slideshow Logic
+        const heroSlides = document.querySelectorAll('.hero-slide');
         let currentSlide = 0;
 
         // Change slide every 6 seconds (allowing time for the 3s mellow fade)
@@ -1253,8 +1283,8 @@
                     { type: 'text', text: 'Developed using the Rhino environment, this project highlights the intersection of heavy infrastructure and natural topography, reimagining a transit hub as a continuation of the pre-existing landscape. By wrapping a rigid steel frame in a parametric wooden exterior, this "Biophilic Overlay" functions as a permeable enclosure, shading the rooftop patio and merging the boundaries of the built environment and its surroundings.' },
                     { type: 'image', layout: 'landscape', url: 'project02-popup-image2.jpg' },
                     { type: 'image', layout: 'landscape', url: 'project02-popup-image4.jpg' },
-                    { type: 'image', layout: 'landscape', url: 'project02-popup-image3.jpg' },
-                    { type: 'image', layout: 'landscape blend-image', url: 'project02-popup-image1.jpg' }
+                    { type: 'image', layout: 'landscape', url: '02biophilic-overlay-hero-imgage-popup.jpg' },
+                    { type: 'image', layout: 'landscape invert-drawing blend-image', url: 'project02-popup-image1.jpg' }
                 ]
             },
             'boston': {
@@ -1272,7 +1302,6 @@
                     { type: 'image', layout: 'full-bleed', url: 'popup03-image5.jpg' },
                     { type: 'cluster', images: [
                         'project03-popup-image-cluster1-image01.jpg', 
-                        'project03-popup-image-cluster1-image02.jpg',
                         'plaza-popup-image-clusteraddon.png',
                         '03boston-public-garden-3graphic-installations-hero-main-page.png'
                     ]}
