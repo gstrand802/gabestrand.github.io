@@ -98,6 +98,22 @@
             opacity: 1;
         }
 
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: inherit;
+            font-family: inherit;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
+
+        .mobile-dropdown {
+            display: none;
+        }
+
         /* Fixed Main Background */
         .main-background-fixed {
             position: fixed;
@@ -257,35 +273,19 @@
         .work-title-group {
             display: flex;
             gap: 1.5rem;
-            font-weight: 800;
+            font-weight: 400; /* Minimalist un-bolded font */
             font-size: 1.1rem;
             color: var(--text-color);
-            align-items: flex-start;
-        }
-
-        .title-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
+            align-items: center; /* Forces single line alignment */
         }
 
         .work-title {
             letter-spacing: 0;
         }
 
-        .work-subtitle {
-            font-size: 0.8rem;
-            color: #777;
-            font-weight: 500;
-            text-transform: none;
-            letter-spacing: 0;
-            max-width: 600px;
-            line-height: 1.4;
-        }
-
         .work-year {
             color: #777;
-            font-weight: 700;
+            font-weight: 400; /* Minimalist un-bolded font */
             font-size: 0.9rem;
         }
 
@@ -661,6 +661,15 @@
             max-width: 1400px;
         }
 
+        .modal-subtitle {
+            font-size: 1.25rem;
+            line-height: 1.5;
+            margin-top: -2rem;
+            margin-bottom: 4rem;
+            max-width: 1000px;
+            color: #888;
+        }
+
         .modal-meta-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -782,6 +791,9 @@
         .project-modal.theme-dark .meta-group strong {
             color: #aaa;
         }
+        .project-modal.theme-dark .modal-subtitle {
+            color: #aaa;
+        }
         .project-modal.theme-dark .modal-gallery img {
             box-shadow: 0 15px 35px rgba(0,0,0,0.4);
         }
@@ -798,6 +810,7 @@
         }
         .project-modal.theme-light .modal-header,
         .project-modal.theme-light .modal-title,
+        .project-modal.theme-light .modal-subtitle,
         .project-modal.theme-light .gallery-text,
         .project-modal.theme-light .meta-group strong,
         .project-modal.theme-light .meta-group span {
@@ -842,9 +855,10 @@
                 display: block;
             }
             .work-info {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
+                flex-direction: row; /* Enforces horizontal single line */
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
             }
             
             /* Process Section Ordering for Mobile */
@@ -879,11 +893,37 @@
                 grid-template-columns: 1fr 1fr;
             }
             nav {
-                display: flex;
-                gap: 1rem;
+                display: none !important;
             }
-            nav a {
-                font-size: 0.75rem;
+            .mobile-menu-btn {
+                display: block;
+            }
+            .mobile-dropdown {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: rgba(247, 247, 245, 0.98);
+                border-bottom: 1px solid var(--border-color);
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(-10px);
+                transition: all 0.3s ease;
+            }
+            .mobile-dropdown.active {
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateY(0);
+            }
+            .mobile-dropdown a {
+                padding: 1.5rem 2rem;
+                font-size: 1rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: var(--text-color);
+                border-top: 1px solid rgba(0,0,0,0.05);
             }
             .modal-meta-grid {
                 grid-template-columns: 1fr 1fr;
@@ -899,12 +939,15 @@
             #modal-gallery {
                 grid-template-columns: 1fr !important;
                 gap: 1.5rem;
-                padding: 1.5rem 0; 
+                padding: 0 !important; /* Zeroed out to allow true edge-to-edge images */
             }
             #modal-gallery .gallery-item.landscape,
-            #modal-gallery .gallery-item.portrait {
+            #modal-gallery .gallery-item.portrait,
+            .gallery-cluster .gallery-item {
                 grid-column: 1 / -1 !important;
-                padding: 0 1rem;
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
             }
             
             /* Enforces proper mobile full bleed and text wrapping */
@@ -912,13 +955,14 @@
                 grid-column: 1 / -1 !important;
                 margin-left: 0 !important; 
                 margin-right: 0 !important;
-                width: 100% !important; /* Changed from 100vw to prevent horizontal scroll bleed */
+                width: 100% !important; 
                 max-width: none !important;
+                padding: 0 !important;
             }
             .gallery-text {
                 grid-column: 1 / -1 !important;
                 width: 100% !important;
-                padding: 1.5rem 1rem !important;
+                padding: 1.5rem 1.5rem !important; /* Text gets padding so it doesn't touch the screen edge */
                 box-sizing: border-box;
             }
             
@@ -928,8 +972,9 @@
             }
             .gallery-cluster {
                 grid-template-columns: 1fr;
-                padding: 0 1rem;
-                margin-top: 2rem;
+                padding: 0 !important;
+                margin-top: 1rem !important;
+                gap: 1.5rem !important;
             }
             .gallery-cluster .gallery-item:nth-child(n) {
                 grid-column: span 1; 
@@ -961,6 +1006,12 @@
                 <a href="#process">Process</a>
                 <a href="#about">About</a>
             </nav>
+            <button id="mobile-menu-toggle" class="mobile-menu-btn">Menu</button>
+            <div id="mobile-dropdown" class="mobile-dropdown">
+                <a href="#works" class="dropdown-link">Works</a>
+                <a href="#process" class="dropdown-link">Process</a>
+                <a href="#about" class="dropdown-link">About</a>
+            </div>
         </header>
 
         <section class="hero">
@@ -985,9 +1036,7 @@
                     <div class="work-info">
                         <div class="work-title-group">
                             <span>(01)</span>
-                            <div class="title-stack">
-                                <span class="work-title">Modern House</span>
-                            </div>
+                            <span class="work-title">Modern House</span>
                         </div>
                         <span class="work-year">2025</span>
                     </div>
@@ -999,10 +1048,7 @@
                     <div class="work-info">
                         <div class="work-title-group">
                             <span>(02)</span>
-                            <div class="title-stack">
-                                <span class="work-title">Biophillic Overlay</span>
-                                <span class="work-subtitle">Adapting the Industrial Grid for Public Passage</span>
-                            </div>
+                            <span class="work-title">Biophillic Overlay</span>
                         </div>
                         <span class="work-year">2025</span>
                     </div>
@@ -1014,10 +1060,7 @@
                     <div class="work-info">
                         <div class="work-title-group">
                             <span>(03)</span>
-                            <div class="title-stack">
-                                <span class="work-title">Boston Public Garden: Three Graphic Installations</span>
-                                <span class="work-subtitle">Experimenting with a Post Digital Collage Workflow: Rhino 3D + Adobe Illustrator (Vector Work) + Adobe Photoshop (Collage and Detailing)</span>
-                            </div>
+                            <span class="work-title">Boston Public Garden: Three Graphic Installations</span>
                         </div>
                         <span class="work-year">2025</span>
                     </div>
@@ -1170,6 +1213,7 @@
             <div class="modal-foreground-content">
                 <div class="modal-title-section">
                     <h1 id="modal-title" class="modal-title">Project Title</h1>
+                    <div id="modal-subtitle" class="modal-subtitle"></div>
                     
                     <div class="modal-meta-grid">
                         <div class="meta-group">
@@ -1305,6 +1349,7 @@
         const projects = {
             'modern': {
                 title: 'Modern House',
+                subtitle: '',
                 location: 'Academic Project',
                 date: '2025',
                 type: 'BIM Coordination',
@@ -1323,6 +1368,7 @@
             },
             'biophilic': {
                 title: 'Biophillic Overlay',
+                subtitle: 'Adapting the Industrial Grid for Public Passage',
                 location: 'Academic Project',
                 date: '2025',
                 type: 'Parametric Design',
@@ -1340,6 +1386,7 @@
             },
             'boston': {
                 title: 'Boston Public Garden: Three Graphic Installations',
+                subtitle: 'Experimenting with a Post Digital Collage Workflow: Rhino 3D + Adobe Illustrator (Vector Work) + Adobe Photoshop (Collage and Detailing)',
                 location: 'Boston, MA',
                 date: '2025',
                 type: 'Post Digital Collage',
@@ -1347,7 +1394,7 @@
                 theme: 'light',
                 hero: 'popup-hero-project03.png',
                 content: [
-                    { type: 'text', text: 'Experimenting with a Post Digital Collage Workflow: Rhino 3D + Adobe Illustrator (Vector Work) + Adobe Photoshop (Collage and Detailing).\n\nSituated in the Boston Public Garden, this project introduces three landscape installations designed to transform traditional commuter walkways into a destination. By carving "Third Spaces" into the landscape, the design highlights the areas steepest topography through hardscape switchbacks and integrated seating. The goal of these design aspects is to promote seamless transition from the busy street to the heart of the public garden and to transform walkways into a social environment.' },
+                    { type: 'text', text: 'Situated in the Boston Public Garden, this project introduces three landscape installations designed to transform traditional commuter walkways into a destination. By carving "Third Spaces" into the landscape, the design highlights the areas steepest topography through hardscape switchbacks and integrated seating. The goal of these design aspects is to promote seamless transition from the busy street to the heart of the public garden and to transform walkways into a social environment.' },
                     { type: 'image', layout: 'full-bleed', url: 'project03-popup-image-first-image.jpg' },
                     { type: 'image', layout: 'full-bleed', url: 'popup03-image6.png' },
                     { type: 'image', layout: 'full-bleed', url: 'popup03-image5.jpg' },
@@ -1437,6 +1484,21 @@
         const modalHeader = document.getElementById('modal-header');
         const closeModalBtn = document.getElementById('close-modal');
         const workItems = document.querySelectorAll('.work-item');
+        
+        // Mobile Dropdown Menu Logic
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileDropdown = document.getElementById('mobile-dropdown');
+        const dropdownLinks = document.querySelectorAll('.dropdown-link');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileDropdown.classList.toggle('active');
+        });
+
+        dropdownLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileDropdown.classList.remove('active');
+            });
+        });
 
         // Apple-style Scroll Fade Effect for Project Modal
         scrollArea.addEventListener('scroll', () => {
@@ -1563,6 +1625,14 @@
                     document.getElementById('modal-date').innerText = data.date;
                     document.getElementById('modal-type').innerText = data.type;
                     document.getElementById('modal-collab').innerText = data.collab;
+
+                    const subtitleEl = document.getElementById('modal-subtitle');
+                    if (data.subtitle) {
+                        subtitleEl.innerText = data.subtitle;
+                        subtitleEl.style.display = 'block';
+                    } else {
+                        subtitleEl.style.display = 'none';
+                    }
 
                     document.getElementById('modal-hero-img').src = data.hero;
 
