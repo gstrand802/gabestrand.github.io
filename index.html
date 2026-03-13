@@ -538,6 +538,9 @@
             height: 100%;
             z-index: 1;
             background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .modal-background img {
@@ -557,12 +560,18 @@
             z-index: 2;
         }
 
-        /* Specific Fading Hero Effect */
+        /* Specific Fading Hero Effect - Adjusted for seamless blending */
         .project-modal.fade-hero .modal-background img {
             object-fit: contain; 
-            padding: 4rem; 
-            -webkit-mask-image: radial-gradient(ellipse 65% 75% at 50% 50%, black 40%, transparent 80%);
-            mask-image: radial-gradient(ellipse 65% 75% at 50% 50%, black 40%, transparent 80%);
+            width: 90vw; 
+            height: 80vh; 
+            margin: auto;
+            position: absolute;
+            top: 10vh;
+            left: 5vw;
+            /* Precise radial gradient ensures the mask ends before the image borders */
+            -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 75%);
+            mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 75%);
         }
 
         .modal-overlay {
@@ -637,8 +646,6 @@
 
         .modal-title-section {
             padding: 4rem 2rem;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
         }
 
         .modal-title {
@@ -695,8 +702,10 @@
             background-color: transparent;
         }
         
+        /* Flawlessly inverts white backgrounds to black, blending it into dark mode */
         .gallery-item.invert-drawing img {
-            filter: invert(1) hue-rotate(180deg);
+            filter: invert(1) hue-rotate(180deg) contrast(1.2);
+            mix-blend-mode: screen; 
             background-color: transparent !important;
             box-shadow: none !important;
         }
@@ -724,12 +733,12 @@
             display: block;
         }
 
-        /* Gallery Cluster Element */
+        /* Gallery Cluster Element - Updated for appealing grid flow */
         .gallery-cluster {
             grid-column: span 2;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 0.5rem;
+            gap: 1rem;
             margin-top: 3rem; 
             padding: 0 6rem; 
         }
@@ -738,9 +747,12 @@
             width: 100%;
         }
 
-        .gallery-cluster .gallery-item:first-child {
-            grid-column: span 2; /* Forces the first image to span fully across the cluster */
-            margin-bottom: 1rem;
+        .gallery-cluster .gallery-item:nth-child(1) {
+            grid-column: span 2; 
+        }
+        .gallery-cluster .gallery-item:nth-child(2),
+        .gallery-cluster .gallery-item:nth-child(3) {
+            grid-column: span 1; 
         }
 
         /* Modal Theming */
@@ -764,16 +776,26 @@
         .project-modal.theme-dark .meta-group strong {
             color: #aaa;
         }
-        .project-modal.theme-dark .modal-title-section {
-            border-top: 1px solid #333;
-            border-bottom: 1px solid #333;
-        }
         .project-modal.theme-dark .modal-gallery img {
             box-shadow: 0 15px 35px rgba(0,0,0,0.4);
         }
 
+        /* Forces White base background for Light Theme to keep dark text readable instantly */
+        .project-modal.theme-light .modal-background {
+            background-color: #fff;
+        }
+        .project-modal.theme-light .modal-background::after {
+            background: linear-gradient(to bottom, rgba(255,255,255,0.7) 0%, transparent 100%);
+        }
         .project-modal.theme-light .modal-overlay {
             background-color: rgba(255, 255, 255, 1); 
+        }
+        .project-modal.theme-light .modal-header,
+        .project-modal.theme-light .modal-title,
+        .project-modal.theme-light .gallery-text,
+        .project-modal.theme-light .meta-group strong,
+        .project-modal.theme-light .meta-group span {
+            color: #111 !important;
         }
         .project-modal.theme-light .modal-gallery img {
             box-shadow: none; 
@@ -781,6 +803,11 @@
 
         /* Responsive Mobile Layout Adjustments */
         @media (max-width: 768px) {
+            .main-background-fixed img.hero-slide {
+                object-fit: contain !important; 
+                object-position: center !important;
+                background-color: #000;
+            }
             .hero {
                 padding: 2rem 1.5rem;
             }
@@ -846,7 +873,11 @@
                 grid-template-columns: 1fr 1fr;
             }
             nav {
-                display: none;
+                display: flex;
+                gap: 1rem;
+            }
+            nav a {
+                font-size: 0.75rem;
             }
             .modal-meta-grid {
                 grid-template-columns: 1fr 1fr;
@@ -859,29 +890,43 @@
                 object-fit: contain; 
                 object-position: center 20%;
             }
-            .modal-gallery {
-                grid-template-columns: 1fr;
+            #modal-gallery {
+                grid-template-columns: 1fr !important;
                 gap: 1.5rem;
-                padding: 1.5rem 1rem;
+                padding: 1.5rem 0; 
             }
-            .gallery-item.landscape,
-            .gallery-item.portrait,
-            .gallery-item.full-bleed,
+            #modal-gallery .gallery-item.landscape,
+            #modal-gallery .gallery-item.portrait {
+                grid-column: 1 / -1 !important;
+                padding: 0 1rem;
+            }
+            
+            /* Enforces proper mobile full bleed and text wrapping */
+            .gallery-item.full-bleed {
+                grid-column: 1 / -1 !important;
+                margin-left: 0 !important; 
+                margin-right: 0 !important;
+                width: 100vw !important; 
+                max-width: none !important;
+            }
             .gallery-text {
-                grid-column: span 1;
-                padding: 0;
+                grid-column: 1 / -1 !important;
+                width: 100% !important;
+                padding: 1.5rem 1rem !important;
+                box-sizing: border-box;
             }
+            
             .modal-gallery img {
                 height: auto;
                 object-fit: contain; 
             }
             .gallery-cluster {
                 grid-template-columns: 1fr;
-                padding: 0;
+                padding: 0 1rem;
                 margin-top: 2rem;
             }
-            .gallery-cluster .gallery-item:first-child {
-                grid-column: span 1; /* Reset on mobile */
+            .gallery-cluster .gallery-item:nth-child(n) {
+                grid-column: span 1; 
             }
         }
         @media (max-width: 480px) {
