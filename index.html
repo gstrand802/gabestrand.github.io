@@ -101,6 +101,7 @@
             width: 100%;
             height: 100vh;
             z-index: -2;
+            background-color: #000;
         }
 
         .main-background-fixed img.hero-slide {
@@ -110,7 +111,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center; /* Ensures the middle of the image stays in frame */
             opacity: 0;
             transition: opacity 3s ease-in-out; 
         }
@@ -163,12 +163,12 @@
             font-size: clamp(2.5rem, 5vw, 5rem);
             line-height: 1.1;
             max-width: 1200px;
-            margin-bottom: 4rem;
+            margin-bottom: 1.5rem;
         }
 
         .hero p.hero-subtext {
             font-size: clamp(1rem, 2vw, 1.25rem);
-            margin-top: 0; /* Changed from -3rem to 0 to prevent text overlap */
+            margin-top: 0;
             margin-bottom: 4rem;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -276,15 +276,6 @@
         .process-left {
             display: flex;
             flex-direction: column;
-        }
-
-        .process-image {
-            width: 100%;
-            aspect-ratio: 1;
-            object-fit: cover;
-            margin-bottom: 1.5rem;
-            background-color: #eee;
-            transition: opacity 0.4s ease;
         }
 
         .process-list {
@@ -526,6 +517,7 @@
             width: 100%;
             height: 100%;
             z-index: 1;
+            background-color: #000;
         }
 
         .modal-background img {
@@ -680,14 +672,25 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.08); 
         }
 
-        /* Responsive */
+        /* Gallery Cluster Element */
+        .gallery-cluster {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            margin-top: 3rem; 
+            padding: 0 6rem; 
+        }
+        
+        .gallery-cluster .gallery-item {
+            width: 100%;
+        }
+
+        /* Responsive Mobile Layout Adjustments */
         @media (max-width: 768px) {
-            .main-background-fixed {
-                background-color: #111; /* Adds a dark background to blend with un-cropped slides */
-            }
             .main-background-fixed img.hero-slide {
-                object-fit: contain; /* Prevents slideshow cropping */
-                object-position: center 30%;
+                object-fit: contain; 
+                object-position: center;
             }
             .hero {
                 padding: 2rem 1.5rem;
@@ -709,11 +712,11 @@
                 margin-top: 0;
             }
             .work-image {
-                height: auto; /* Let the image dictate its own height naturally */
+                height: auto; 
             }
             .work-image img {
                 height: auto;
-                object-fit: contain; /* Prevents project thumbnail cropping */
+                object-fit: contain; 
                 display: block;
             }
             .work-info {
@@ -721,20 +724,28 @@
                 align-items: flex-start;
                 gap: 0.5rem;
             }
+            
+            /* Process Section Ordering for Mobile */
             .process-section {
                 display: flex;
                 flex-direction: column;
-                gap: 3rem;
+                gap: 2rem;
             }
             .process-right {
-                order: -1; /* Pushes the description paragraph above the list */
+                order: -1; 
+            }
+            .process-left {
+                order: 2;
             }
             .process-heading {
-                font-size: 2.5rem;
+                font-size: 2rem;
+                margin-bottom: 1.5rem;
             }
             .process-subheading {
-                font-size: 1.5rem;
+                font-size: 1.15rem;
+                margin-bottom: 2rem;
             }
+            
             .about-section {
                 grid-template-columns: 1fr;
             }
@@ -750,32 +761,34 @@
             }
             .modal-meta-grid {
                 grid-template-columns: 1fr 1fr;
-                gap: 2rem;
+                gap: 1.5rem;
             }
             .modal-spacer {
-                height: 40vh; /* Shorter spacer on mobile */
-            }
-            .modal-background {
-                background-color: #111;
+                height: 40vh; 
             }
             .modal-background img {
-                object-fit: contain; /* Prevents modal hero image cropping */
-                object-position: center top;
+                object-fit: contain; 
+                object-position: center 20%;
             }
             .modal-gallery {
                 grid-template-columns: 1fr;
-                gap: 0.5rem;
-                padding: 2rem 1rem;
+                gap: 1.5rem;
+                padding: 1.5rem 1rem;
             }
             .gallery-item.landscape,
             .gallery-item.portrait,
             .gallery-text {
                 grid-column: span 1;
-                padding: 1rem;
+                padding: 0;
             }
             .modal-gallery img {
                 height: auto;
-                object-fit: contain; /* Prevents gallery image cropping */
+                object-fit: contain; 
+            }
+            .gallery-cluster {
+                grid-template-columns: 1fr;
+                padding: 0;
+                margin-top: 2rem;
             }
         }
         @media (max-width: 480px) {
@@ -789,13 +802,28 @@
 
     <!-- Fixed Background Layer for Main Page (Slideshow) -->
     <div class="main-background-fixed">
-        <img src="mainpagehero01.png" alt="Hero Background 1" class="hero-slide active">
-        <img src="mainpagehero02.png" alt="Hero Background 2" class="hero-slide">
-        <img src="mainpagehero03.png" alt="Hero Background 3" class="hero-slide">
-        <img src="mainpagehero04.png" alt="Hero Background 4" class="hero-slide">
-        <img src="mainpagehero05.png" alt="Hero Background 5" class="hero-slide">
-        <img src="mainpagehero06.png" alt="Hero Background 6" class="hero-slide">
-        <img src="mainpagehero07.png" alt="Hero Background 7" class="hero-slide">
+        <img src="mainpagehero01.png" alt="Hero Slide" class="hero-slide active">
+        <img src="project01-popup-image4.jpg" alt="Hero Slide" class="hero-slide">
+        <img src="project02-popup-image2.jpg" alt="Hero Slide" class="hero-slide">
+        <img src="mainpagehero02.png" alt="Hero Slide" class="hero-slide">
+        <img src="project03-popup-hero-image copy.png" alt="Hero Slide" class="hero-slide">
+        <img src="mainpagehero04.png" alt="Hero Slide" class="hero-slide">
+        <img src="modern-home-cover.jpg" alt="Hero Slide" class="hero-slide">
+        <img src="project01-popup-image5.jpg" alt="Hero Slide" class="hero-slide">
+        <img src="project02-popup-image4.jpg" alt="Hero Slide" class="hero-slide">
+        <img src="mainpagehero05.png" alt="Hero Slide" class="hero-slide">
+        <img src="project03-popup-image-first-image.jpg" alt="Hero Slide" class="hero-slide">
+        <img src="project01-popup-image6.jpg" alt="Hero Slide" class="hero-slide">
+        <img src="02biophilic-overlay-hero-imgage-popup.jpg" alt="Hero Slide" class="hero-slide">
+        <img src="mainpagehero06.png" alt="Hero Slide" class="hero-slide">
+        <img src="project01-popup-image3.jpg" alt="Hero Slide" class="hero-slide">
+        <img src="project02-popup-image3.jpg" alt="Hero Slide" class="hero-slide">
+        <img src="project03-popup-image-cluster1-image01.jpg" alt="Hero Slide" class="hero-slide">
+        <img src="mainpagehero07.png" alt="Hero Slide" class="hero-slide">
+        <img src="project01-popup-image2.jpg" alt="Hero Slide" class="hero-slide">
+        <img src="project02-popup-image1.jpg" alt="Hero Slide" class="hero-slide">
+        <img src="project01-popup-image1.jpg" alt="Hero Slide" class="hero-slide">
+        <img src="project03-popup-image-cluster1-image02.jpg" alt="Hero Slide" class="hero-slide">
         <div id="main-overlay-fixed" class="main-overlay-fixed"></div>
     </div>
 
@@ -812,7 +840,7 @@
         </header>
 
         <section class="hero">
-            <h2 style="margin-bottom: 1.5rem;">Portfolio</h2>
+            <h2>Portfolio</h2>
             <p class="hero-subtext">Architecture and Computational Design by Gabe Strand</p>
             <div class="hero-details">
                 <span>( Scroll Down )</span>
@@ -867,46 +895,43 @@
 
         <section id="process" class="process-section">
             <div class="process-left">
-                <span class="meta-label">( Our Process )</span>
-                <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80" alt="BIM Architecture" class="process-image" id="dynamic-process-image">
-                
                 <div class="process-list">
-                    <div class="process-item" data-img="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80" data-process-id="bim">
+                    <div class="process-item" data-process-id="bim">
                         <span class="process-item-num">(01)</span>
                         <div class="process-item-text">
                             <span class="process-item-title">BIM & 3D MODELING</span>
                             <span class="process-item-tools">Autodesk Revit, Rhino 3D, SketchUp Pro, Blender</span>
                         </div>
                     </div>
-                    <div class="process-item" data-img="https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&q=80" data-process-id="computational">
+                    <div class="process-item" data-process-id="computational">
                         <span class="process-item-num">(02)</span>
                         <div class="process-item-text">
                             <span class="process-item-title">COMPUTATIONAL DESIGN</span>
                             <span class="process-item-tools">Grasshopper, Dynamo</span>
                         </div>
                     </div>
-                    <div class="process-item" data-img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80" data-process-id="rendering">
+                    <div class="process-item" data-process-id="rendering">
                         <span class="process-item-num">(03)</span>
                         <div class="process-item-text">
                             <span class="process-item-title">RENDERING AND VISUALIZATION</span>
                             <span class="process-item-tools">Enscape, Twinmotion</span>
                         </div>
                     </div>
-                    <div class="process-item" data-img="https://images.unsplash.com/photo-1618331835717-801e976710b2?auto=format&fit=crop&q=80" data-process-id="graphics">
+                    <div class="process-item" data-process-id="graphics">
                         <span class="process-item-num">(04)</span>
                         <div class="process-item-text">
                             <span class="process-item-title">GRAPHICS AND POST-PRODUCTION</span>
                             <span class="process-item-tools">Adobe Creative Suite (Photoshop, Illustrator, InDesign)</span>
                         </div>
                     </div>
-                    <div class="process-item" data-img="https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&q=80" data-process-id="drone">
+                    <div class="process-item" data-process-id="drone">
                         <span class="process-item-num">(05)</span>
                         <div class="process-item-text">
                             <span class="process-item-title">DRONE SURVEYING & PHOTOGRAPHY</span>
                             <span class="process-item-tools">DJI, DroneDeploy, Agisoft Metashape</span>
                         </div>
                     </div>
-                    <div class="process-item" data-img="https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?auto=format&fit=crop&q=80" data-process-id="sketches">
+                    <div class="process-item" data-process-id="sketches">
                         <span class="process-item-num">(06)</span>
                         <div class="process-item-text">
                             <span class="process-item-title">SKETCHES & DRAFTING</span>
@@ -922,7 +947,7 @@
             </div>
         </section>
 
-        <!-- New About Section incorporating your details -->
+        <!-- About Section -->
         <section id="about" class="about-section">
             <div class="about-image-container">
                 <span class="meta-label">( About Me )</span>
@@ -1134,7 +1159,7 @@
             heroSlides[currentSlide].classList.add('active');
         }, 6000);
 
-        // Project Data Mockup
+        // Project Data
         const projects = {
             'modern': {
                 title: 'Modern House',
@@ -1142,10 +1167,15 @@
                 date: '2025',
                 type: 'BIM Coordination',
                 collab: 'Individual',
-                hero: '01modern-house-hero-image-for-popup-page.jpg',
+                hero: 'project01-popup-image1.jpg',
                 content: [
                     { type: 'text', text: 'Designed to emulate professional BIM coordination, this project was developed entirely within a Revit (and Twinmotion) environment. The assignment required a workflow that mirrored real-world practice, beginning with conceptual massing, and finishing with a set of construction documents. This process required coordination between spatial form, exterior landscape, and structural integrity.' },
-                    { type: 'image', layout: 'landscape', url: '01modern-house-iamge1-for-popup-page.jpg' }
+                    { type: 'image', layout: 'landscape', url: 'project01-popup-image4.jpg' },
+                    { type: 'image', layout: 'landscape', url: 'project01-popup-image5.jpg' },
+                    { type: 'image', layout: 'landscape', url: 'project01-popup-image6.jpg' },
+                    { type: 'image', layout: 'landscape', url: 'project01-popup-image3.jpg' },
+                    { type: 'image', layout: 'landscape', url: 'project01-popup-image2.jpg' },
+                    { type: 'image', layout: 'landscape', url: 'mainpagehero02.png' }
                 ]
             },
             'biophilic': {
@@ -1154,9 +1184,13 @@
                 date: '2025',
                 type: 'Parametric Design',
                 collab: 'Individual',
-                hero: '02biophilic-overlay-hero-imgage-popup.jpg',
+                hero: 'project02-popup-image2.jpg',
                 content: [
-                    { type: 'text', text: 'Developed using the Rhino environment, this project highlights the intersection of heavy infrastructure and natural topography, reimagining a transit hub as a continuation of the pre-existing landscape. By wrapping a rigid steel frame in a parametric wooden exterior, this "Biophilic Overlay" functions as a permeable enclosure, shading the rooftop patio and merging the boundaries of the built environment and its surroundings.' }
+                    { type: 'text', text: 'Developed using the Rhino environment, this project highlights the intersection of heavy infrastructure and natural topography, reimagining a transit hub as a continuation of the pre-existing landscape. By wrapping a rigid steel frame in a parametric wooden exterior, this "Biophilic Overlay" functions as a permeable enclosure, shading the rooftop patio and merging the boundaries of the built environment and its surroundings.' },
+                    { type: 'image', layout: 'landscape', url: '02biophilic-overlay-hero-imgage-popup.jpg' },
+                    { type: 'image', layout: 'landscape', url: 'project02-popup-image4.jpg' },
+                    { type: 'image', layout: 'landscape', url: 'project02-popup-image3.jpg' },
+                    { type: 'image', layout: 'landscape', url: 'project02-popup-image1.jpg' }
                 ]
             },
             'boston': {
@@ -1165,14 +1199,19 @@
                 date: '2025',
                 type: 'Post Digital Collage',
                 collab: 'Individual',
-                hero: '03boston-public-garden-3graphic-installations-hero-popup-page.png',
+                hero: 'project03-popup-hero-image copy.png',
                 content: [
-                    { type: 'text', text: 'Experimenting with a Post Digital Collage Workflow: Rhino 3D + Adobe Illustrator (Vector Work) + Adobe Photoshop (Collage and Detailing).\n\nSituated in the Boston Public Garden, this project introduces three landscape installations designed to transform traditional commuter walkways into a destination. By carving "Third Spaces" into the landscape, the design highlights the areas steepest topography through hardscape switchbacks and integrated seating. The goal of these design aspects is to promote seamless transition from the busy street to the heart of the public garden and to transform walkways into a social environment.' }
+                    { type: 'text', text: 'Experimenting with a Post Digital Collage Workflow: Rhino 3D + Adobe Illustrator (Vector Work) + Adobe Photoshop (Collage and Detailing).\n\nSituated in the Boston Public Garden, this project introduces three landscape installations designed to transform traditional commuter walkways into a destination. By carving "Third Spaces" into the landscape, the design highlights the areas steepest topography through hardscape switchbacks and integrated seating. The goal of these design aspects is to promote seamless transition from the busy street to the heart of the public garden and to transform walkways into a social environment.' },
+                    { type: 'image', layout: 'landscape', url: 'project03-popup-image-first-image.jpg' },
+                    { type: 'cluster', images: [
+                        'project03-popup-image-cluster1-image01.jpg', 
+                        'project03-popup-image-cluster1-image02.jpg'
+                    ]}
                 ]
             }
         };
 
-        // Process Data Mockup
+        // Process Data 
         const processesData = {
             'bim': {
                 title: 'BIM & 3D Modeling',
@@ -1180,10 +1219,9 @@
                 stage: 'Design & Development',
                 format: '3D Models, 2D Plans',
                 focus: 'Spatial Coordination',
-                hero: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80',
+                hero: '',
                 content: [
-                    { type: 'text', text: 'Building Information Modeling (BIM) allows for precise coordination between architectural, structural, and MEP systems. Using tools like Revit and Rhino, complex geometries are resolved early in the design phase to ensure seamless execution.' },
-                    { type: 'image', layout: 'landscape', url: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80' }
+                    { type: 'text', text: 'Building Information Modeling (BIM) allows for precise coordination between architectural, structural, and MEP systems. Using tools like Revit and Rhino, complex geometries are resolved early in the design phase to ensure seamless execution.' }
                 ]
             },
             'computational': {
@@ -1192,10 +1230,9 @@
                 stage: 'Conceptual & Optimization',
                 format: 'Parametric Scripts',
                 focus: 'Algorithmic Optimization',
-                hero: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&q=80',
+                hero: '',
                 content: [
-                    { type: 'text', text: 'Leveraging visual programming tools like Grasshopper, we generate complex, data-driven forms and optimize building performance metrics such as solar radiation and material efficiency.' },
-                    { type: 'image', layout: 'landscape', url: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&q=80' }
+                    { type: 'text', text: 'Leveraging visual programming tools like Grasshopper, we generate complex, data-driven forms and optimize building performance metrics such as solar radiation and material efficiency.' }
                 ]
             },
             'rendering': {
@@ -1204,10 +1241,9 @@
                 stage: 'Presentation',
                 format: 'Images, Animations, VR',
                 focus: 'Visual Communication',
-                hero: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80',
+                hero: '',
                 content: [
-                    { type: 'text', text: 'Real-time rendering engines enable us to experience the space before it is built. This iterative visual feedback loop is critical for material selection, lighting analysis, and client presentations.' },
-                    { type: 'image', layout: 'landscape', url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80' }
+                    { type: 'text', text: 'Real-time rendering engines enable us to experience the space before it is built. This iterative visual feedback loop is critical for material selection, lighting analysis, and client presentations.' }
                 ]
             },
             'graphics': {
@@ -1216,10 +1252,9 @@
                 stage: 'Publishing',
                 format: 'Diagrams, Boards, Portfolios',
                 focus: 'Narrative & Clarity',
-                hero: 'https://images.unsplash.com/photo-1618331835717-801e976710b2?auto=format&fit=crop&q=80',
+                hero: '',
                 content: [
-                    { type: 'text', text: 'Clear communication of architectural intent relies heavily on high-quality graphics. Post-production breathes life into raw renders, standardizes drawing sets, and unifies the project narrative.' },
-                    { type: 'image', layout: 'landscape', url: 'https://images.unsplash.com/photo-1618331835717-801e976710b2?auto=format&fit=crop&q=80' }
+                    { type: 'text', text: 'Clear communication of architectural intent relies heavily on high-quality graphics. Post-production breathes life into raw renders, standardizes drawing sets, and unifies the project narrative.' }
                 ]
             },
             'drone': {
@@ -1228,10 +1263,9 @@
                 stage: 'Site Analysis',
                 format: 'Point Clouds, Orthomosaics',
                 focus: 'Site Context',
-                hero: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&q=80',
+                hero: '',
                 content: [
-                    { type: 'text', text: 'Aerial photogrammetry provides highly accurate 3D site context, enabling design decisions that are firmly rooted in real-world topography and environmental constraints.' },
-                    { type: 'image', layout: 'landscape', url: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&q=80' }
+                    { type: 'text', text: 'Aerial photogrammetry provides highly accurate 3D site context, enabling design decisions that are firmly rooted in real-world topography and environmental constraints.' }
                 ]
             },
             'sketches': {
@@ -1240,7 +1274,7 @@
                 stage: 'Ideation',
                 format: '2D Drafts, Sketches',
                 focus: 'Rapid Prototyping',
-                hero: 'https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?auto=format&fit=crop&q=80',
+                hero: '',
                 content: [
                     { type: 'text', text: 'The foundational steps of any design begin with a simple line. Hand sketching and 2D drafting remain essential for working through initial spatial relationships and detailed connection profiles.' },
                     { type: 'image', layout: 'landscape', url: 'citysketchscan.png' }
@@ -1255,7 +1289,7 @@
         const closeModalBtn = document.getElementById('close-modal');
         const workItems = document.querySelectorAll('.work-item');
 
-        // Apple-style Scroll Fade Effect
+        // Apple-style Scroll Fade Effect for Project Modal
         scrollArea.addEventListener('scroll', () => {
             const scrollTop = scrollArea.scrollTop;
             const windowHeight = window.innerHeight;
@@ -1305,23 +1339,10 @@
             }
         });
 
-        // Dynamic Process Image Swapping
+        // Open Process Modals
         const processItems = document.querySelectorAll('.process-item');
-        const processImage = document.getElementById('dynamic-process-image');
 
         processItems.forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                const newImgUrl = this.getAttribute('data-img');
-                
-                processImage.style.opacity = '0.5';
-                
-                setTimeout(() => {
-                    processImage.src = newImgUrl;
-                    processImage.style.opacity = '1';
-                }, 150);
-            });
-            
-            // Open Process Modal
             item.addEventListener('click', function() {
                 const processId = this.getAttribute('data-process-id');
                 const data = processesData[processId];
@@ -1333,7 +1354,14 @@
                     document.getElementById('process-modal-format').innerText = data.format;
                     document.getElementById('process-modal-focus').innerText = data.focus;
 
-                    document.getElementById('process-modal-hero-img').src = data.hero;
+                    const heroImg = document.getElementById('process-modal-hero-img');
+                    if (data.hero) {
+                        heroImg.src = data.hero;
+                        heroImg.style.display = 'block';
+                    } else {
+                        heroImg.src = '';
+                        heroImg.style.display = 'none';
+                    }
 
                     const galleryContainer = document.getElementById('process-modal-gallery');
                     galleryContainer.innerHTML = ''; 
@@ -1397,6 +1425,19 @@
                             textEl.className = 'gallery-text';
                             textEl.innerText = item.text;
                             galleryContainer.appendChild(textEl);
+                        } else if (item.type === 'cluster') {
+                            const clusterEl = document.createElement('div');
+                            clusterEl.className = 'gallery-cluster';
+                            item.images.forEach(imgUrl => {
+                                const imgWrap = document.createElement('div');
+                                imgWrap.className = 'gallery-item portrait';
+                                const imgEl = document.createElement('img');
+                                imgEl.src = imgUrl;
+                                imgEl.alt = data.title + ' Cluster Image';
+                                imgWrap.appendChild(imgEl);
+                                clusterEl.appendChild(imgWrap);
+                            });
+                            galleryContainer.appendChild(clusterEl);
                         }
                     });
 
