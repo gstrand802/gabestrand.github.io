@@ -655,6 +655,13 @@
             grid-column: span 1;
         }
 
+        .gallery-item.full-bleed {
+            grid-column: span 2;
+            margin-left: -1rem; /* Counteracts the 1rem padding of the gallery container */
+            margin-right: -1rem;
+            width: calc(100% + 2rem);
+        }
+
         .gallery-text {
             grid-column: span 1;
             font-size: 1.25rem;
@@ -670,6 +677,12 @@
             max-height: 90vh;
             object-fit: contain; /* Changed from cover to contain to prevent cropping */
             box-shadow: 0 15px 35px rgba(0,0,0,0.08); 
+        }
+
+        .gallery-item.full-bleed img {
+            max-height: none; /* Removes height restriction to allow full-width scaling */
+            object-fit: cover;
+            display: block;
         }
 
         /* Gallery Cluster Element */
@@ -813,6 +826,7 @@
             }
             .gallery-item.landscape,
             .gallery-item.portrait,
+            .gallery-item.full-bleed,
             .gallery-text {
                 grid-column: span 1;
                 padding: 0;
@@ -1241,7 +1255,7 @@
                 hero: 'popup-hero-project03.png',
                 content: [
                     { type: 'text', text: 'Experimenting with a Post Digital Collage Workflow: Rhino 3D + Adobe Illustrator (Vector Work) + Adobe Photoshop (Collage and Detailing).\n\nSituated in the Boston Public Garden, this project introduces three landscape installations designed to transform traditional commuter walkways into a destination. By carving "Third Spaces" into the landscape, the design highlights the areas steepest topography through hardscape switchbacks and integrated seating. The goal of these design aspects is to promote seamless transition from the busy street to the heart of the public garden and to transform walkways into a social environment.' },
-                    { type: 'image', layout: 'landscape', url: 'project03-popup-image-first-image.jpg' },
+                    { type: 'image', layout: 'full-bleed', url: 'project03-popup-image-first-image.jpg' },
                     { type: 'cluster', images: [
                         'project03-popup-image-cluster1-image01.jpg', 
                         'project03-popup-image-cluster1-image02.jpg',
