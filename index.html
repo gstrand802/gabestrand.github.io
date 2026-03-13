@@ -668,7 +668,7 @@
             width: 100%;
             height: auto;
             max-height: 90vh;
-            object-fit: cover;
+            object-fit: contain; /* Changed from cover to contain to prevent cropping */
             box-shadow: 0 15px 35px rgba(0,0,0,0.08); 
         }
 
@@ -684,6 +684,42 @@
         
         .gallery-cluster .gallery-item {
             width: 100%;
+        }
+
+        /* Modal Theming */
+        .project-modal.theme-dark {
+            color: #fff;
+        }
+        .project-modal.theme-dark .modal-overlay {
+            background-color: rgba(20, 20, 20, 0.95);
+        }
+        .project-modal.theme-dark .modal-header {
+            color: #fff;
+        }
+        .project-modal.theme-dark .modal-header.scrolled {
+            background-color: rgba(20, 20, 20, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .project-modal.theme-dark .modal-title,
+        .project-modal.theme-dark .gallery-text {
+            color: #fff;
+        }
+        .project-modal.theme-dark .meta-group strong {
+            color: #aaa;
+        }
+        .project-modal.theme-dark .modal-title-section {
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+        }
+        .project-modal.theme-dark .modal-gallery img {
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .project-modal.theme-light .modal-overlay {
+            background-color: rgba(255, 255, 255, 1); /* Solid white to match sky fades */
+        }
+        .project-modal.theme-light .modal-gallery img {
+            box-shadow: none; /* Removes shadow to seamlessly blend with white background */
         }
 
         /* Responsive Mobile Layout Adjustments */
@@ -880,7 +916,7 @@
                 </div>
                 <div class="work-item" data-id="boston">
                     <div class="work-image">
-                        <img src="03boston-public-garden-3graphic-instillations-hero-main-page.png" alt="Boston Public Garden">
+                        <img src="03boston-public-garden-3graphic-installations-hero-main-page.png" alt="Boston Public Garden">
                     </div>
                     <div class="work-info">
                         <div class="work-title-group">
@@ -1167,6 +1203,7 @@
                 date: '2025',
                 type: 'BIM Coordination',
                 collab: 'Individual',
+                theme: 'dark',
                 hero: 'project01-popup-image1.jpg',
                 content: [
                     { type: 'text', text: 'Designed to emulate professional BIM coordination, this project was developed entirely within a Revit (and Twinmotion) environment. The assignment required a workflow that mirrored real-world practice, beginning with conceptual massing, and finishing with a set of construction documents. This process required coordination between spatial form, exterior landscape, and structural integrity.' },
@@ -1184,10 +1221,11 @@
                 date: '2025',
                 type: 'Parametric Design',
                 collab: 'Individual',
-                hero: 'project02-popup-image2.jpg',
+                theme: 'dark',
+                hero: '02biophilic-overlay-hero-imgage-popup.jpg',
                 content: [
                     { type: 'text', text: 'Developed using the Rhino environment, this project highlights the intersection of heavy infrastructure and natural topography, reimagining a transit hub as a continuation of the pre-existing landscape. By wrapping a rigid steel frame in a parametric wooden exterior, this "Biophilic Overlay" functions as a permeable enclosure, shading the rooftop patio and merging the boundaries of the built environment and its surroundings.' },
-                    { type: 'image', layout: 'landscape', url: '02biophilic-overlay-hero-imgage-popup.jpg' },
+                    { type: 'image', layout: 'landscape', url: 'project02-popup-image2.jpg' },
                     { type: 'image', layout: 'landscape', url: 'project02-popup-image4.jpg' },
                     { type: 'image', layout: 'landscape', url: 'project02-popup-image3.jpg' },
                     { type: 'image', layout: 'landscape', url: 'project02-popup-image1.jpg' }
@@ -1199,13 +1237,16 @@
                 date: '2025',
                 type: 'Post Digital Collage',
                 collab: 'Individual',
-                hero: 'project03-popup-hero-image copy.png',
+                theme: 'light',
+                hero: 'popup-hero-project03.png',
                 content: [
                     { type: 'text', text: 'Experimenting with a Post Digital Collage Workflow: Rhino 3D + Adobe Illustrator (Vector Work) + Adobe Photoshop (Collage and Detailing).\n\nSituated in the Boston Public Garden, this project introduces three landscape installations designed to transform traditional commuter walkways into a destination. By carving "Third Spaces" into the landscape, the design highlights the areas steepest topography through hardscape switchbacks and integrated seating. The goal of these design aspects is to promote seamless transition from the busy street to the heart of the public garden and to transform walkways into a social environment.' },
                     { type: 'image', layout: 'landscape', url: 'project03-popup-image-first-image.jpg' },
                     { type: 'cluster', images: [
                         'project03-popup-image-cluster1-image01.jpg', 
-                        'project03-popup-image-cluster1-image02.jpg'
+                        'project03-popup-image-cluster1-image02.jpg',
+                        'popup03-image5.jpg',
+                        'popup03-image6.png'
                     ]}
                 ]
             }
@@ -1400,6 +1441,12 @@
                 const data = projects[projectId];
 
                 if (data) {
+                    // Apply visual theme
+                    modal.classList.remove('theme-dark', 'theme-light');
+                    if (data.theme) {
+                        modal.classList.add(`theme-${data.theme}`);
+                    }
+
                     document.getElementById('modal-title').innerText = data.title;
                     document.getElementById('modal-location').innerText = data.location;
                     document.getElementById('modal-date').innerText = data.date;
