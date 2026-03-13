@@ -13,6 +13,11 @@
             --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden; /* Prevents any horizontal scrolling globally */
+        }
+
         body {
             font-family: var(--font-main);
             margin: 0;
@@ -594,6 +599,7 @@
             width: 100%;
             height: 100%;
             overflow-y: auto;
+            overflow-x: hidden; /* Strictly locks scrolling to vertical only */
             z-index: 4;
             scroll-behavior: smooth;
         }
@@ -906,7 +912,7 @@
                 grid-column: 1 / -1 !important;
                 margin-left: 0 !important; 
                 margin-right: 0 !important;
-                width: 100vw !important; 
+                width: 100% !important; /* Changed from 100vw to prevent horizontal scroll bleed */
                 max-width: none !important;
             }
             .gallery-text {
