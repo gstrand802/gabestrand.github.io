@@ -1260,7 +1260,7 @@
         
         <div class="modal-background">
             <img id="process-modal-hero-img" src="" alt="Process Hero">
-            <video id="process-modal-hero-video" class="modal-hero-video" muted playsinline></video>
+            <video id="process-modal-hero-video" class="modal-hero-video" muted playsinline autoplay></video>
             <div id="process-modal-overlay" class="modal-overlay"></div>
         </div>
         
@@ -1582,13 +1582,14 @@
                     document.getElementById('process-modal-focus').innerText = data.focus;
 
                     const heroImg = document.getElementById('process-modal-hero-img');
-                    const heroVideo = document.getElementById('process-modal-hero-video');
-
-                    // Reset and strip old listeners
-                    if (window.processVideoTimeout) clearTimeout(window.processVideoTimeout);
-                    const newHeroVideo = heroVideo.cloneNode(true);
-                    heroVideo.parentNode.replaceChild(newHeroVideo, heroVideo);
                     const activeHeroVideo = document.getElementById('process-modal-hero-video');
+
+                    // Reset and carefully clear old video state instead of cloning
+                    if (window.processVideoTimeout) clearTimeout(window.processVideoTimeout);
+                    activeHeroVideo.pause();
+                    activeHeroVideo.removeAttribute('src'); 
+                    activeHeroVideo.load();
+                    activeHeroVideo.onended = null; // Strip old listeners safely
 
                     heroImg.style.display = 'none';
                     activeHeroVideo.style.display = 'none';
@@ -1598,9 +1599,13 @@
                         activeHeroVideo.style.display = 'block';
                         let currentVideoIndex = 0;
                         activeHeroVideo.src = data.heroVideos[currentVideoIndex];
-                        activeHeroVideo.play().catch(e => console.log("Autoplay prevented", e));
+                        
+                        // Slight delay ensures the browser registers the display:block before playing
+                        setTimeout(() => {
+                            activeHeroVideo.play().catch(e => console.log("Autoplay prevented", e));
+                        }, 50);
 
-                        activeHeroVideo.addEventListener('ended', () => {
+                        activeHeroVideo.onended = () => {
                             activeHeroVideo.classList.add('fade-out');
                             window.processVideoTimeout = setTimeout(() => {
                                 currentVideoIndex = (currentVideoIndex + 1) % data.heroVideos.length;
@@ -1608,7 +1613,7 @@
                                 activeHeroVideo.play().catch(e => console.log("Autoplay prevented", e));
                                 activeHeroVideo.classList.remove('fade-out');
                             }, 800); // 800ms of black screen fade
-                        });
+                        };
                     } else if (data.hero) {
                         heroImg.src = data.hero;
                         heroImg.style.display = 'block';
