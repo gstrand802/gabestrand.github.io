@@ -13,6 +13,10 @@
             --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
+        *, *::before, *::after {
+            box-sizing: border-box; /* Ensures padding never breaks full-width elements */
+        }
+
         html, body {
             max-width: 100%;
             overflow-x: hidden; /* Prevents any horizontal scrolling globally */
@@ -1590,7 +1594,6 @@
                     activeHeroVideo.removeAttribute('src'); 
                     activeHeroVideo.load();
                     activeHeroVideo.onended = null; // Strip old listeners safely
-                    activeHeroVideo.oncanplay = null; // Strip buffering listeners
 
                     heroImg.style.display = 'none';
                     activeHeroVideo.style.display = 'none';
@@ -1602,13 +1605,11 @@
                         activeHeroVideo.src = data.heroVideos[currentVideoIndex];
                         activeHeroVideo.load(); // Force load
                         
-                        // Wait for the heavy video to actually buffer before forcing it to play
-                        activeHeroVideo.oncanplay = () => {
-                            const playPromise = activeHeroVideo.play();
-                            if (playPromise !== undefined) {
-                                playPromise.catch(e => console.error("Autoplay prevented by browser:", e));
-                            }
-                        };
+                        // Safely trigger play (Browser natively handles buffering, avoiding Safari cached-video lockups)
+                        const playPromise = activeHeroVideo.play();
+                        if (playPromise !== undefined) {
+                            playPromise.catch(e => console.error("Autoplay prevented by browser:", e));
+                        }
 
                         activeHeroVideo.onended = () => {
                             activeHeroVideo.classList.add('fade-out');
@@ -1617,11 +1618,8 @@
                                 activeHeroVideo.src = data.heroVideos[currentVideoIndex];
                                 activeHeroVideo.load();
                                 
-                                // Wait for the next video in the loop to buffer
-                                activeHeroVideo.oncanplay = () => {
-                                    activeHeroVideo.play().catch(e => console.error("Loop play prevented:", e));
-                                    activeHeroVideo.classList.remove('fade-out');
-                                };
+                                activeHeroVideo.play().catch(e => console.error("Loop play prevented:", e));
+                                activeHeroVideo.classList.remove('fade-out');
                             }, 800); // 800ms of black screen fade
                         };
                     } else if (data.hero) {
