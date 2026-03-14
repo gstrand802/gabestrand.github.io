@@ -568,6 +568,21 @@
             z-index: 2;
         }
 
+        .modal-hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.8s ease-in-out;
+            display: none;
+        }
+
+        .modal-hero-video.fade-out {
+            opacity: 0;
+        }
+
         .modal-overlay {
             position: absolute;
             top: 0;
@@ -1245,6 +1260,7 @@
         
         <div class="modal-background">
             <img id="process-modal-hero-img" src="" alt="Process Hero">
+            <video id="process-modal-hero-video" class="modal-hero-video" muted playsinline></video>
             <div id="process-modal-overlay" class="modal-overlay"></div>
         </div>
         
@@ -1458,6 +1474,7 @@
                 format: 'Point Clouds, Orthomosaics',
                 focus: 'Site Context',
                 hero: '',
+                heroVideos: ['beancove1.MP4', 'beancove2.MP4', 'beancove3.MP4'],
                 content: [
                     { type: 'text', text: 'Aerial photogrammetry provides highly accurate 3D site context, enabling design decisions that are firmly rooted in real-world topography and environmental constraints.' }
                 ]
@@ -1565,7 +1582,34 @@
                     document.getElementById('process-modal-focus').innerText = data.focus;
 
                     const heroImg = document.getElementById('process-modal-hero-img');
-                    if (data.hero) {
+                    const heroVideo = document.getElementById('process-modal-hero-video');
+
+                    // Reset and strip old listeners
+                    if (window.processVideoTimeout) clearTimeout(window.processVideoTimeout);
+                    const newHeroVideo = heroVideo.cloneNode(true);
+                    heroVideo.parentNode.replaceChild(newHeroVideo, heroVideo);
+                    const activeHeroVideo = document.getElementById('process-modal-hero-video');
+
+                    heroImg.style.display = 'none';
+                    activeHeroVideo.style.display = 'none';
+                    activeHeroVideo.classList.remove('fade-out');
+
+                    if (data.heroVideos && data.heroVideos.length > 0) {
+                        activeHeroVideo.style.display = 'block';
+                        let currentVideoIndex = 0;
+                        activeHeroVideo.src = data.heroVideos[currentVideoIndex];
+                        activeHeroVideo.play().catch(e => console.log("Autoplay prevented", e));
+
+                        activeHeroVideo.addEventListener('ended', () => {
+                            activeHeroVideo.classList.add('fade-out');
+                            window.processVideoTimeout = setTimeout(() => {
+                                currentVideoIndex = (currentVideoIndex + 1) % data.heroVideos.length;
+                                activeHeroVideo.src = data.heroVideos[currentVideoIndex];
+                                activeHeroVideo.play().catch(e => console.log("Autoplay prevented", e));
+                                activeHeroVideo.classList.remove('fade-out');
+                            }, 800); // 800ms of black screen fade
+                        });
+                    } else if (data.hero) {
                         heroImg.src = data.hero;
                         heroImg.style.display = 'block';
                     } else {
@@ -1685,6 +1729,14 @@
         closeProcessModalBtn.addEventListener('click', () => {
             processModal.classList.remove('active');
             document.body.classList.remove('modal-open');
+            
+            // Stop and clear videos when closing
+            const activeHeroVideo = document.getElementById('process-modal-hero-video');
+            if (activeHeroVideo) {
+                activeHeroVideo.pause();
+                activeHeroVideo.src = '';
+            }
+            if (window.processVideoTimeout) clearTimeout(window.processVideoTimeout);
         });
     </script>
 </body>
