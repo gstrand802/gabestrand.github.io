@@ -291,11 +291,14 @@
 
         /* Process Section */
         .process-section {
+            padding: 4rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .process-content {
             display: grid;
             grid-template-columns: 1fr 1.5fr;
             gap: 6rem;
-            padding: 6rem 2rem;
-            border-bottom: 1px solid var(--border-color);
         }
 
         .process-left {
@@ -853,7 +856,7 @@
             }
             
             /* Process Section Ordering for Mobile */
-            .process-section {
+            .process-content {
                 display: flex;
                 flex-direction: column;
                 gap: 2rem;
@@ -1061,56 +1064,60 @@
         </section>
 
         <section id="process" class="process-section">
-            <div class="process-left">
-                <div class="process-list">
-                    <div class="process-item" data-process-id="bim">
-                        <span class="process-item-num">(01)</span>
-                        <div class="process-item-text">
-                            <span class="process-item-title">BIM & 3D MODELING</span>
-                            <span class="process-item-tools">Autodesk Revit, Rhino 3D, SketchUp Pro, Blender</span>
+            <div class="works-header">
+                <span class="meta-label">( Technical Process )</span>
+                <span class="meta-label">( 06 )</span>
+            </div>
+            <div class="process-content">
+                <div class="process-left">
+                    <div class="process-list">
+                        <div class="process-item" data-process-id="bim">
+                            <span class="process-item-num">(01)</span>
+                            <div class="process-item-text">
+                                <span class="process-item-title">BIM & 3D MODELING</span>
+                                <span class="process-item-tools">Autodesk Revit, Rhino 3D, SketchUp Pro, Blender</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="process-item" data-process-id="computational">
-                        <span class="process-item-num">(02)</span>
-                        <div class="process-item-text">
-                            <span class="process-item-title">COMPUTATIONAL DESIGN</span>
-                            <span class="process-item-tools">Grasshopper, Dynamo</span>
+                        <div class="process-item" data-process-id="computational">
+                            <span class="process-item-num">(02)</span>
+                            <div class="process-item-text">
+                                <span class="process-item-title">COMPUTATIONAL DESIGN</span>
+                                <span class="process-item-tools">Grasshopper, Dynamo</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="process-item" data-process-id="rendering">
-                        <span class="process-item-num">(03)</span>
-                        <div class="process-item-text">
-                            <span class="process-item-title">RENDERING AND VISUALIZATION</span>
-                            <span class="process-item-tools">Enscape, Twinmotion</span>
+                        <div class="process-item" data-process-id="rendering">
+                            <span class="process-item-num">(03)</span>
+                            <div class="process-item-text">
+                                <span class="process-item-title">RENDERING AND VISUALIZATION</span>
+                                <span class="process-item-tools">Enscape, Twinmotion</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="process-item" data-process-id="graphics">
-                        <span class="process-item-num">(04)</span>
-                        <div class="process-item-text">
-                            <span class="process-item-title">GRAPHICS AND POST-PRODUCTION</span>
-                            <span class="process-item-tools">Adobe Creative Suite (Photoshop, Illustrator, InDesign)</span>
+                        <div class="process-item" data-process-id="graphics">
+                            <span class="process-item-num">(04)</span>
+                            <div class="process-item-text">
+                                <span class="process-item-title">GRAPHICS AND POST-PRODUCTION</span>
+                                <span class="process-item-tools">Adobe Creative Suite (Photoshop, Illustrator, InDesign)</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="process-item" data-process-id="drone">
-                        <span class="process-item-num">(05)</span>
-                        <div class="process-item-text">
-                            <span class="process-item-title">DRONE SURVEYING & PHOTOGRAPHY</span>
-                            <span class="process-item-tools">DJI, DroneDeploy, Agisoft Metashape</span>
+                        <div class="process-item" data-process-id="drone">
+                            <span class="process-item-num">(05)</span>
+                            <div class="process-item-text">
+                                <span class="process-item-title">DRONE SURVEYING & PHOTOGRAPHY</span>
+                                <span class="process-item-tools">DJI, DroneDeploy, Agisoft Metashape</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="process-item" data-process-id="sketches">
-                        <span class="process-item-num">(06)</span>
-                        <div class="process-item-text">
-                            <span class="process-item-title">SKETCHES & DRAFTING</span>
-                            <span class="process-item-tools">AutoCAD, Bluebeam Revu, Procreate, Hand Sketching</span>
+                        <div class="process-item" data-process-id="sketches">
+                            <span class="process-item-num">(06)</span>
+                            <div class="process-item-text">
+                                <span class="process-item-title">SKETCHES & DRAFTING</span>
+                                <span class="process-item-tools">AutoCAD, Bluebeam Revu, Procreate, Hand Sketching</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="process-right">
-                <div class="process-heading">My approach is designed to translate complex data into clear, buildable, and visually striking outcomes.</div>
-                <div class="process-subheading">The following six core workflows provide an in-depth look into my technical process, illustrated through detailed imagery and comprehensive working documents. Driven by a strong commitment to continuous academic learning, each stage highlights my dedication to mastering advanced architectural tools, rigorous spatial analysis, and precision-driven design.</div>
-                <a href="#contact" class="btn-pill">Get to know my process &rarr;</a>
+                <div class="process-right">
+                    <div class="process-subheading">These six core workflows provide an in-depth look into my technical process, illustrated through detailed imagery and working documents.</div>
+                </div>
             </div>
         </section>
 
@@ -1121,7 +1128,9 @@
             </div>
             <div class="about-content">
                 <div class="about-bio">
-                    <!-- Future text goes here -->
+                    <p>I am a community-focused professional transitioning to architecture, driven by a commitment to contributing to equity-driven, sustainable, and innovative environments.</p>
+                    <br>
+                    <p>Leveraging a background in community development and recent certification in Digital Design & Visualization, I apply self-directed technical upskilling to solve complex design problems and streamline production across professional and academic settings. My goal is to combine rigorous industry experience with my passion for the built environment.</p>
                 </div>
                 
                 <div class="about-details-grid">
@@ -1474,6 +1483,13 @@
         const closeModalBtn = document.getElementById('close-modal');
         const workItems = document.querySelectorAll('.work-item');
         
+        // Process Modal Variables
+        const processModal = document.getElementById('process-modal');
+        const processScrollArea = document.getElementById('process-modal-scroll-area');
+        const processModalOverlay = document.getElementById('process-modal-overlay');
+        const processModalHeader = document.getElementById('process-modal-header');
+        const closeProcessModalBtn = document.getElementById('close-process-modal');
+        
         // Mobile Dropdown Menu Logic
         const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
         const mobileDropdown = document.getElementById('mobile-dropdown');
@@ -1511,13 +1527,7 @@
             }
         });
 
-        // Process Modal Variables & Scroll Effect
-        const processModal = document.getElementById('process-modal');
-        const processScrollArea = document.getElementById('process-modal-scroll-area');
-        const processModalOverlay = document.getElementById('process-modal-overlay');
-        const processModalHeader = document.getElementById('process-modal-header');
-        const closeProcessModalBtn = document.getElementById('close-process-modal');
-
+        // Process Modal Scroll Effect
         processScrollArea.addEventListener('scroll', () => {
             const scrollTop = processScrollArea.scrollTop;
             const windowHeight = window.innerHeight;
