@@ -1474,7 +1474,7 @@
                 format: 'Point Clouds, Orthomosaics',
                 focus: 'Site Context',
                 hero: '',
-                heroVideos: ['beancove1.MP4', 'beancove2.MP4', 'beancove3.MP4'],
+                heroVideos: ['beancove1.mp4', 'beancove2.mp4', 'beancove3.mp4'],
                 content: [
                     { type: 'text', text: 'Aerial photogrammetry provides highly accurate 3D site context, enabling design decisions that are firmly rooted in real-world topography and environmental constraints.' }
                 ]
@@ -1590,6 +1590,7 @@
                     activeHeroVideo.removeAttribute('src'); 
                     activeHeroVideo.load();
                     activeHeroVideo.onended = null; // Strip old listeners safely
+                    activeHeroVideo.oncanplay = null; // Strip buffering listeners
 
                     heroImg.style.display = 'none';
                     activeHeroVideo.style.display = 'none';
@@ -1601,11 +1602,13 @@
                         activeHeroVideo.src = data.heroVideos[currentVideoIndex];
                         activeHeroVideo.load(); // Force load
                         
-                        // Must play immediately within the user click event context
-                        const playPromise = activeHeroVideo.play();
-                        if (playPromise !== undefined) {
-                            playPromise.catch(e => console.error("Autoplay prevented by browser:", e));
-                        }
+                        // Wait for the heavy video to actually buffer before forcing it to play
+                        activeHeroVideo.oncanplay = () => {
+                            const playPromise = activeHeroVideo.play();
+                            if (playPromise !== undefined) {
+                                playPromise.catch(e => console.error("Autoplay prevented by browser:", e));
+                            }
+                        };
 
                         activeHeroVideo.onended = () => {
                             activeHeroVideo.classList.add('fade-out');
@@ -1613,8 +1616,12 @@
                                 currentVideoIndex = (currentVideoIndex + 1) % data.heroVideos.length;
                                 activeHeroVideo.src = data.heroVideos[currentVideoIndex];
                                 activeHeroVideo.load();
-                                activeHeroVideo.play().catch(e => console.error("Loop play prevented:", e));
-                                activeHeroVideo.classList.remove('fade-out');
+                                
+                                // Wait for the next video in the loop to buffer
+                                activeHeroVideo.oncanplay = () => {
+                                    activeHeroVideo.play().catch(e => console.error("Loop play prevented:", e));
+                                    activeHeroVideo.classList.remove('fade-out');
+                                };
                             }, 800); // 800ms of black screen fade
                         };
                     } else if (data.hero) {
