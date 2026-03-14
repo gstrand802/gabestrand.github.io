@@ -1599,18 +1599,21 @@
                         activeHeroVideo.style.display = 'block';
                         let currentVideoIndex = 0;
                         activeHeroVideo.src = data.heroVideos[currentVideoIndex];
+                        activeHeroVideo.load(); // Force load
                         
-                        // Slight delay ensures the browser registers the display:block before playing
-                        setTimeout(() => {
-                            activeHeroVideo.play().catch(e => console.log("Autoplay prevented", e));
-                        }, 50);
+                        // Must play immediately within the user click event context
+                        const playPromise = activeHeroVideo.play();
+                        if (playPromise !== undefined) {
+                            playPromise.catch(e => console.error("Autoplay prevented by browser:", e));
+                        }
 
                         activeHeroVideo.onended = () => {
                             activeHeroVideo.classList.add('fade-out');
                             window.processVideoTimeout = setTimeout(() => {
                                 currentVideoIndex = (currentVideoIndex + 1) % data.heroVideos.length;
                                 activeHeroVideo.src = data.heroVideos[currentVideoIndex];
-                                activeHeroVideo.play().catch(e => console.log("Autoplay prevented", e));
+                                activeHeroVideo.load();
+                                activeHeroVideo.play().catch(e => console.error("Loop play prevented:", e));
                                 activeHeroVideo.classList.remove('fade-out');
                             }, 800); // 800ms of black screen fade
                         };
