@@ -266,6 +266,11 @@
         .work-item:hover .work-image img {
             transform: scale(1.03);
         }
+        
+        /* Disable pan effect for project 02 */
+        .work-item[data-id="biophilic"]:hover .work-image img {
+            transform: none;
+        }
 
         .work-info {
             display: flex;
@@ -579,12 +584,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: opacity 0.8s ease-in-out;
             display: none;
-        }
-
-        .modal-hero-video.fade-out {
-            opacity: 0;
         }
 
         .modal-overlay {
@@ -788,6 +788,22 @@
             grid-column: span 1 !important;
         }
 
+        /* Masonry Layout */
+        .gallery-masonry {
+            grid-column: span 2;
+            column-count: 2;
+            column-gap: 2rem;
+            padding: 0 6rem;
+            margin-top: 3rem;
+        }
+        
+        .gallery-masonry .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 2rem;
+            display: inline-block;
+            width: 100%;
+        }
+
         /* Split Group Layout (Text next to images) */
         .gallery-split-group {
             grid-column: span 2;
@@ -858,7 +874,7 @@
             background: linear-gradient(to bottom, rgba(255,255,255,0.7) 0%, transparent 100%);
         }
         .project-modal.theme-light .modal-overlay {
-            background-color: rgba(255, 255, 255, 1); 
+            background-color: rgba(255, 255, 255, 1) !important; 
         }
         .project-modal.theme-light .modal-header,
         .project-modal.theme-light .modal-title,
@@ -990,7 +1006,8 @@
                 object-position: center 20%;
                 background-color: #000;
             }
-            #modal-gallery {
+            #modal-gallery,
+            #process-modal-gallery {
                 grid-template-columns: 1fr !important;
                 gap: 1.5rem;
                 padding: 0 !important; /* Zeroed out to allow true edge-to-edge images */
@@ -998,7 +1015,8 @@
             #modal-gallery .gallery-item.landscape,
             #modal-gallery .gallery-item.portrait,
             #modal-gallery .gallery-item.side-by-side,
-            .gallery-cluster .gallery-item {
+            .gallery-cluster .gallery-item,
+            .gallery-masonry .gallery-item {
                 grid-column: 1 / -1 !important;
                 padding: 0 !important;
                 margin: 0 !important;
@@ -1033,6 +1051,10 @@
             }
             .gallery-cluster .gallery-item:nth-child(n) {
                 grid-column: span 1; 
+            }
+            .gallery-masonry {
+                column-count: 1;
+                padding: 0 !important;
             }
             .gallery-split-group {
                 grid-template-columns: 1fr;
@@ -1134,7 +1156,7 @@
         <section id="process" class="process-section">
             <div class="works-header">
                 <span class="meta-label">( Technical Process )</span>
-                <span class="meta-label">( 06 )</span>
+                <span class="meta-label">( 05 )</span>
             </div>
             <div class="process-content">
                 <div class="process-left">
@@ -1143,39 +1165,32 @@
                             <span class="process-item-num">(01)</span>
                             <div class="process-item-text">
                                 <span class="process-item-title">BIM & 3D MODELING</span>
-                                <span class="process-item-tools">Autodesk Revit, Rhino 3D, SketchUp Pro, Blender</span>
+                                <span class="process-item-tools">Autodesk Revit</span>
                             </div>
                         </div>
                         <div class="process-item" data-process-id="computational">
                             <span class="process-item-num">(02)</span>
                             <div class="process-item-text">
-                                <span class="process-item-title">COMPUTATIONAL DESIGN</span>
-                                <span class="process-item-tools">Grasshopper, Dynamo</span>
-                            </div>
-                        </div>
-                        <div class="process-item" data-process-id="rendering">
-                            <span class="process-item-num">(03)</span>
-                            <div class="process-item-text">
-                                <span class="process-item-title">RENDERING AND VISUALIZATION</span>
-                                <span class="process-item-tools">Enscape, Twinmotion</span>
+                                <span class="process-item-title">COMPUTATIONAL WORKFLOW AND 3D MODELING</span>
+                                <span class="process-item-tools">Rhino, Grasshopper</span>
                             </div>
                         </div>
                         <div class="process-item" data-process-id="graphics">
-                            <span class="process-item-num">(04)</span>
+                            <span class="process-item-num">(03)</span>
                             <div class="process-item-text">
                                 <span class="process-item-title">GRAPHICS AND POST-PRODUCTION</span>
                                 <span class="process-item-tools">Adobe Creative Suite (Photoshop, Illustrator, InDesign)</span>
                             </div>
                         </div>
                         <div class="process-item" data-process-id="drone">
-                            <span class="process-item-num">(05)</span>
+                            <span class="process-item-num">(04)</span>
                             <div class="process-item-text">
                                 <span class="process-item-title">DRONE SURVEYING & PHOTOGRAPHY</span>
                                 <span class="process-item-tools">DJI, DroneDeploy, Agisoft Metashape</span>
                             </div>
                         </div>
                         <div class="process-item" data-process-id="sketches">
-                            <span class="process-item-num">(06)</span>
+                            <span class="process-item-num">(05)</span>
                             <div class="process-item-text">
                                 <span class="process-item-title">SKETCHES & DRAFTING</span>
                                 <span class="process-item-tools">AutoCAD, Bluebeam Revu, Procreate, Hand Sketching</span>
@@ -1184,7 +1199,7 @@
                     </div>
                 </div>
                 <div class="process-right">
-                    <div class="process-subheading">These six core workflows provide an in-depth look into my technical process, illustrated through detailed imagery and working documents.</div>
+                    <div class="process-subheading">These five core workflows provide an in-depth look into my technical process, illustrated through detailed imagery and working documents.</div>
                 </div>
             </div>
         </section>
@@ -1321,7 +1336,7 @@
             
             <div id="process-modal-header" class="modal-header">
                 <div class="logo">GABE STRAND</div>
-                <button class="close-btn" id="close-process-modal">( Close )</button>
+                <button class="close-btn" id="close-process-modal">Close</button>
             </div>
             
             <div class="modal-spacer"></div>
@@ -1334,18 +1349,6 @@
                         <div class="meta-group">
                             <strong>Software / Tools</strong>
                             <span id="process-modal-tools">Tools details</span>
-                        </div>
-                        <div class="meta-group">
-                            <strong>Project Stage</strong>
-                            <span id="process-modal-stage">Stage</span>
-                        </div>
-                        <div class="meta-group">
-                            <strong>Output Format</strong>
-                            <span id="process-modal-format">Format</span>
-                        </div>
-                        <div class="meta-group">
-                            <strong>Primary Focus</strong>
-                            <span id="process-modal-focus">Focus</span>
                         </div>
                     </div>
                 </div>
@@ -1386,6 +1389,12 @@
             // Interactive Pan Effect for Project Thumbnails ONLY
             if (window.innerWidth > 768) {
                 workThumbnails.forEach(img => {
+                    // Disable pan effect specifically for project 02
+                    if (img.src.includes('02biophilic-overlay-geroimage-main-page.jpg')) {
+                        img.style.objectPosition = 'center';
+                        return;
+                    }
+                    
                     const rect = img.parentElement.getBoundingClientRect();
                     // Calculate how far the image is through the viewport
                     let progress = (windowHeight - rect.top) / (windowHeight + rect.height);
@@ -1478,59 +1487,46 @@
         const processesData = {
             'bim': {
                 title: 'BIM & 3D Modeling',
-                tools: 'Autodesk Revit, Rhino 3D, SketchUp Pro, Blender',
-                stage: 'Design & Development',
-                format: '3D Models, 2D Plans',
-                focus: 'Spatial Coordination',
-                hero: '',
+                tools: 'Autodesk Revit',
+                hero: 'bimcover.jpg',
+                theme: 'dark',
                 content: [
-                    { type: 'text', text: 'Building Information Modeling (BIM) allows for precise coordination between architectural, structural, and MEP systems. Using tools like Revit and Rhino, complex geometries are resolved early in the design phase to ensure seamless execution.' }
+                    { type: 'text', text: 'Working documents for a modern home project. I utilized reference planes and precise alignments to accurately model complex structural conditions.' },
+                    { type: 'cluster', images: ['revitbasement.jpg', 'roofworking.jpg', 'revithomeworkingdoc.jpg'] },
+                    { type: 'text', text: '3D views are an important part of the workflow to ensure previews of the final render will look good.' },
+                    { type: 'cluster', images: ['revithome3d.jpg', 'revitstairs.jpg'] },
+                    { type: 'text', text: 'Typical Rhino workflow layout. Showing early stages of the Boston Public Garden project.' },
+                    { type: 'image', layout: 'landscape', url: 'rhino.jpeg' }
                 ]
             },
             'computational': {
-                title: 'Computational Design',
-                tools: 'Grasshopper, Dynamo',
-                stage: 'Conceptual & Optimization',
-                format: 'Parametric Scripts',
-                focus: 'Algorithmic Optimization',
+                title: 'Computational Workflow and 3D Modeling',
+                tools: 'Rhino, Grasshopper',
                 hero: '',
+                theme: 'dark',
                 content: [
-                    { type: 'text', text: 'Leveraging visual programming tools like Grasshopper, we generate complex, data-driven forms and optimize building performance metrics such as solar radiation and material efficiency.' }
-                ]
-            },
-            'rendering': {
-                title: 'Rendering & Visualization',
-                tools: 'Enscape, Twinmotion',
-                stage: 'Presentation',
-                format: 'Images, Animations, VR',
-                focus: 'Visual Communication',
-                hero: '',
-                content: [
-                    { type: 'text', text: 'Real-time rendering engines enable us to experience the space before it is built. This iterative visual feedback loop is critical for material selection, lighting analysis, and client presentations.' }
+                    { type: 'text', text: 'Preview of the generative design process, building the biophilic overlay component within Grasshopper.' },
+                    { type: 'cluster', images: ['biophilic1.png', 'biophilic2.png', 'biophilic3.png'] },
+                    { type: 'text', text: 'A more advanced computational workflow, where the Grasshopper script becomes the project itself, enabling quick generative outputs for randomized urban planning design cases.' },
+                    { type: 'cluster', images: ['grasshopperscript1.png', 'citygeneration1.png', 'parametricurbanconcept.png'] },
+                    { type: 'cluster', images: ['parametricurbanism.png', 'parametricurbanism1.png'] }
                 ]
             },
             'graphics': {
                 title: 'Graphics & Post-Production',
                 tools: 'Photoshop, Illustrator, InDesign',
-                stage: 'Publishing',
-                format: 'Diagrams, Boards, Portfolios',
-                focus: 'Narrative & Clarity',
                 hero: '',
+                theme: 'dark',
                 content: [
-                    { type: 'text', text: 'Clear communication of architectural intent relies heavily on high-quality graphics. Post-production breathes life into raw renders, standardizes drawing sets, and unifies the project narrative.' },
-                    { type: 'split-group', text: '[ Project 03 Working Process: Linework ]\n\nInitial 2D linework exports establish the foundational perspective, scale, and geometry.', images: ['perspectivelinework.png', 'waterfrontlinework.png'] },
-                    { type: 'split-group', text: '[ Project 03 Working Process: Illustrator ]\n\nVector-based color blocking and base texturing are applied to differentiate materials and establish lighting.', images: ['perspectiveillustrator.png', 'waterfrontillustrator.png'] },
-                    { type: 'split-group', text: '[ Project 03 Working Process: Post-Production ]\n\nFinal atmospheric elements, entourage, shadows, and material imperfections are collaged to breathe life into the scene.', images: ['perspectivepostproduction.png'] },
-                    { type: 'text', text: '[ Lighting Studies: Morning vs. Night ]\n\nComparing environmental setups to evaluate atmospheric lighting and interior material reflections.' },
+                    { type: 'text', text: 'Project 03 Working Process: From foundational linework to final post-production, establishing perspective, scale, lighting, and atmosphere.' },
+                    { type: 'masonry', images: ['perspectivelinework.png', 'waterfrontlinework.png', 'perspectiveillustrator.png', 'waterfrontillustrator.png', 'perspectivepostproduction.png'] },
+                    { type: 'text', text: 'Lighting Studies: Morning vs. Night environmental setups to evaluate atmospheric lighting and interior material reflections.' },
                     { type: 'cluster-2x2', images: ['barmorning.jpg', 'barnight.jpg', 'ceilingmorning.jpg', 'ceilingnight.jpg'] }
                 ]
             },
             'drone': {
                 title: 'Drone Surveying',
                 tools: 'DJI, DroneDeploy, Agisoft',
-                stage: 'Site Analysis',
-                format: 'Point Clouds, Orthomosaics',
-                focus: 'Site Context',
                 hero: '',
                 theme: 'dark',
                 heroVideos: ['beach1.mp4', 'nhsummer.mp4', 'nhwinter.mp4', 'sfo.mp4'],
@@ -1548,14 +1544,13 @@
             'sketches': {
                 title: 'Sketches & Drafting',
                 tools: 'AutoCAD, Procreate, Sketching',
-                stage: 'Ideation',
-                format: '2D Drafts, Sketches',
-                focus: 'Rapid Prototyping',
                 hero: 'scanneddocuments1.png',
+                theme: 'light',
                 content: [
-                    { type: 'text', text: 'The foundational steps of any design begin with a simple line. Hand sketching and 2D drafting remain essential for working through initial spatial relationships and detailed connection profiles.' },
-                    { type: 'split-group', text: '[ Beach Sketches ]\n\nAdd your short explanation text for the beach concepts here.', images: ['beach1.pdf', 'beach2.png'] },
-                    { type: 'split-group', text: '[ Project Sketches ]\n\nAdd your short explanation text for the project 02 concepts here.', images: ['project02sketch1.png', 'project02sketch2.png'] }
+                    { type: 'text', text: 'Early sketches of the Biophilic Overlay project. I wanted to create a design that seamlessly blended in with the surrounding angled topography.' },
+                    { type: 'cluster', images: ['beach1.pdf', 'beach2.png'] },
+                    { type: 'text', text: 'Sketches for the community center project (in progress). Located in a typhoon-prone environment, the design is adapted to withstand extreme weather constraints while serving as a safe, resilient gathering space for the community.' },
+                    { type: 'cluster', images: ['project02sketch1.png', 'project02sketch2.png'] }
                 ]
             }
         };
@@ -1650,14 +1645,11 @@
 
                     document.getElementById('process-modal-title').innerText = data.title;
                     document.getElementById('process-modal-tools').innerText = data.tools;
-                    document.getElementById('process-modal-stage').innerText = data.stage;
-                    document.getElementById('process-modal-format').innerText = data.format;
-                    document.getElementById('process-modal-focus').innerText = data.focus;
 
                     const heroImg = document.getElementById('process-modal-hero-img');
                     const activeHeroVideo = document.getElementById('process-modal-hero-video');
 
-                    // Reset and carefully clear old video state instead of cloning
+                    // Reset and carefully clear old video state
                     if (window.processVideoTimeout) clearTimeout(window.processVideoTimeout);
                     activeHeroVideo.pause();
                     activeHeroVideo.removeAttribute('src'); 
@@ -1674,22 +1666,18 @@
                         activeHeroVideo.src = data.heroVideos[currentVideoIndex];
                         activeHeroVideo.load(); // Force load
                         
-                        // Safely trigger play (Browser natively handles buffering, avoiding Safari cached-video lockups)
+                        // Safely trigger play
                         const playPromise = activeHeroVideo.play();
                         if (playPromise !== undefined) {
                             playPromise.catch(e => console.error("Autoplay prevented by browser:", e));
                         }
 
+                        // Seamless instant loop without artificial fade delays
                         activeHeroVideo.onended = () => {
-                            activeHeroVideo.classList.add('fade-out');
-                            window.processVideoTimeout = setTimeout(() => {
-                                currentVideoIndex = (currentVideoIndex + 1) % data.heroVideos.length;
-                                activeHeroVideo.src = data.heroVideos[currentVideoIndex];
-                                activeHeroVideo.load();
-                                
-                                activeHeroVideo.play().catch(e => console.error("Loop play prevented:", e));
-                                activeHeroVideo.classList.remove('fade-out');
-                            }, 800); // 800ms of black screen fade
+                            currentVideoIndex = (currentVideoIndex + 1) % data.heroVideos.length;
+                            activeHeroVideo.src = data.heroVideos[currentVideoIndex];
+                            activeHeroVideo.load();
+                            activeHeroVideo.play().catch(e => console.error("Loop play prevented:", e));
                         };
                     } else if (data.hero) {
                         heroImg.src = data.hero;
@@ -1722,13 +1710,30 @@
                             item.images.forEach(imgUrl => {
                                 const imgWrap = document.createElement('div');
                                 imgWrap.className = 'gallery-item portrait';
-                                const imgEl = document.createElement('img');
-                                imgEl.src = imgUrl;
-                                imgEl.alt = data.title + ' Cluster Image';
-                                imgWrap.appendChild(imgEl);
+                                
+                                const isPdf = imgUrl.toLowerCase().endsWith('.pdf');
+                                const mediaEl = document.createElement(isPdf ? 'iframe' : 'img');
+                                mediaEl.src = imgUrl;
+                                if (!isPdf) mediaEl.alt = data.title + ' Cluster Image';
+                                if (isPdf) mediaEl.style.height = "500px";
+                                
+                                imgWrap.appendChild(mediaEl);
                                 clusterEl.appendChild(imgWrap);
                             });
                             galleryContainer.appendChild(clusterEl);
+                        } else if (item.type === 'masonry') {
+                            const masonryEl = document.createElement('div');
+                            masonryEl.className = 'gallery-masonry';
+                            item.images.forEach(imgUrl => {
+                                const imgWrap = document.createElement('div');
+                                imgWrap.className = 'gallery-item portrait';
+                                const imgEl = document.createElement('img');
+                                imgEl.src = imgUrl;
+                                imgEl.alt = data.title + ' Masonry Image';
+                                imgWrap.appendChild(imgEl);
+                                masonryEl.appendChild(imgWrap);
+                            });
+                            galleryContainer.appendChild(masonryEl);
                         } else if (item.type === 'split-group') {
                             const splitEl = document.createElement('div');
                             splitEl.className = 'gallery-split-group';
