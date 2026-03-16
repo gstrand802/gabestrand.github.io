@@ -782,6 +782,45 @@
         .gallery-cluster .gallery-item:nth-child(3) {
             grid-column: span 1; 
         }
+        
+        /* 2x2 Grid Modifier for specific clusters */
+        .gallery-cluster.four-grid .gallery-item {
+            grid-column: span 1 !important;
+        }
+
+        /* Split Group Layout (Text next to images) */
+        .gallery-split-group {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            padding: 2rem 0;
+        }
+
+        .gallery-split-group .gallery-text {
+            grid-column: span 1;
+            padding: 0 2rem;
+        }
+
+        .gallery-split-group .gallery-images {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .gallery-split-group .gallery-images img,
+        .gallery-split-group .gallery-images iframe {
+            width: 100%;
+            height: auto;
+            border: none;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            border-radius: 4px;
+        }
+        
+        .gallery-split-group .gallery-images iframe {
+            height: 60vh; /* Gives the PDF some height */
+        }
 
         /* Modal Theming */
         .project-modal.theme-dark {
@@ -992,6 +1031,14 @@
             }
             .gallery-cluster .gallery-item:nth-child(n) {
                 grid-column: span 1; 
+            }
+            .gallery-split-group {
+                grid-template-columns: 1fr;
+                padding: 0 !important;
+                gap: 1.5rem;
+            }
+            .gallery-split-group .gallery-text {
+                padding: 1.5rem !important;
             }
         }
         @media (max-width: 480px) {
@@ -1468,7 +1515,12 @@
                 focus: 'Narrative & Clarity',
                 hero: '',
                 content: [
-                    { type: 'text', text: 'Clear communication of architectural intent relies heavily on high-quality graphics. Post-production breathes life into raw renders, standardizes drawing sets, and unifies the project narrative.' }
+                    { type: 'text', text: 'Clear communication of architectural intent relies heavily on high-quality graphics. Post-production breathes life into raw renders, standardizes drawing sets, and unifies the project narrative.' },
+                    { type: 'split-group', text: '[ Project 03 Working Process: Linework ]\n\nInitial 2D linework exports establish the foundational perspective, scale, and geometry.', images: ['perspectivelinework.png', 'waterfrontlinework.png'] },
+                    { type: 'split-group', text: '[ Project 03 Working Process: Illustrator ]\n\nVector-based color blocking and base texturing are applied to differentiate materials and establish lighting.', images: ['perspectiveillustrator.png', 'waterfrontillustrator.png'] },
+                    { type: 'split-group', text: '[ Project 03 Working Process: Post-Production ]\n\nFinal atmospheric elements, entourage, shadows, and material imperfections are collaged to breathe life into the scene.', images: ['perspectivepostproduction.png'] },
+                    { type: 'text', text: '[ Lighting Studies: Morning vs. Night ]\n\nComparing environmental setups to evaluate atmospheric lighting and interior material reflections.' },
+                    { type: 'cluster-2x2', images: ['barmorning.jpg', 'barnight.jpg', 'ceilingmorning.jpg', 'ceilingnight.jpg'] }
                 ]
             },
             'drone': {
@@ -1478,6 +1530,7 @@
                 format: 'Point Clouds, Orthomosaics',
                 focus: 'Site Context',
                 hero: '',
+                theme: 'dark',
                 heroVideos: ['beancove1.mp4', 'beancove2.mp4', 'beancove3.mp4'],
                 content: [
                     { type: 'text', text: 'Aerial photogrammetry provides highly accurate 3D site context, enabling design decisions that are firmly rooted in real-world topography and environmental constraints.' },
@@ -1496,10 +1549,11 @@
                 stage: 'Ideation',
                 format: '2D Drafts, Sketches',
                 focus: 'Rapid Prototyping',
-                hero: '',
+                hero: 'scanneddocuments1.png',
                 content: [
                     { type: 'text', text: 'The foundational steps of any design begin with a simple line. Hand sketching and 2D drafting remain essential for working through initial spatial relationships and detailed connection profiles.' },
-                    { type: 'image', layout: 'landscape', url: 'citysketchscan.png' }
+                    { type: 'split-group', text: '[ Beach Sketches ]\n\nAdd your short explanation text for the beach concepts here.', images: ['beach1.pdf', 'beach2.png'] },
+                    { type: 'split-group', text: '[ Project Sketches ]\n\nAdd your short explanation text for the project 02 concepts here.', images: ['project02sketch1.png', 'project02sketch2.png'] }
                 ]
             }
         };
@@ -1586,6 +1640,12 @@
                 const data = processesData[processId];
 
                 if (data) {
+                    // Apply visual theme
+                    processModal.classList.remove('theme-dark', 'theme-light');
+                    if (data.theme) {
+                        processModal.classList.add(`theme-${data.theme}`);
+                    }
+
                     document.getElementById('process-modal-title').innerText = data.title;
                     document.getElementById('process-modal-tools').innerText = data.tools;
                     document.getElementById('process-modal-stage').innerText = data.stage;
@@ -1654,9 +1714,9 @@
                             textEl.className = 'gallery-text';
                             textEl.innerText = item.text;
                             galleryContainer.appendChild(textEl);
-                        } else if (item.type === 'cluster') {
+                        } else if (item.type === 'cluster' || item.type === 'cluster-2x2') {
                             const clusterEl = document.createElement('div');
-                            clusterEl.className = 'gallery-cluster';
+                            clusterEl.className = item.type === 'cluster-2x2' ? 'gallery-cluster four-grid' : 'gallery-cluster';
                             item.images.forEach(imgUrl => {
                                 const imgWrap = document.createElement('div');
                                 imgWrap.className = 'gallery-item portrait';
@@ -1667,6 +1727,28 @@
                                 clusterEl.appendChild(imgWrap);
                             });
                             galleryContainer.appendChild(clusterEl);
+                        } else if (item.type === 'split-group') {
+                            const splitEl = document.createElement('div');
+                            splitEl.className = 'gallery-split-group';
+                            
+                            const textEl = document.createElement('div');
+                            textEl.className = 'gallery-text';
+                            textEl.innerText = item.text;
+                            
+                            const imgWrap = document.createElement('div');
+                            imgWrap.className = 'gallery-images';
+                            
+                            item.images.forEach(imgUrl => {
+                                const isPdf = imgUrl.toLowerCase().endsWith('.pdf');
+                                const mediaEl = document.createElement(isPdf ? 'iframe' : 'img');
+                                mediaEl.src = imgUrl;
+                                if (!isPdf) mediaEl.alt = data.title + ' Group Image';
+                                imgWrap.appendChild(mediaEl);
+                            });
+                            
+                            splitEl.appendChild(textEl);
+                            splitEl.appendChild(imgWrap);
+                            galleryContainer.appendChild(splitEl);
                         }
                     });
 
@@ -1726,9 +1808,9 @@
                             textEl.className = 'gallery-text';
                             textEl.innerText = item.text;
                             galleryContainer.appendChild(textEl);
-                        } else if (item.type === 'cluster') {
+                        } else if (item.type === 'cluster' || item.type === 'cluster-2x2') {
                             const clusterEl = document.createElement('div');
-                            clusterEl.className = 'gallery-cluster';
+                            clusterEl.className = item.type === 'cluster-2x2' ? 'gallery-cluster four-grid' : 'gallery-cluster';
                             item.images.forEach(imgUrl => {
                                 const imgWrap = document.createElement('div');
                                 imgWrap.className = 'gallery-item portrait';
@@ -1739,6 +1821,28 @@
                                 clusterEl.appendChild(imgWrap);
                             });
                             galleryContainer.appendChild(clusterEl);
+                        } else if (item.type === 'split-group') {
+                            const splitEl = document.createElement('div');
+                            splitEl.className = 'gallery-split-group';
+                            
+                            const textEl = document.createElement('div');
+                            textEl.className = 'gallery-text';
+                            textEl.innerText = item.text;
+                            
+                            const imgWrap = document.createElement('div');
+                            imgWrap.className = 'gallery-images';
+                            
+                            item.images.forEach(imgUrl => {
+                                const isPdf = imgUrl.toLowerCase().endsWith('.pdf');
+                                const mediaEl = document.createElement(isPdf ? 'iframe' : 'img');
+                                mediaEl.src = imgUrl;
+                                if (!isPdf) mediaEl.alt = data.title + ' Group Image';
+                                imgWrap.appendChild(mediaEl);
+                            });
+                            
+                            splitEl.appendChild(textEl);
+                            splitEl.appendChild(imgWrap);
+                            galleryContainer.appendChild(splitEl);
                         }
                     });
 
