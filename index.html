@@ -1480,7 +1480,14 @@
                 hero: '',
                 heroVideos: ['beancove1.mp4', 'beancove2.mp4', 'beancove3.mp4'],
                 content: [
-                    { type: 'text', text: 'Aerial photogrammetry provides highly accurate 3D site context, enabling design decisions that are firmly rooted in real-world topography and environmental constraints.' }
+                    { type: 'text', text: 'Aerial photogrammetry provides highly accurate 3D site context, enabling design decisions that are firmly rooted in real-world topography and environmental constraints.' },
+                    { type: 'cluster', images: ['storm1.JPG', 'storm2.JPG', 'storm3.JPG'] },
+                    { type: 'image', layout: 'landscape', url: 'summer1.JPG' },
+                    { type: 'image', layout: 'portrait', url: 'summer2.JPG' },
+                    { type: 'image', layout: 'portrait', url: 'summer4.JPG' },
+                    { type: 'image', layout: 'landscape', url: 'summer5.JPG' },
+                    { type: 'cluster', images: ['sunset1.JPG', 'sunset2.JPG', 'sunset3.JPG'] },
+                    { type: 'image', layout: 'landscape', url: 'winter1.JPG' }
                 ]
             },
             'sketches': {
@@ -1647,6 +1654,19 @@
                             textEl.className = 'gallery-text';
                             textEl.innerText = item.text;
                             galleryContainer.appendChild(textEl);
+                        } else if (item.type === 'cluster') {
+                            const clusterEl = document.createElement('div');
+                            clusterEl.className = 'gallery-cluster';
+                            item.images.forEach(imgUrl => {
+                                const imgWrap = document.createElement('div');
+                                imgWrap.className = 'gallery-item portrait';
+                                const imgEl = document.createElement('img');
+                                imgEl.src = imgUrl;
+                                imgEl.alt = data.title + ' Cluster Image';
+                                imgWrap.appendChild(imgEl);
+                                clusterEl.appendChild(imgWrap);
+                            });
+                            galleryContainer.appendChild(clusterEl);
                         }
                     });
 
