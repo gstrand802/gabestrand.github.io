@@ -739,11 +739,15 @@
         }
 
         .gallery-text {
-            grid-column: span 1;
-            font-size: 1.25rem;
-            line-height: 1.6;
-            padding: 2rem 4rem;
-            color: var(--text-color);
+            grid-column: 1 / -1;
+            font-size: 0.9rem;
+            font-weight: 400;
+            line-height: 1.5;
+            padding: 2rem 1rem;
+            color: #777;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
             white-space: pre-wrap;
         }
 
@@ -852,9 +856,12 @@
             background-color: rgba(0, 0, 0, 0.95);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .project-modal.theme-dark .modal-title,
-        .project-modal.theme-dark .gallery-text {
+        .project-modal.theme-dark .modal-title {
             color: #fff;
+        }
+        .project-modal.theme-dark .gallery-text,
+        .project-modal.theme-dark .modal-subtitle {
+            color: #aaa;
         }
         .project-modal.theme-dark .meta-group strong {
             color: #aaa;
@@ -879,10 +886,12 @@
         .project-modal.theme-light .modal-header,
         .project-modal.theme-light .modal-title,
         .project-modal.theme-light .modal-subtitle,
-        .project-modal.theme-light .gallery-text,
         .project-modal.theme-light .meta-group strong,
         .project-modal.theme-light .meta-group span {
             color: #111 !important;
+        }
+        .project-modal.theme-light .gallery-text {
+            color: #555 !important;
         }
         .project-modal.theme-light .modal-gallery img {
             box-shadow: none; 
@@ -1171,7 +1180,7 @@
                         <div class="process-item" data-process-id="computational">
                             <span class="process-item-num">(02)</span>
                             <div class="process-item-text">
-                                <span class="process-item-title">COMPUTATIONAL WORKFLOW AND 3D MODELING</span>
+                                <span class="process-item-title">COMPUTATIONAL DESIGN</span>
                                 <span class="process-item-tools">Rhino, Grasshopper</span>
                             </div>
                         </div>
@@ -1487,29 +1496,32 @@
         const processesData = {
             'bim': {
                 title: 'BIM & 3D Modeling',
-                tools: 'Autodesk Revit',
+                tools: 'Autodesk Revit, Rhino 3D',
                 hero: 'bimcover.jpg',
-                theme: 'dark',
+                heroPosition: 'center 20%',
+                theme: 'light',
                 content: [
                     { type: 'text', text: 'Working documents for a modern home project. I utilized reference planes and precise alignments to accurately model complex structural conditions.' },
                     { type: 'cluster', images: ['revitbasement.jpg', 'roofworking.jpg', 'revithomeworkingdoc.jpg'] },
                     { type: 'text', text: '3D views are an important part of the workflow to ensure previews of the final render will look good.' },
                     { type: 'cluster', images: ['revithome3d.jpg', 'revitstairs.jpg'] },
                     { type: 'text', text: 'Typical Rhino workflow layout. Showing early stages of the Boston Public Garden project.' },
-                    { type: 'image', layout: 'landscape', url: 'rhino.jpeg' }
+                    { type: 'image', layout: 'landscape', url: 'rhino.jpeg' },
+                    { type: 'text', text: 'Massing Process for Project 02 in Rhino.' },
+                    { type: 'cluster', images: ['massing1.png', 'massing2.png', 'massing3.png', 'massing4.png', 'massing5.png'] }
                 ]
             },
             'computational': {
-                title: 'Computational Workflow and 3D Modeling',
+                title: 'Computational Design',
                 tools: 'Rhino, Grasshopper',
-                hero: '',
-                theme: 'dark',
+                hero: 'parametricurbanism.png',
+                theme: 'light',
                 content: [
                     { type: 'text', text: 'Preview of the generative design process, building the biophilic overlay component within Grasshopper.' },
                     { type: 'cluster', images: ['biophilic1.png', 'biophilic2.png', 'biophilic3.png'] },
                     { type: 'text', text: 'A more advanced computational workflow, where the Grasshopper script becomes the project itself, enabling quick generative outputs for randomized urban planning design cases.' },
                     { type: 'cluster', images: ['grasshopperscript1.png', 'citygeneration1.png', 'parametricurbanconcept.png'] },
-                    { type: 'cluster', images: ['parametricurbanism.png', 'parametricurbanism1.png'] }
+                    { type: 'cluster', images: ['compdesign.png', 'parametricurbanism1.png'] }
                 ]
             },
             'graphics': {
@@ -1648,6 +1660,12 @@
 
                     const heroImg = document.getElementById('process-modal-hero-img');
                     const activeHeroVideo = document.getElementById('process-modal-hero-video');
+
+                    if (data.heroPosition) {
+                        heroImg.style.objectPosition = data.heroPosition;
+                    } else {
+                        heroImg.style.objectPosition = 'center';
+                    }
 
                     // Reset and carefully clear old video state
                     if (window.processVideoTimeout) clearTimeout(window.processVideoTimeout);
@@ -1796,7 +1814,14 @@
                         subtitleEl.style.display = 'none';
                     }
 
-                    document.getElementById('modal-hero-img').src = data.hero;
+                    const heroImgEl = document.getElementById('modal-hero-img');
+                    heroImgEl.src = data.hero;
+                    
+                    if (data.heroPosition) {
+                        heroImgEl.style.objectPosition = data.heroPosition;
+                    } else {
+                        heroImgEl.style.objectPosition = 'center';
+                    }
 
                     const galleryContainer = document.getElementById('modal-gallery');
                     galleryContainer.innerHTML = ''; 
