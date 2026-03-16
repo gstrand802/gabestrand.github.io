@@ -984,9 +984,11 @@
             .modal-spacer {
                 height: 40vh; 
             }
-            .modal-background img {
+            .modal-background img,
+            .modal-hero-video {
                 object-fit: contain; 
                 object-position: center 20%;
+                background-color: #000;
             }
             #modal-gallery {
                 grid-template-columns: 1fr !important;
@@ -1531,7 +1533,7 @@
                 focus: 'Site Context',
                 hero: '',
                 theme: 'dark',
-                heroVideos: ['beancove1.mp4', 'beancove2.mp4', 'beancove3.mp4'],
+                heroVideos: ['beach1.mp4', 'nhsummer.mp4', 'nhwinter.mp4', 'sfo.mp4'],
                 content: [
                     { type: 'text', text: 'Aerial photogrammetry provides highly accurate 3D site context, enabling design decisions that are firmly rooted in real-world topography and environmental constraints.' },
                     { type: 'cluster', images: ['storm1.JPG', 'storm2.JPG', 'storm3.JPG'] },
