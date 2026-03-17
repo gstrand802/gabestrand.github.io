@@ -224,10 +224,14 @@
             margin-bottom: 3rem;
         }
 
+        /* 2x2 Grid Layout for Featured Works */
         .works-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8rem; 
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6rem 3rem; 
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
         }
 
         .work-item {
@@ -242,17 +246,13 @@
             z-index: 2;
         }
 
-        /* Staggered Masonry Layout Logic */
-        .work-item:nth-child(1) { width: 85%; align-self: flex-start; }
-        .work-item:nth-child(2) { width: 65%; align-self: flex-end; }
-        .work-item:nth-child(3) { width: 85%; align-self: center; }
-        .work-item:nth-child(4) { width: 75%; align-self: flex-start; margin-top: -2rem; }
-
         .work-image {
             width: 100%;
-            height: 75vh;
+            aspect-ratio: 16/11;
+            height: auto;
             overflow: hidden;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            background-color: #222;
         }
 
         .work-image img {
@@ -260,17 +260,12 @@
             height: 100%;
             object-fit: cover;
             object-position: center;
-            will-change: object-position; 
             transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+            display: block;
         }
 
         .work-item:hover .work-image img {
             transform: scale(1.03);
-        }
-        
-        /* Disable pan effect for project 02 */
-        .work-item[data-id="biophilic"]:hover .work-image img {
-            transform: none;
         }
 
         .work-info {
@@ -984,20 +979,14 @@
                 margin-bottom: 3rem;
             }
             .works-list {
+                grid-template-columns: 1fr;
                 gap: 4rem;
             }
-            .work-item:nth-child(n) {
+            .work-item {
                 width: 100%;
-                align-self: center;
-                margin-top: 0;
             }
             .work-image {
-                height: auto; 
-            }
-            .work-image img {
-                height: auto;
-                object-fit: contain; 
-                display: block;
+                aspect-ratio: 4/3; 
             }
             .work-info {
                 flex-direction: row; 
@@ -1431,7 +1420,6 @@
         // Main Page Apple-style Scroll Fade Effect
         const mainOverlay = document.getElementById('main-overlay-fixed');
         const mainHeader = document.getElementById('main-header');
-        const workThumbnails = document.querySelectorAll('.work-image img');
         
         window.addEventListener('scroll', () => {
             const scrollTop = window.scrollY;
@@ -1451,28 +1439,6 @@
                 mainHeader.classList.add('scrolled');
             } else {
                 mainHeader.classList.remove('scrolled');
-            }
-
-            // Interactive Pan Effect for Project Thumbnails ONLY
-            if (window.innerWidth > 768) {
-                workThumbnails.forEach(img => {
-                    // Disable pan effect specifically for project 02
-                    if (img.src.includes('02biophilic-overlay-geroimage-main-page.jpg')) {
-                        img.style.objectPosition = 'center';
-                        return;
-                    }
-                    
-                    const rect = img.parentElement.getBoundingClientRect();
-                    let progress = (windowHeight - rect.top) / (windowHeight + rect.height);
-                    progress = Math.max(0, Math.min(1, progress));
-                    
-                    const xPos = progress * 100;
-                    img.style.objectPosition = `${xPos}% center`;
-                });
-            } else {
-                workThumbnails.forEach(img => {
-                    img.style.objectPosition = 'center';
-                });
             }
         });
 
