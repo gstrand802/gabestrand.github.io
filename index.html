@@ -7,9 +7,9 @@
     <style>
         /* Base & Variables */
         :root {
-            --bg-color: #f7f7f5;
-            --text-color: #111;
-            --border-color: #ccc;
+            --bg-color: #111;
+            --text-color: #f7f7f5;
+            --border-color: #333;
             --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
@@ -74,7 +74,7 @@
         header.scrolled {
             color: var(--text-color);
             border-bottom: 1px solid var(--border-color);
-            background-color: rgba(247, 247, 245, 0.8);
+            background-color: rgba(17, 17, 17, 0.8);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
@@ -160,7 +160,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(247, 247, 245, 0.95);
+            background-color: rgba(17, 17, 17, 0.95);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             opacity: 0;
@@ -246,6 +246,7 @@
         .work-item:nth-child(1) { width: 85%; align-self: flex-start; }
         .work-item:nth-child(2) { width: 65%; align-self: flex-end; }
         .work-item:nth-child(3) { width: 85%; align-self: center; }
+        .work-item:nth-child(4) { width: 75%; align-self: flex-start; margin-top: -2rem; }
 
         .work-image {
             width: 100%;
@@ -293,12 +294,12 @@
         }
 
         .work-year {
-            color: #777;
+            color: #999;
             font-weight: 400; 
             font-size: 0.9rem;
         }
 
-        /* Process Section */
+        /* Process Section -> Rebranded to Studies */
         .process-section {
             padding: 4rem 2rem;
             border-bottom: 1px solid var(--border-color);
@@ -331,11 +332,11 @@
         }
 
         .process-item:hover {
-            background-color: rgba(0,0,0,0.05);
+            background-color: rgba(255,255,255,0.05);
         }
 
         .process-item-num {
-            color: #666;
+            color: #999;
             font-weight: 600;
             font-size: 0.95rem;
             margin-top: 0.1rem;
@@ -354,7 +355,7 @@
         }
 
         .process-item-tools {
-            color: #777;
+            color: #aaa;
             font-size: 0.85rem;
             line-height: 1.4;
             text-transform: none;
@@ -382,27 +383,6 @@
             letter-spacing: -0.5px;
             margin-bottom: 4rem;
             max-width: 90%;
-        }
-
-        .btn-pill {
-            align-self: flex-start;
-            background-color: var(--text-color);
-            color: var(--bg-color);
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-flex;
-            align-items: center;
-            gap: 1rem;
-            transition: opacity 0.3s ease;
-        }
-
-        .btn-pill:hover {
-            opacity: 0.8;
-            color: var(--bg-color);
         }
 
         /* About Section */
@@ -442,7 +422,7 @@
             line-height: 1.6;
             margin-bottom: 4rem;
             text-transform: none;
-            color: #444;
+            color: #ccc;
             max-width: 800px;
         }
 
@@ -492,13 +472,13 @@
 
         .education-degree {
             font-style: italic;
-            color: #555;
+            color: #aaa;
             font-size: 0.85rem;
         }
 
         .education-minor {
             font-size: 0.75rem;
-            color: #777;
+            color: #999;
             margin-top: 0.2rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -516,7 +496,7 @@
 
         .footer-col p {
             margin: 0 0 0.5rem 0;
-            color: #666;
+            color: #999;
             text-transform: none;
         }
 
@@ -751,7 +731,7 @@
             color: #555;
             text-align: left;
             max-width: 800px;
-            margin: 0; /* Aligned gracefully on the left */
+            margin: 0; 
             white-space: pre-wrap;
         }
 
@@ -781,7 +761,7 @@
             overflow: hidden;
             flex-shrink: 0;
             border-radius: 2px;
-            background-color: rgba(0,0,0,0.05);
+            background-color: rgba(255,255,255,0.05);
         }
 
         .album-thumb img {
@@ -1070,7 +1050,7 @@
                 top: 100%;
                 left: 0;
                 width: 100%;
-                background-color: rgba(247, 247, 245, 0.98);
+                background-color: rgba(17, 17, 17, 0.98);
                 border-bottom: 1px solid var(--border-color);
                 opacity: 0;
                 pointer-events: none;
@@ -1088,7 +1068,7 @@
                 text-transform: uppercase;
                 letter-spacing: 1px;
                 color: var(--text-color);
-                border-top: 1px solid rgba(0,0,0,0.05);
+                border-top: 1px solid rgba(255,255,255,0.05);
             }
             .modal-meta-grid {
                 grid-template-columns: 1fr 1fr;
@@ -1137,10 +1117,17 @@
             }
             .lightbox-nav {
                 font-size: 1.5rem;
-                padding: 0.5rem;
+                padding: 0;
+                width: 44px;
+                height: 44px;
+                background: rgba(0,0,0,0.5);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
-            .lightbox-prev { left: 0.5rem; }
-            .lightbox-next { right: 0.5rem; }
+            .lightbox-prev { left: 1rem; }
+            .lightbox-next { right: 1rem; }
         }
         @media (max-width: 480px) {
             .modal-meta-grid {
@@ -1165,13 +1152,13 @@
             <div class="logo">GABE STRAND</div>
             <nav>
                 <a href="#works">Works</a>
-                <a href="#process">Process</a>
+                <a href="#studies">Studies</a>
                 <a href="#about">About</a>
             </nav>
             <button id="mobile-menu-toggle" class="mobile-menu-btn">Menu</button>
             <div id="mobile-dropdown" class="mobile-dropdown">
                 <a href="#works" class="dropdown-link">Works</a>
-                <a href="#process" class="dropdown-link">Process</a>
+                <a href="#studies" class="dropdown-link">Studies</a>
                 <a href="#about" class="dropdown-link">About</a>
             </div>
         </header>
@@ -1187,7 +1174,7 @@
         <section id="works" class="works-section">
             <div class="works-header">
                 <span class="meta-label">Featured Works</span>
-                <span class="meta-label">03</span>
+                <span class="meta-label">04</span>
             </div>
             
             <div class="works-list">
@@ -1227,46 +1214,38 @@
                         <span class="work-year">2025</span>
                     </div>
                 </div>
+                <div class="work-item" data-id="parametric">
+                    <div class="work-image">
+                        <img src="parametricurbanism.png" alt="Parametric Urbanism">
+                    </div>
+                    <div class="work-info">
+                        <div class="work-title-group">
+                            <span>04</span>
+                            <span class="work-title">Parametric Urbanism</span>
+                        </div>
+                        <span class="work-year">2025</span>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="process" class="process-section">
+        <section id="studies" class="process-section">
             <div class="works-header">
-                <span class="meta-label">Technical Process</span>
-                <span class="meta-label">05</span>
+                <span class="meta-label">Small Studies & Assignments</span>
+                <span class="meta-label">02</span>
             </div>
             <div class="process-content">
                 <div class="process-left">
                     <div class="process-list">
-                        <div class="process-item" data-process-id="bim">
+                        <div class="process-item" data-process-id="lighting">
                             <span class="process-item-num">01</span>
                             <div class="process-item-text">
-                                <span class="process-item-title">BIM & 3D MODELING</span>
-                                <span class="process-item-tools">Autodesk Revit</span>
-                            </div>
-                        </div>
-                        <div class="process-item" data-process-id="computational">
-                            <span class="process-item-num">02</span>
-                            <div class="process-item-text">
-                                <span class="process-item-title">COMPUTATIONAL DESIGN</span>
-                                <span class="process-item-tools">Rhino, Grasshopper</span>
-                            </div>
-                        </div>
-                        <div class="process-item" data-process-id="graphics">
-                            <span class="process-item-num">03</span>
-                            <div class="process-item-text">
-                                <span class="process-item-title">GRAPHICS AND POST-PRODUCTION</span>
-                                <span class="process-item-tools">Adobe Creative Suite (Photoshop, Illustrator, InDesign)</span>
-                            </div>
-                        </div>
-                        <div class="process-item" data-process-id="sketches">
-                            <span class="process-item-num">04</span>
-                            <div class="process-item-text">
-                                <span class="process-item-title">SKETCHES & DRAFTING</span>
+                                <span class="process-item-title">LIGHTING STUDIES</span>
+                                <span class="process-item-tools">Environmental Analysis</span>
                             </div>
                         </div>
                         <div class="process-item" data-process-id="drone">
-                            <span class="process-item-num">05</span>
+                            <span class="process-item-num">02</span>
                             <div class="process-item-text">
                                 <span class="process-item-title">DRONE SURVEYING & PHOTOGRAPHY</span>
                                 <span class="process-item-tools">DJI Mini 4 Pro</span>
@@ -1275,7 +1254,7 @@
                     </div>
                 </div>
                 <div class="process-right">
-                    <div class="process-subheading">These five core workflows provide an in-depth look into my technical and creative process, illustrated through imagery and working documents.</div>
+                    <div class="process-subheading">A collection of smaller assignments, technical studies, and side projects that inform my broader design process.</div>
                 </div>
             </div>
         </section>
@@ -1336,7 +1315,7 @@
             <div class="footer-col">
                 <strong>Navigation</strong>
                 <p><a href="#works">Works</a></p>
-                <p><a href="#process">Process</a></p>
+                <p><a href="#studies">Studies</a></p>
                 <p><a href="#about">About</a></p>
             </div>
             <div class="footer-col">
@@ -1525,7 +1504,14 @@
                     { type: 'image', layout: 'landscape', url: 'project01-popup-image6.jpg' },
                     { type: 'image', layout: 'landscape', url: 'project01-popup-image3.jpg' },
                     { type: 'image', layout: 'landscape', url: 'project01-popup-image2.jpg' },
-                    { type: 'image', layout: 'landscape', url: 'mainpagehero02.png' }
+                    { type: 'image', layout: 'landscape', url: 'mainpagehero02.png' },
+                    { type: 'album', title: 'My Process', thumbnail: 'revithomeworkingdoc.jpg', images: [
+                        {url: 'revitbasement.jpg', caption: 'Revit Basement Detail'},
+                        {url: 'roofworking.jpg', caption: 'Roof Working Document'},
+                        {url: 'revithomeworkingdoc.jpg', caption: 'Overall Construction Document'},
+                        {url: 'revithome3d.jpg', caption: '3D Spatial Feedback'},
+                        {url: 'revitstairs.jpg', caption: 'Stair Detailing'}
+                    ]}
                 ]
             },
             'biophilic': {
@@ -1542,7 +1528,18 @@
                     { type: 'image', layout: 'side-by-side invert-drawing blend-image', url: 'project02-popup-image1.jpg' },
                     { type: 'image', layout: 'landscape', url: 'project02-popup-image4.jpg' },
                     { type: 'image', layout: 'landscape', url: '02biophilic-overlay-hero-imgage-popup.jpg' },
-                    { type: 'image', layout: 'landscape', url: 'project02-popup-image2.jpg' }
+                    { type: 'image', layout: 'landscape', url: 'project02-popup-image2.jpg' },
+                    { type: 'album', title: 'My Process', thumbnail: 'massing5.png', images: [
+                        {url: 'project02sketch1.png', caption: 'Early Sketches'},
+                        {url: 'project02sketch2.png', caption: 'Early Sketches'},
+                        {url: 'biophilic1.png', caption: 'Generative design of biophilic component'},
+                        {url: 'biophilic2.png', caption: 'Structural iteration of the component'},
+                        {url: 'massing1.png', caption: 'Massing Process Fig. 1'},
+                        {url: 'massing2.png', caption: 'Massing Process Fig. 2'},
+                        {url: 'massing3.png', caption: 'Massing Process Fig. 3'},
+                        {url: 'massing4.png', caption: 'Massing Process Fig. 4'},
+                        {url: 'massing5.png', caption: 'Massing Process Fig. 5'}
+                    ]}
                 ]
             },
             'boston': {
@@ -1563,62 +1560,42 @@
                         'project03-popup-image-cluster1-image01.jpg', 
                         'plaza-popup-image-clusteraddon.png',
                         '03boston-public-garden-3graphic-installations-hero-main-page.png'
-                    ]}
-                ]
-            }
-        };
-
-        // Process Data 
-        const processesData = {
-            'bim': {
-                title: 'BIM & 3D Modeling',
-                tools: 'Autodesk Revit, Rhino 3D',
-                hero: 'bimcover.jpg',
-                heroPosition: 'center 55%',
-                theme: 'light',
-                content: [
-                    { type: 'album', title: 'Modern Home Project', thumbnail: 'revithomeworkingdoc.jpg', images: [
-                        {url: 'revitbasement.jpg', caption: 'Revit Basement Detail'},
-                        {url: 'roofworking.jpg', caption: 'Roof Working Document'},
-                        {url: 'revithomeworkingdoc.jpg', caption: 'Overall Construction Document'},
-                        {url: 'revithome3d.jpg', caption: '3D Spatial Feedback'},
-                        {url: 'revitstairs.jpg', caption: 'Stair Detailing'}
                     ]},
-                    { type: 'album', title: 'Rhino Massing Process', thumbnail: 'massing5.png', images: [
-                        {url: 'massing1.png', caption: 'Fig. 1'},
-                        {url: 'massing2.png', caption: 'Fig. 2'},
-                        {url: 'massing3.png', caption: 'Fig. 3'},
-                        {url: 'massing4.png', caption: 'Fig. 4'},
-                        {url: 'massing5.png', caption: 'Fig. 5'}
-                    ]}
-                ]
-            },
-            'computational': {
-                title: 'Computational Design',
-                tools: 'Rhino, Grasshopper',
-                hero: 'parametricurbanism.png',
-                theme: 'light',
-                content: [
-                    { type: 'album', title: 'Generative Workflows', thumbnail: 'compdesign.png', images: [
-                        {url: 'biophilic1.png', caption: 'Generative design of biophilic component'},
-                        {url: 'biophilic2.png', caption: 'Structural iteration of the component'},
-                        {url: 'compdesign.png', caption: 'Grasshopper script integration'},
-                        {url: 'grasshopperscript1.png', caption: 'Grasshopper script for parametric urbanism outputs'},
-                        {url: 'compworkflow1.png', caption: 'Rapid generative outputs for urban scenarios'}
-                    ]}
-                ]
-            },
-            'graphics': {
-                title: 'Graphics & Post-Production',
-                tools: 'Photoshop, Illustrator, InDesign',
-                hero: 'pppopup.png',
-                theme: 'light',
-                content: [
                     { type: 'album', title: 'Linework to Detailing', thumbnail: 'perspectivepostproduction.png', images: [
                         {url: 'perspectivelinework.png', caption: 'Initial 2D linework imported from 3D model'},
                         {url: 'perspectiveillustrator.png', caption: 'Illustrator color precision and depth blocking'},
                         {url: 'perspectivepostproduction.png', caption: 'Photoshop detailing: opacity and scale adjustments for atmospheric perspective'}
-                    ]},
+                    ]}
+                ]
+            },
+            'parametric': {
+                title: 'Parametric Urbanism',
+                subtitle: 'Computational Design & Generative Workflows',
+                location: 'Academic Project',
+                date: '2025',
+                type: 'Computational Design',
+                collab: 'Individual',
+                theme: 'light',
+                hero: 'parametricurbanism.png',
+                content: [
+                    { type: 'text', text: 'A more advanced computational workflow, where the Grasshopper script becomes the project itself, enabling quick generative outputs for randomized urban planning design cases.' },
+                    { type: 'image', layout: 'landscape', url: 'compdesign.png' },
+                    { type: 'image', layout: 'landscape', url: 'grasshopperscript1.png' },
+                    { type: 'image', layout: 'landscape', url: 'compworkflow1.png' }
+                ]
+            }
+        };
+
+        // Studies Data (Formerly Processes)
+        const studiesData = {
+            'lighting': {
+                title: 'Lighting Studies',
+                tools: 'Environmental Analysis',
+                hero: 'barnight.jpg',
+                heroPosition: 'center',
+                theme: 'light',
+                content: [
+                    { type: 'text', text: 'Morning vs. Night environmental setups to evaluate atmospheric lighting and interior material reflections.' },
                     { type: 'album', title: 'Lighting Studies', thumbnail: 'barnight.jpg', images: [
                         {url: 'barmorning.jpg', caption: 'Morning Lighting'},
                         {url: 'barnight.jpg', caption: 'Night Lighting'},
@@ -1641,16 +1618,6 @@
                     { type: 'image', layout: 'landscape', url: 'summer5.JPG' },
                     { type: 'cluster', images: ['sunset1.JPG', 'sunset2.JPG', 'sunset3.JPG'] },
                     { type: 'image', layout: 'landscape', url: 'winter1.JPG' }
-                ]
-            },
-            'sketches': {
-                title: 'Sketches & Drafting',
-                tools: '',
-                hero: 'scanneddocuments1.png',
-                theme: 'light',
-                content: [
-                    { type: 'cluster', images: ['beach1.pdf', 'beach2.png'] },
-                    { type: 'cluster', images: ['project02sketch1.png', 'project02sketch2.png'] }
                 ]
             }
         };
@@ -1696,8 +1663,8 @@
                 lightboxCaption.innerText = imgData.caption || '';
                 lightboxCounter.innerText = `${currentAlbumIndex + 1} / ${currentAlbumImages.length}`;
                 
-                lightboxPrevBtn.style.display = currentAlbumImages.length > 1 ? 'block' : 'none';
-                lightboxNextBtn.style.display = currentAlbumImages.length > 1 ? 'block' : 'none';
+                lightboxPrevBtn.style.display = currentAlbumImages.length > 1 ? 'flex' : 'none';
+                lightboxNextBtn.style.display = currentAlbumImages.length > 1 ? 'flex' : 'none';
             }
         }
 
@@ -1716,6 +1683,31 @@
             currentAlbumIndex = (currentAlbumIndex + 1) % currentAlbumImages.length;
             updateLightbox();
         });
+
+        // Lightbox Swipe Support for Mobile
+        let touchstartX = 0;
+        let touchendX = 0;
+        
+        lightbox.addEventListener('touchstart', e => {
+            touchstartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        lightbox.addEventListener('touchend', e => {
+            touchendX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, {passive: true});
+
+        function handleSwipe() {
+            const threshold = 50; // minimum distance to be considered a swipe
+            if (touchendX < touchstartX - threshold) {
+                // Swiped Left - go Next
+                if (lightboxNextBtn.style.display !== 'none') lightboxNextBtn.click();
+            }
+            if (touchendX > touchstartX + threshold) {
+                // Swiped Right - go Previous
+                if (lightboxPrevBtn.style.display !== 'none') lightboxPrevBtn.click();
+            }
+        }
 
         // Close lightbox with Escape key
         document.addEventListener('keydown', (e) => {
@@ -1787,13 +1779,13 @@
             }
         });
 
-        // Open Process Modals
+        // Open Process Modals (Now Studies)
         const processItems = document.querySelectorAll('.process-item');
 
         processItems.forEach(item => {
             item.addEventListener('click', function() {
                 const processId = this.getAttribute('data-process-id');
-                const data = processesData[processId];
+                const data = studiesData[processId];
 
                 if (data) {
                     // Apply visual theme
