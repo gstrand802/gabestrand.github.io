@@ -737,99 +737,49 @@
             background-color: transparent !important;
             box-shadow: none !important;
         }
-
-        .gallery-text {
-            grid-column: 1 / -1;
-            font-size: 0.9rem;
-            font-weight: 400;
-            line-height: 1.5;
-            padding: 2rem 1rem;
-            color: #777;
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-            white-space: pre-wrap;
+        
+        /* Album Thumbnail Card */
+        .gallery-thumbnail-card {
+            grid-column: span 2;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 4px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            margin: 1rem 0 3rem 0;
+            aspect-ratio: 21/9;
+            background-color: #eee;
         }
 
-        .modal-gallery img {
+        .gallery-thumbnail-card img {
             width: 100%;
-            height: auto;
-            max-height: 90vh;
-            object-fit: contain; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08); 
-        }
-
-        .gallery-item.full-bleed img {
-            max-height: none; 
+            height: 100%;
             object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1);
             display: block;
         }
 
-        /* Gallery Cluster Element - Updated for appealing grid flow */
-        .gallery-cluster {
-            grid-column: span 2;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-top: 3rem; 
-            padding: 0 6rem; 
-        }
-        
-        .gallery-cluster .gallery-item {
-            width: 100%;
+        .gallery-thumbnail-card:hover img {
+            transform: scale(1.03);
         }
 
-        .gallery-cluster .gallery-item:nth-child(1) {
-            grid-column: span 2; 
-        }
-        .gallery-cluster .gallery-item:nth-child(2),
-        .gallery-cluster .gallery-item:nth-child(3) {
-            grid-column: span 1; 
-        }
-        
-        /* 2x2 Grid Modifier for specific clusters */
-        .gallery-cluster.four-grid .gallery-item {
-            grid-column: span 1 !important;
-        }
-        
-        /* Clean Linear Figure Grid */
-        .gallery-figure-grid {
-            grid-column: span 2;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            padding: 0 4rem;
-            margin-bottom: 2rem;
-            align-items: start;
-        }
-        .gallery-figure {
+        .gallery-thumbnail-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
             display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            width: 100%;
-        }
-        .gallery-figure img {
-            width: 100%;
-            height: auto;
-            object-fit: cover !important;
-            aspect-ratio: 4/3;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-        }
-        .gallery-figcaption {
-            font-size: 0.8rem;
-            color: #888;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            color: #fff;
+            font-size: 1rem;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            text-align: center;
         }
 
-        /* Masonry Layout */
-        .gallery-masonry {
-        .gallery-item.invert-drawing img {
-            filter: invert(1) hue-rotate(180deg) contrast(1.2);
-            mix-blend-mode: screen; 
-            background-color: transparent !important;
-            box-shadow: none !important;
+        .gallery-thumbnail-card:hover .gallery-thumbnail-overlay {
+            opacity: 1;
         }
 
         .gallery-text {
@@ -883,12 +833,90 @@
             height: 60vh; /* Gives the PDF some height */
         }
 
+        /* Lightbox Overlay */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lightbox img {
+            max-width: 100%;
+            max-height: 75vh;
+            object-fit: contain;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .lightbox-caption {
+            color: #ccc;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 1.5rem;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .lightbox-counter {
+            color: #666;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 2rem; right: 2rem;
+            background: none; border: none;
+            color: #fff; font-size: 0.85rem;
+            text-transform: uppercase; letter-spacing: 1px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        
+        .lightbox-close:hover { opacity: 0.6; }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none; border: none;
+            color: #fff; font-size: 2rem;
+            cursor: pointer; padding: 1rem;
+            opacity: 0.7; transition: opacity 0.2s;
+        }
+        
+        .lightbox-nav:hover { opacity: 1; }
+        .lightbox-prev { left: 2rem; }
+        .lightbox-next { right: 2rem; }
+
         /* Modal Theming */
         .project-modal.theme-dark {
             color: #fff;
         }
         .project-modal.theme-dark .modal-overlay {
-            background-color: rgba(0, 0, 0, 0.98); 
+            background-color: rgba(0, 0, 0, 1) !important; 
         }
         .project-modal.theme-dark .modal-header {
             color: #fff;
@@ -1122,6 +1150,16 @@
             .gallery-split-group .gallery-text {
                 padding: 1.5rem !important;
             }
+            .gallery-thumbnail-card {
+                grid-column: 1 / -1 !important;
+                aspect-ratio: 16/9;
+            }
+            .lightbox-nav {
+                font-size: 1.5rem;
+                padding: 0.5rem;
+            }
+            .lightbox-prev { left: 0.5rem; }
+            .lightbox-next { right: 0.5rem; }
         }
         @media (max-width: 480px) {
             .modal-meta-grid {
@@ -1417,6 +1455,18 @@
         </div>
     </div>
 
+    <!-- Lightbox Overlay -->
+    <div id="lightbox" class="lightbox">
+        <button class="lightbox-close" id="lightbox-close">( Close )</button>
+        <button class="lightbox-nav lightbox-prev" id="lightbox-prev">&#10094;</button>
+        <button class="lightbox-nav lightbox-next" id="lightbox-next">&#10095;</button>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="Gallery Image">
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+            <div class="lightbox-counter" id="lightbox-counter"></div>
+        </div>
+    </div>
+
     <script>
         // Main Page Apple-style Scroll Fade Effect
         const mainOverlay = document.getElementById('main-overlay-fixed');
@@ -1546,18 +1596,19 @@
                 title: 'BIM & 3D Modeling',
                 tools: 'Autodesk Revit, Rhino 3D',
                 hero: 'bimcover.jpg',
-                heroPosition: 'center 35%',
+                heroPosition: 'center 55%',
                 theme: 'light',
                 content: [
                     { type: 'text', text: 'Working documents for a modern home project. I utilized reference planes and precise alignments to accurately model complex structural conditions.' },
-                    { type: 'cluster', images: ['revitbasement.jpg', 'roofworking.jpg'] },
-                    { type: 'image', layout: 'full-bleed', url: 'revithomeworkingdoc.jpg' },
-                    { type: 'text', text: '3D views are an important part of the workflow to ensure previews of the final render will look good.' },
-                    { type: 'cluster', images: ['revithome3d.jpg', 'revitstairs.jpg'] },
-                    { type: 'text', text: 'Typical Rhino workflow layout. Showing early stages of the Boston Public Garden project.' },
-                    { type: 'image', layout: 'landscape', url: 'rhino.jpeg' },
+                    { type: 'album', title: 'Modern Home Project', thumbnail: 'revithomeworkingdoc.jpg', images: [
+                        {url: 'revitbasement.jpg', caption: 'Revit Basement Detail'},
+                        {url: 'roofworking.jpg', caption: 'Roof Working Document'},
+                        {url: 'revithomeworkingdoc.jpg', caption: 'Overall Construction Document'},
+                        {url: 'revithome3d.jpg', caption: '3D Spatial Feedback'},
+                        {url: 'revitstairs.jpg', caption: 'Stair Detailing'}
+                    ]},
                     { type: 'text', text: 'Massing Process for Project 02 in Rhino.' },
-                    { type: 'figure-grid', images: [
+                    { type: 'album', title: 'Rhino Massing Process', thumbnail: 'massing5.png', images: [
                         {url: 'massing1.png', caption: 'Fig. 1'},
                         {url: 'massing2.png', caption: 'Fig. 2'},
                         {url: 'massing3.png', caption: 'Fig. 3'},
@@ -1572,10 +1623,14 @@
                 hero: 'parametricurbanism.png',
                 theme: 'light',
                 content: [
-                    { type: 'text', text: 'Preview of the generative design process, building the biophilic overlay component within Grasshopper.' },
-                    { type: 'figure-grid', images: [{url: 'biophilic1.png'}, {url: 'biophilic2.png'}] },
-                    { type: 'text', text: 'A more advanced computational workflow, where the Grasshopper script becomes the project itself, enabling quick generative outputs for randomized urban planning design cases.' },
-                    { type: 'figure-grid', images: [{url: 'compdesign.png'}, {url: 'grasshopperscript1.png'}, {url: 'compworkflow1.png'}] }
+                    { type: 'text', text: 'A comprehensive look into my computational design process, transitioning from individual generative components to large-scale urban scripting.' },
+                    { type: 'album', title: 'Generative Workflows', thumbnail: 'compdesign.png', images: [
+                        {url: 'biophilic1.png', caption: 'Generative design of biophilic component'},
+                        {url: 'biophilic2.png', caption: 'Structural iteration of the component'},
+                        {url: 'compdesign.png', caption: 'Grasshopper script integration'},
+                        {url: 'grasshopperscript1.png', caption: 'Advanced parametric urbanism node script'},
+                        {url: 'compworkflow1.png', caption: 'Rapid generative outputs for urban scenarios'}
+                    ]}
                 ]
             },
             'graphics': {
@@ -1584,12 +1639,19 @@
                 hero: 'pppopup.png',
                 theme: 'dark',
                 content: [
-                    { type: 'figure-grid', images: [{url: 'perspectivelinework.png'}, {url: 'perspectiveillustrator.png'}] },
-                    { type: 'text', text: 'Linework in Illustrator created by importing 2D linework from the 3D Rhino model. The Illustrator phase allows for color precision, adding to depth and making the scene more realistic.' },
-                    { type: 'image', layout: 'full-bleed', url: 'perspectivepostproduction.png' },
-                    { type: 'text', text: 'Detailing the final image using Photoshop. Manually adjusting the opacity and scale of foliage adds atmospheric perspective and depth.' },
+                    { type: 'text', text: 'Project 03 Working Process: From foundational linework to final post-production, establishing perspective, scale, lighting, and atmosphere.' },
+                    { type: 'album', title: 'Linework to Detailing', thumbnail: 'perspectivepostproduction.png', images: [
+                        {url: 'perspectivelinework.png', caption: 'Initial 2D linework imported from 3D model'},
+                        {url: 'perspectiveillustrator.png', caption: 'Illustrator color precision and depth blocking'},
+                        {url: 'perspectivepostproduction.png', caption: 'Photoshop detailing: opacity and scale adjustments for atmospheric perspective'}
+                    ]},
                     { type: 'text', text: 'Lighting Studies: Morning vs. Night environmental setups to evaluate atmospheric lighting and interior material reflections.' },
-                    { type: 'cluster-2x2', images: ['barmorning.jpg', 'barnight.jpg', 'ceilingmorning.jpg', 'ceilingnight.jpg'] }
+                    { type: 'album', title: 'Lighting Studies', thumbnail: 'barnight.jpg', images: [
+                        {url: 'barmorning.jpg', caption: 'Morning Lighting'},
+                        {url: 'barnight.jpg', caption: 'Night Lighting'},
+                        {url: 'ceilingmorning.jpg', caption: 'Ceiling Detail: Morning'},
+                        {url: 'ceilingnight.jpg', caption: 'Ceiling Detail: Night'}
+                    ]}
                 ]
             },
             'drone': {
@@ -1637,6 +1699,65 @@
         const processModalHeader = document.getElementById('process-modal-header');
         const closeProcessModalBtn = document.getElementById('close-process-modal');
         
+        // Lightbox Variables
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        const lightboxCounter = document.getElementById('lightbox-counter');
+        const lightboxCloseBtn = document.getElementById('lightbox-close');
+        const lightboxPrevBtn = document.getElementById('lightbox-prev');
+        const lightboxNextBtn = document.getElementById('lightbox-next');
+        
+        let currentAlbumImages = [];
+        let currentAlbumIndex = 0;
+
+        // Lightbox Functions
+        function openLightbox(images, index) {
+            currentAlbumImages = images;
+            currentAlbumIndex = index;
+            updateLightbox();
+            lightbox.classList.add('active');
+        }
+
+        function updateLightbox() {
+            if (currentAlbumImages.length > 0) {
+                const imgData = currentAlbumImages[currentAlbumIndex];
+                lightboxImg.src = imgData.url;
+                lightboxCaption.innerText = imgData.caption || '';
+                lightboxCounter.innerText = `${currentAlbumIndex + 1} / ${currentAlbumImages.length}`;
+                
+                lightboxPrevBtn.style.display = currentAlbumImages.length > 1 ? 'block' : 'none';
+                lightboxNextBtn.style.display = currentAlbumImages.length > 1 ? 'block' : 'none';
+            }
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+        }
+
+        lightboxCloseBtn.addEventListener('click', closeLightbox);
+        
+        lightboxPrevBtn.addEventListener('click', () => {
+            currentAlbumIndex = (currentAlbumIndex - 1 + currentAlbumImages.length) % currentAlbumImages.length;
+            updateLightbox();
+        });
+
+        lightboxNextBtn.addEventListener('click', () => {
+            currentAlbumIndex = (currentAlbumIndex + 1) % currentAlbumImages.length;
+            updateLightbox();
+        });
+
+        // Close lightbox with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            } else if (e.key === 'ArrowRight' && lightbox.classList.contains('active')) {
+                lightboxNextBtn.click();
+            } else if (e.key === 'ArrowLeft' && lightbox.classList.contains('active')) {
+                lightboxPrevBtn.click();
+            }
+        });
+
         // Mobile Dropdown Menu Logic
         const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
         const mobileDropdown = document.getElementById('mobile-dropdown');
@@ -1834,6 +1955,25 @@
                                 masonryEl.appendChild(imgWrap);
                             });
                             galleryContainer.appendChild(masonryEl);
+                        } else if (item.type === 'album') {
+                            const albumEl = document.createElement('div');
+                            albumEl.className = 'gallery-thumbnail-card';
+                            
+                            const imgEl = document.createElement('img');
+                            imgEl.src = item.thumbnail;
+                            
+                            const overlayEl = document.createElement('div');
+                            overlayEl.className = 'gallery-thumbnail-overlay';
+                            overlayEl.innerHTML = `<span>( Open Gallery: ${item.title} )</span>`;
+                            
+                            albumEl.appendChild(imgEl);
+                            albumEl.appendChild(overlayEl);
+                            
+                            albumEl.addEventListener('click', () => {
+                                openLightbox(item.images, 0);
+                            });
+                            
+                            galleryContainer.appendChild(albumEl);
                         } else if (item.type === 'split-group') {
                             const splitEl = document.createElement('div');
                             splitEl.className = 'gallery-split-group';
