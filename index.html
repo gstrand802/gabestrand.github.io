@@ -791,20 +791,61 @@
         .gallery-cluster.four-grid .gallery-item {
             grid-column: span 1 !important;
         }
+        
+        /* Clean Linear Figure Grid */
+        .gallery-figure-grid {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 0 4rem;
+            margin-bottom: 2rem;
+            align-items: start;
+        }
+        .gallery-figure {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+        }
+        .gallery-figure img {
+            width: 100%;
+            height: auto;
+            object-fit: cover !important;
+            aspect-ratio: 4/3;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        .gallery-figcaption {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
 
         /* Masonry Layout */
         .gallery-masonry {
-            grid-column: span 2;
-            column-count: 2;
-            column-gap: 2rem;
-            padding: 0 6rem;
-            margin-top: 3rem;
+        .gallery-item.invert-drawing img {
+            filter: invert(1) hue-rotate(180deg) contrast(1.2);
+            mix-blend-mode: screen; 
+            background-color: transparent !important;
+            box-shadow: none !important;
         }
-        
-        .gallery-masonry .gallery-item {
-            break-inside: avoid;
-            margin-bottom: 2rem;
-            display: inline-block;
+
+        .gallery-text {
+            grid-column: 1 / -1;
+            font-size: 0.95rem;
+            font-weight: 400;
+            line-height: 1.6;
+            padding: 1rem 0 3rem 0;
+            color: #555;
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+            white-space: pre-wrap;
+        }
+
+        .modal-gallery img {
             width: 100%;
         }
 
@@ -1061,6 +1102,14 @@
             .gallery-cluster .gallery-item:nth-child(n) {
                 grid-column: span 1; 
             }
+            .gallery-figure-grid {
+                grid-template-columns: 1fr;
+                padding: 0 !important;
+                gap: 1.5rem !important;
+            }
+            .gallery-figure img {
+                aspect-ratio: auto;
+            }
             .gallery-masonry {
                 column-count: 1;
                 padding: 0 !important;
@@ -1191,24 +1240,23 @@
                                 <span class="process-item-tools">Adobe Creative Suite (Photoshop, Illustrator, InDesign)</span>
                             </div>
                         </div>
-                        <div class="process-item" data-process-id="drone">
+                        <div class="process-item" data-process-id="sketches">
                             <span class="process-item-num">(04)</span>
                             <div class="process-item-text">
-                                <span class="process-item-title">DRONE SURVEYING & PHOTOGRAPHY</span>
-                                <span class="process-item-tools">DJI, DroneDeploy, Agisoft Metashape</span>
+                                <span class="process-item-title">SKETCHES & DRAFTING</span>
                             </div>
                         </div>
-                        <div class="process-item" data-process-id="sketches">
+                        <div class="process-item" data-process-id="drone">
                             <span class="process-item-num">(05)</span>
                             <div class="process-item-text">
-                                <span class="process-item-title">SKETCHES & DRAFTING</span>
-                                <span class="process-item-tools">AutoCAD, Bluebeam Revu, Procreate, Hand Sketching</span>
+                                <span class="process-item-title">DRONE SURVEYING & PHOTOGRAPHY</span>
+                                <span class="process-item-tools">DJI Mini 4 Pro, DroneDeploy, Agisoft Metashape</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="process-right">
-                    <div class="process-subheading">These five core workflows provide an in-depth look into my technical process, illustrated through detailed imagery and working documents.</div>
+                    <div class="process-subheading">These five core workflows provide an in-depth look into my technical and creative process, illustrated through imagery and working documents.</div>
                 </div>
             </div>
         </section>
@@ -1498,17 +1546,24 @@
                 title: 'BIM & 3D Modeling',
                 tools: 'Autodesk Revit, Rhino 3D',
                 hero: 'bimcover.jpg',
-                heroPosition: 'center 20%',
+                heroPosition: 'center 35%',
                 theme: 'light',
                 content: [
                     { type: 'text', text: 'Working documents for a modern home project. I utilized reference planes and precise alignments to accurately model complex structural conditions.' },
-                    { type: 'cluster', images: ['revitbasement.jpg', 'roofworking.jpg', 'revithomeworkingdoc.jpg'] },
+                    { type: 'cluster', images: ['revitbasement.jpg', 'roofworking.jpg'] },
+                    { type: 'image', layout: 'full-bleed', url: 'revithomeworkingdoc.jpg' },
                     { type: 'text', text: '3D views are an important part of the workflow to ensure previews of the final render will look good.' },
                     { type: 'cluster', images: ['revithome3d.jpg', 'revitstairs.jpg'] },
                     { type: 'text', text: 'Typical Rhino workflow layout. Showing early stages of the Boston Public Garden project.' },
                     { type: 'image', layout: 'landscape', url: 'rhino.jpeg' },
                     { type: 'text', text: 'Massing Process for Project 02 in Rhino.' },
-                    { type: 'cluster', images: ['massing1.png', 'massing2.png', 'massing3.png', 'massing4.png', 'massing5.png'] }
+                    { type: 'figure-grid', images: [
+                        {url: 'massing1.png', caption: 'Fig. 1'},
+                        {url: 'massing2.png', caption: 'Fig. 2'},
+                        {url: 'massing3.png', caption: 'Fig. 3'},
+                        {url: 'massing4.png', caption: 'Fig. 4'},
+                        {url: 'massing5.png', caption: 'Fig. 5'}
+                    ]}
                 ]
             },
             'computational': {
@@ -1518,27 +1573,28 @@
                 theme: 'light',
                 content: [
                     { type: 'text', text: 'Preview of the generative design process, building the biophilic overlay component within Grasshopper.' },
-                    { type: 'cluster', images: ['biophilic1.png', 'biophilic2.png', 'biophilic3.png'] },
+                    { type: 'figure-grid', images: [{url: 'biophilic1.png'}, {url: 'biophilic2.png'}] },
                     { type: 'text', text: 'A more advanced computational workflow, where the Grasshopper script becomes the project itself, enabling quick generative outputs for randomized urban planning design cases.' },
-                    { type: 'cluster', images: ['grasshopperscript1.png', 'citygeneration1.png', 'parametricurbanconcept.png'] },
-                    { type: 'cluster', images: ['compdesign.png', 'parametricurbanism1.png'] }
+                    { type: 'figure-grid', images: [{url: 'compdesign.png'}, {url: 'grasshopperscript1.png'}, {url: 'compworkflow1.png'}] }
                 ]
             },
             'graphics': {
                 title: 'Graphics & Post-Production',
                 tools: 'Photoshop, Illustrator, InDesign',
-                hero: '',
+                hero: 'pppopup.png',
                 theme: 'dark',
                 content: [
-                    { type: 'text', text: 'Project 03 Working Process: From foundational linework to final post-production, establishing perspective, scale, lighting, and atmosphere.' },
-                    { type: 'masonry', images: ['perspectivelinework.png', 'waterfrontlinework.png', 'perspectiveillustrator.png', 'waterfrontillustrator.png', 'perspectivepostproduction.png'] },
+                    { type: 'figure-grid', images: [{url: 'perspectivelinework.png'}, {url: 'perspectiveillustrator.png'}] },
+                    { type: 'text', text: 'Linework in Illustrator created by importing 2D linework from the 3D Rhino model. The Illustrator phase allows for color precision, adding to depth and making the scene more realistic.' },
+                    { type: 'image', layout: 'full-bleed', url: 'perspectivepostproduction.png' },
+                    { type: 'text', text: 'Detailing the final image using Photoshop. Manually adjusting the opacity and scale of foliage adds atmospheric perspective and depth.' },
                     { type: 'text', text: 'Lighting Studies: Morning vs. Night environmental setups to evaluate atmospheric lighting and interior material reflections.' },
                     { type: 'cluster-2x2', images: ['barmorning.jpg', 'barnight.jpg', 'ceilingmorning.jpg', 'ceilingnight.jpg'] }
                 ]
             },
             'drone': {
                 title: 'Drone Surveying',
-                tools: 'DJI, DroneDeploy, Agisoft',
+                tools: 'DJI Mini 4 Pro, DroneDeploy, Agisoft',
                 hero: '',
                 theme: 'dark',
                 heroVideos: ['beach1.mp4', 'nhsummer.mp4', 'nhwinter.mp4', 'sfo.mp4'],
@@ -1555,14 +1611,14 @@
             },
             'sketches': {
                 title: 'Sketches & Drafting',
-                tools: 'AutoCAD, Procreate, Sketching',
+                tools: '',
                 hero: 'scanneddocuments1.png',
                 theme: 'light',
                 content: [
-                    { type: 'text', text: 'Early sketches of the Biophilic Overlay project. I wanted to create a design that seamlessly blended in with the surrounding angled topography.' },
                     { type: 'cluster', images: ['beach1.pdf', 'beach2.png'] },
                     { type: 'text', text: 'Sketches for the community center project (in progress). Located in a typhoon-prone environment, the design is adapted to withstand extreme weather constraints while serving as a safe, resilient gathering space for the community.' },
-                    { type: 'cluster', images: ['project02sketch1.png', 'project02sketch2.png'] }
+                    { type: 'cluster', images: ['project02sketch1.png', 'project02sketch2.png'] },
+                    { type: 'text', text: 'Early sketches of the Biophilic Overlay project. I wanted to create a design that seamlessly blended in with the surrounding angled topography.' }
                 ]
             }
         };
@@ -1656,7 +1712,14 @@
                     }
 
                     document.getElementById('process-modal-title').innerText = data.title;
-                    document.getElementById('process-modal-tools').innerText = data.tools;
+                    
+                    const toolsGroup = document.getElementById('process-modal-tools').closest('.meta-group');
+                    if (data.tools) {
+                        document.getElementById('process-modal-tools').innerText = data.tools;
+                        if (toolsGroup) toolsGroup.style.display = 'block';
+                    } else {
+                        if (toolsGroup) toolsGroup.style.display = 'none';
+                    }
 
                     const heroImg = document.getElementById('process-modal-hero-img');
                     const activeHeroVideo = document.getElementById('process-modal-hero-video');
@@ -1739,6 +1802,25 @@
                                 clusterEl.appendChild(imgWrap);
                             });
                             galleryContainer.appendChild(clusterEl);
+                        } else if (item.type === 'figure-grid') {
+                            const gridEl = document.createElement('div');
+                            gridEl.className = 'gallery-figure-grid';
+                            item.images.forEach(imgData => {
+                                const figureEl = document.createElement('div');
+                                figureEl.className = 'gallery-figure';
+                                const imgEl = document.createElement('img');
+                                imgEl.src = imgData.url;
+                                imgEl.alt = 'Process Figure';
+                                figureEl.appendChild(imgEl);
+                                if (imgData.caption) {
+                                    const capEl = document.createElement('div');
+                                    capEl.className = 'gallery-figcaption';
+                                    capEl.innerText = imgData.caption;
+                                    figureEl.appendChild(capEl);
+                                }
+                                gridEl.appendChild(figureEl);
+                            });
+                            galleryContainer.appendChild(gridEl);
                         } else if (item.type === 'masonry') {
                             const masonryEl = document.createElement('div');
                             masonryEl.className = 'gallery-masonry';
