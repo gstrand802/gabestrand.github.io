@@ -324,10 +324,33 @@
             border-bottom: 1px solid var(--border-color);
             cursor: pointer;
             transition: background-color 0.2s ease;
+            position: relative;
+            padding-right: 140px; /* Buffer space for preview image */
         }
 
         .process-item:hover {
             background-color: rgba(255,255,255,0.05);
+        }
+
+        .process-preview-media {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%) scale(0.9);
+            width: 120px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 4px;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+            pointer-events: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            z-index: 1;
+        }
+
+        .process-item:hover .process-preview-media {
+            opacity: 1;
+            transform: translateY(-50%) scale(1);
         }
 
         .process-item-num {
@@ -1059,6 +1082,12 @@
                 color: var(--text-color);
                 border-top: 1px solid rgba(255,255,255,0.05);
             }
+            .process-item {
+                padding-right: 0;
+            }
+            .process-preview-media {
+                display: none; /* Hide on mobile to prevent clutter */
+            }
             .modal-meta-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 1.5rem;
@@ -1169,12 +1198,12 @@
             <div class="works-list">
                 <div class="work-item" data-id="modern">
                     <div class="work-image">
-                        <img src="modern-home-cover.jpg" alt="Modern House">
+                        <img src="modern-home-cover.jpg" alt="Modern Home">
                     </div>
                     <div class="work-info">
                         <div class="work-title-group">
                             <span>01</span>
-                            <span class="work-title">Modern House</span>
+                            <span class="work-title">Modern Home</span>
                         </div>
                         <span class="work-year">2025</span>
                     </div>
@@ -1226,19 +1255,21 @@
             <div class="process-content">
                 <div class="process-left">
                     <div class="process-list">
-                        <div class="process-item" data-process-id="lighting">
-                            <span class="process-item-num">01</span>
-                            <div class="process-item-text">
-                                <span class="process-item-title">LIGHTING STUDIES</span>
-                                <span class="process-item-tools">Environmental Analysis</span>
-                            </div>
-                        </div>
                         <div class="process-item" data-process-id="drone">
-                            <span class="process-item-num">02</span>
+                            <span class="process-item-num">01</span>
                             <div class="process-item-text">
                                 <span class="process-item-title">DRONE SURVEYING & PHOTOGRAPHY</span>
                                 <span class="process-item-tools">DJI Mini 4 Pro</span>
                             </div>
+                            <video src="beach1.mp4" class="process-preview-media" muted loop playsinline autoplay></video>
+                        </div>
+                        <div class="process-item" data-process-id="lighting">
+                            <span class="process-item-num">02</span>
+                            <div class="process-item-text">
+                                <span class="process-item-title">LIGHTING STUDIES</span>
+                                <span class="process-item-tools">Environmental Analysis</span>
+                            </div>
+                            <img src="barnight.jpg" class="process-preview-media" alt="Lighting Preview">
                         </div>
                     </div>
                 </div>
@@ -1256,7 +1287,7 @@
             <div class="about-content">
                 <div class="about-bio">
                     <p style="margin-bottom: 1rem;">I am a community-focused professional transitioning to architecture, driven by a commitment to contributing to equity-driven, sustainable, and innovative environments.</p>
-                    <p style="margin-bottom: 1rem;">Leveraging a background in community development and recent certification in Digital Design & Visualization, I apply self-directed technical upskilling to solve complex design problems across professional and academic settings.</p>
+                    <p style="margin-bottom: 1rem;">Leveraging a background in community development and recent certification in Digital Design & Visualization, I apply self-directed technical upskilling to solve design problems across professional and academic settings.</p>
                     <p>My goal is to combine rigorous industry experience with my passion for the built environment and community engagement.</p>
                 </div>
                 
@@ -1455,7 +1486,7 @@
         // Project Data
         const projects = {
             'modern': {
-                title: 'Modern House',
+                title: 'Modern Home',
                 subtitle: '',
                 location: 'Academic Project',
                 date: '2025',
