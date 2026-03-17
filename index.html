@@ -1059,13 +1059,13 @@
                 gap: 1.5rem;
             }
             .modal-spacer {
-                height: 40vh; 
+                height: 55vh; /* Increased from 40vh to prevent text overlap */
             }
             .modal-background img,
             .modal-hero-video {
                 object-fit: contain; 
                 object-position: center 20%;
-                background-color: #000;
+                background-color: transparent; /* Removed forced black background */
             }
             
             /* Guaranteed Mobile Grid Reset (Prevents Layout Blowouts) */
@@ -1580,7 +1580,7 @@
                 title: 'Graphics & Post-Production',
                 tools: 'Photoshop, Illustrator, InDesign',
                 hero: 'pppopup.png',
-                theme: 'dark',
+                theme: 'light',
                 content: [
                     { type: 'album', title: 'Linework to Detailing', thumbnail: 'perspectivepostproduction.png', images: [
                         {url: 'perspectivelinework.png', caption: 'Initial 2D linework imported from 3D model'},
@@ -1599,7 +1599,7 @@
                 title: 'Drone Surveying',
                 tools: 'DJI Mini 4 Pro',
                 hero: '',
-                theme: 'dark',
+                theme: 'light',
                 heroVideos: ['beach1.mp4', 'nhsummer.mp4', 'nhwinter.mp4', 'sfo.mp4'],
                 content: [
                     { type: 'cluster', images: ['storm1.JPG', 'storm2.JPG', 'storm3.JPG'] },
