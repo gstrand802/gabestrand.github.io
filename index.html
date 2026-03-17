@@ -14,12 +14,12 @@
         }
 
         *, *::before, *::after {
-            box-sizing: border-box; /* Ensures padding never breaks full-width elements */
+            box-sizing: border-box; 
         }
 
         html, body {
             max-width: 100%;
-            overflow-x: hidden; /* Prevents any horizontal scrolling globally */
+            overflow-x: hidden; 
         }
 
         body {
@@ -282,10 +282,10 @@
         .work-title-group {
             display: flex;
             gap: 1.5rem;
-            font-weight: 400; /* Minimalist un-bolded font */
+            font-weight: 400; 
             font-size: 1.1rem;
             color: var(--text-color);
-            align-items: center; /* Forces single line alignment */
+            align-items: center; 
         }
 
         .work-title {
@@ -294,7 +294,7 @@
 
         .work-year {
             color: #777;
-            font-weight: 400; /* Minimalist un-bolded font */
+            font-weight: 400; 
             font-size: 0.9rem;
         }
 
@@ -607,28 +607,32 @@
             width: 100%;
             height: 100%;
             overflow-y: auto;
-            overflow-x: hidden; /* Strictly locks scrolling to vertical only */
+            overflow-x: hidden; 
             z-index: 4;
             scroll-behavior: smooth;
         }
 
+        /* Fixed strictly to top to prevent iOS sticky bounding bugs */
         .modal-header {
             display: flex;
             justify-content: space-between;
             padding: 1.5rem 2rem;
-            position: sticky;
+            position: fixed; 
             top: 0;
+            left: 0;
+            width: 100%;
             background-color: transparent;
             border-bottom: 1px solid transparent;
             z-index: 1010;
             color: #fff; 
-            transition: color 0.4s ease, border-color 0.4s ease;
+            transition: color 0.4s ease, border-color 0.4s ease, background-color 0.4s ease;
+            box-sizing: border-box;
         }
 
         .modal-header.scrolled {
             color: var(--text-color);
             border-bottom: 1px solid var(--border-color);
-            background-color: rgba(247, 247, 245, 0.8);
+            background-color: rgba(247, 247, 245, 0.95);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
@@ -730,7 +734,6 @@
             background-color: transparent;
         }
         
-        /* Flawlessly inverts white backgrounds to black, blending it into dark mode */
         .gallery-item.invert-drawing img {
             filter: invert(1) hue-rotate(180deg) contrast(1.2);
             mix-blend-mode: screen; 
@@ -782,55 +785,43 @@
             opacity: 1;
         }
 
-        .gallery-text {
-            grid-column: 1 / -1;
-            font-size: 0.95rem;
-            font-weight: 400;
-            line-height: 1.6;
-            padding: 1rem 0 3rem 0;
-            color: #555;
-            text-align: left;
-            max-width: 800px;
-            margin: 0 auto;
-            white-space: pre-wrap;
-        }
-
         .modal-gallery img {
             width: 100%;
+            height: auto;
+            max-height: 90vh;
+            object-fit: contain; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08); 
         }
 
-        /* Split Group Layout (Text next to images) */
-        .gallery-split-group {
+        .gallery-item.full-bleed img {
+            max-height: none; 
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Standard Cluster (now fluid to edge) */
+        .gallery-cluster {
             grid-column: span 2;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            align-items: center;
-            padding: 2rem 0;
-        }
-
-        .gallery-split-group .gallery-text {
-            grid-column: span 1;
-            padding: 0 2rem;
-        }
-
-        .gallery-split-group .gallery-images {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .gallery-split-group .gallery-images img,
-        .gallery-split-group .gallery-images iframe {
-            width: 100%;
-            height: auto;
-            border: none;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-            border-radius: 4px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem; 
         }
         
-        .gallery-split-group .gallery-images iframe {
-            height: 60vh; /* Gives the PDF some height */
+        .gallery-cluster .gallery-item {
+            width: 100%;
+        }
+
+        .gallery-cluster .gallery-item:nth-child(1) {
+            grid-column: span 2; 
+        }
+        .gallery-cluster .gallery-item:nth-child(2),
+        .gallery-cluster .gallery-item:nth-child(3) {
+            grid-column: span 1; 
+        }
+        
+        .gallery-cluster.four-grid .gallery-item {
+            grid-column: span 1 !important;
         }
 
         /* Lightbox Overlay */
@@ -928,10 +919,6 @@
         .project-modal.theme-dark .modal-title {
             color: #fff;
         }
-        .project-modal.theme-dark .gallery-text,
-        .project-modal.theme-dark .modal-subtitle {
-            color: #aaa;
-        }
         .project-modal.theme-dark .meta-group strong {
             color: #aaa;
         }
@@ -942,7 +929,6 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.4);
         }
 
-        /* Forces White base background for Light Theme to keep dark text readable instantly */
         .project-modal.theme-light .modal-background {
             background-color: #fff;
         }
@@ -958,9 +944,6 @@
         .project-modal.theme-light .meta-group strong,
         .project-modal.theme-light .meta-group span {
             color: #111 !important;
-        }
-        .project-modal.theme-light .gallery-text {
-            color: #555 !important;
         }
         .project-modal.theme-light .modal-gallery img {
             box-shadow: none; 
@@ -1001,7 +984,7 @@
                 display: block;
             }
             .work-info {
-                flex-direction: row; /* Enforces horizontal single line */
+                flex-direction: row; 
                 align-items: center;
                 justify-content: space-between;
                 gap: 1rem;
@@ -1084,75 +1067,41 @@
                 object-position: center 20%;
                 background-color: #000;
             }
-            #modal-gallery,
-            #process-modal-gallery {
+            
+            /* Guaranteed Mobile Grid Reset (Prevents Layout Blowouts) */
+            .modal-gallery {
                 grid-template-columns: 1fr !important;
-                gap: 1.5rem;
-                padding: 0 !important; /* Zeroed out to allow true edge-to-edge images */
-            }
-            #modal-gallery .gallery-item.landscape,
-            #modal-gallery .gallery-item.portrait,
-            #modal-gallery .gallery-item.side-by-side,
-            .gallery-cluster .gallery-item,
-            .gallery-masonry .gallery-item {
-                grid-column: 1 / -1 !important;
+                gap: 1.5rem !important;
                 padding: 0 !important;
+            }
+            
+            .modal-gallery > div,
+            .modal-gallery .gallery-item {
+                grid-column: 1 / -1 !important;
+                width: 100% !important;
                 margin: 0 !important;
-                width: 100% !important;
-            }
-            
-            /* Enforces proper mobile full bleed and text wrapping */
-            .gallery-item.full-bleed {
-                grid-column: 1 / -1 !important;
-                margin-left: 0 !important; 
-                margin-right: 0 !important;
-                width: 100% !important; 
-                max-width: none !important;
                 padding: 0 !important;
+                max-width: 100vw !important;
             }
-            .gallery-text {
-                grid-column: 1 / -1 !important;
-                width: 100% !important;
-                padding: 1.5rem 1.5rem !important; /* Text gets padding so it doesn't touch the screen edge */
-                box-sizing: border-box;
-            }
-            
+
             .modal-gallery img {
                 height: auto;
                 object-fit: contain; 
             }
+            
             .gallery-cluster {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr !important;
                 padding: 0 !important;
                 margin-top: 1rem !important;
                 gap: 1.5rem !important;
             }
-            .gallery-cluster .gallery-item:nth-child(n) {
-                grid-column: span 1; 
-            }
-            .gallery-figure-grid {
-                grid-template-columns: 1fr;
-                padding: 0 !important;
-                gap: 1.5rem !important;
-            }
-            .gallery-figure img {
-                aspect-ratio: auto;
-            }
-            .gallery-masonry {
-                column-count: 1;
-                padding: 0 !important;
-            }
-            .gallery-split-group {
-                grid-template-columns: 1fr;
-                padding: 0 !important;
-                gap: 1.5rem;
-            }
-            .gallery-split-group .gallery-text {
-                padding: 1.5rem !important;
-            }
+
             .gallery-thumbnail-card {
                 grid-column: 1 / -1 !important;
                 aspect-ratio: 16/9;
+            }
+            .lightbox-close {
+                top: 1rem; right: 1rem;
             }
             .lightbox-nav {
                 font-size: 1.5rem;
@@ -1288,7 +1237,7 @@
                             <span class="process-item-num">(05)</span>
                             <div class="process-item-text">
                                 <span class="process-item-title">DRONE SURVEYING & PHOTOGRAPHY</span>
-                                <span class="process-item-tools">DJI Mini 4 Pro, DroneDeploy, Agisoft Metashape</span>
+                                <span class="process-item-tools">DJI Mini 4 Pro</span>
                             </div>
                         </div>
                     </div>
@@ -1440,8 +1389,8 @@
                 <div class="modal-title-section">
                     <h1 id="process-modal-title" class="modal-title">Process Title</h1>
                     
-                    <div class="modal-meta-grid">
-                        <div class="meta-group">
+                    <div class="modal-meta-grid" id="process-meta-grid">
+                        <div class="meta-group" id="process-tools-group">
                             <strong>Software / Tools</strong>
                             <span id="process-modal-tools">Tools details</span>
                         </div>
@@ -1503,11 +1452,9 @@
                     }
                     
                     const rect = img.parentElement.getBoundingClientRect();
-                    // Calculate how far the image is through the viewport
                     let progress = (windowHeight - rect.top) / (windowHeight + rect.height);
                     progress = Math.max(0, Math.min(1, progress));
                     
-                    // Pan dynamically based on scroll position
                     const xPos = progress * 100;
                     img.style.objectPosition = `${xPos}% center`;
                 });
@@ -1522,7 +1469,6 @@
         const heroSlides = document.querySelectorAll('.hero-slide');
         let currentSlide = 0;
 
-        // Change slide every 6 seconds (allowing time for the 3s mellow fade)
         setInterval(() => {
             heroSlides[currentSlide].classList.remove('active');
             currentSlide = (currentSlide + 1) % heroSlides.length;
@@ -1599,7 +1545,6 @@
                 heroPosition: 'center 55%',
                 theme: 'light',
                 content: [
-                    { type: 'text', text: 'Working documents for a modern home project. I utilized reference planes and precise alignments to accurately model complex structural conditions.' },
                     { type: 'album', title: 'Modern Home Project', thumbnail: 'revithomeworkingdoc.jpg', images: [
                         {url: 'revitbasement.jpg', caption: 'Revit Basement Detail'},
                         {url: 'roofworking.jpg', caption: 'Roof Working Document'},
@@ -1607,7 +1552,6 @@
                         {url: 'revithome3d.jpg', caption: '3D Spatial Feedback'},
                         {url: 'revitstairs.jpg', caption: 'Stair Detailing'}
                     ]},
-                    { type: 'text', text: 'Massing Process for Project 02 in Rhino.' },
                     { type: 'album', title: 'Rhino Massing Process', thumbnail: 'massing5.png', images: [
                         {url: 'massing1.png', caption: 'Fig. 1'},
                         {url: 'massing2.png', caption: 'Fig. 2'},
@@ -1623,12 +1567,11 @@
                 hero: 'parametricurbanism.png',
                 theme: 'light',
                 content: [
-                    { type: 'text', text: 'A comprehensive look into my computational design process, transitioning from individual generative components to large-scale urban scripting.' },
                     { type: 'album', title: 'Generative Workflows', thumbnail: 'compdesign.png', images: [
                         {url: 'biophilic1.png', caption: 'Generative design of biophilic component'},
                         {url: 'biophilic2.png', caption: 'Structural iteration of the component'},
                         {url: 'compdesign.png', caption: 'Grasshopper script integration'},
-                        {url: 'grasshopperscript1.png', caption: 'Advanced parametric urbanism node script'},
+                        {url: 'grasshopperscript1.png', caption: 'Grasshopper script for parametric urbanism outputs'},
                         {url: 'compworkflow1.png', caption: 'Rapid generative outputs for urban scenarios'}
                     ]}
                 ]
@@ -1639,13 +1582,11 @@
                 hero: 'pppopup.png',
                 theme: 'dark',
                 content: [
-                    { type: 'text', text: 'Project 03 Working Process: From foundational linework to final post-production, establishing perspective, scale, lighting, and atmosphere.' },
                     { type: 'album', title: 'Linework to Detailing', thumbnail: 'perspectivepostproduction.png', images: [
                         {url: 'perspectivelinework.png', caption: 'Initial 2D linework imported from 3D model'},
                         {url: 'perspectiveillustrator.png', caption: 'Illustrator color precision and depth blocking'},
                         {url: 'perspectivepostproduction.png', caption: 'Photoshop detailing: opacity and scale adjustments for atmospheric perspective'}
                     ]},
-                    { type: 'text', text: 'Lighting Studies: Morning vs. Night environmental setups to evaluate atmospheric lighting and interior material reflections.' },
                     { type: 'album', title: 'Lighting Studies', thumbnail: 'barnight.jpg', images: [
                         {url: 'barmorning.jpg', caption: 'Morning Lighting'},
                         {url: 'barnight.jpg', caption: 'Night Lighting'},
@@ -1656,12 +1597,11 @@
             },
             'drone': {
                 title: 'Drone Surveying',
-                tools: 'DJI Mini 4 Pro, DroneDeploy, Agisoft',
+                tools: 'DJI Mini 4 Pro',
                 hero: '',
                 theme: 'dark',
                 heroVideos: ['beach1.mp4', 'nhsummer.mp4', 'nhwinter.mp4', 'sfo.mp4'],
                 content: [
-                    { type: 'text', text: 'Aerial photogrammetry provides highly accurate 3D site context, enabling design decisions that are firmly rooted in real-world topography and environmental constraints.' },
                     { type: 'cluster', images: ['storm1.JPG', 'storm2.JPG', 'storm3.JPG'] },
                     { type: 'image', layout: 'landscape', url: 'summer1.JPG' },
                     { type: 'image', layout: 'portrait', url: 'summer2.JPG' },
@@ -1678,9 +1618,7 @@
                 theme: 'light',
                 content: [
                     { type: 'cluster', images: ['beach1.pdf', 'beach2.png'] },
-                    { type: 'text', text: 'Sketches for the community center project (in progress). Located in a typhoon-prone environment, the design is adapted to withstand extreme weather constraints while serving as a safe, resilient gathering space for the community.' },
-                    { type: 'cluster', images: ['project02sketch1.png', 'project02sketch2.png'] },
-                    { type: 'text', text: 'Early sketches of the Biophilic Overlay project. I wanted to create a design that seamlessly blended in with the surrounding angled topography.' }
+                    { type: 'cluster', images: ['project02sketch1.png', 'project02sketch2.png'] }
                 ]
             }
         };
@@ -1834,12 +1772,16 @@
 
                     document.getElementById('process-modal-title').innerText = data.title;
                     
-                    const toolsGroup = document.getElementById('process-modal-tools').closest('.meta-group');
-                    if (data.tools) {
+                    const toolsGroup = document.getElementById('process-tools-group');
+                    const toolsGrid = document.getElementById('process-meta-grid');
+                    
+                    if (data.tools && data.tools.trim() !== '') {
                         document.getElementById('process-modal-tools').innerText = data.tools;
-                        if (toolsGroup) toolsGroup.style.display = 'block';
+                        toolsGroup.style.display = 'block';
+                        toolsGrid.style.display = 'grid';
                     } else {
-                        if (toolsGroup) toolsGroup.style.display = 'none';
+                        toolsGroup.style.display = 'none';
+                        toolsGrid.style.display = 'none';
                     }
 
                     const heroImg = document.getElementById('process-modal-hero-img');
@@ -1856,7 +1798,7 @@
                     activeHeroVideo.pause();
                     activeHeroVideo.removeAttribute('src'); 
                     activeHeroVideo.load();
-                    activeHeroVideo.onended = null; // Strip old listeners safely
+                    activeHeroVideo.onended = null;
 
                     heroImg.style.display = 'none';
                     activeHeroVideo.style.display = 'none';
@@ -1866,15 +1808,14 @@
                         activeHeroVideo.style.display = 'block';
                         let currentVideoIndex = 0;
                         activeHeroVideo.src = data.heroVideos[currentVideoIndex];
-                        activeHeroVideo.load(); // Force load
+                        activeHeroVideo.load(); 
                         
-                        // Safely trigger play
                         const playPromise = activeHeroVideo.play();
                         if (playPromise !== undefined) {
                             playPromise.catch(e => console.error("Autoplay prevented by browser:", e));
                         }
 
-                        // Seamless instant loop without artificial fade delays
+                        // Seamless instant loop
                         activeHeroVideo.onended = () => {
                             currentVideoIndex = (currentVideoIndex + 1) % data.heroVideos.length;
                             activeHeroVideo.src = data.heroVideos[currentVideoIndex];
@@ -1901,14 +1842,9 @@
                             imgEl.alt = data.title + ' Image';
                             wrapper.appendChild(imgEl);
                             galleryContainer.appendChild(wrapper);
-                        } else if (item.type === 'text') {
-                            const textEl = document.createElement('div');
-                            textEl.className = 'gallery-text';
-                            textEl.innerText = item.text;
-                            galleryContainer.appendChild(textEl);
-                        } else if (item.type === 'cluster' || item.type === 'cluster-2x2') {
+                        } else if (item.type === 'cluster') {
                             const clusterEl = document.createElement('div');
-                            clusterEl.className = item.type === 'cluster-2x2' ? 'gallery-cluster four-grid' : 'gallery-cluster';
+                            clusterEl.className = 'gallery-cluster';
                             item.images.forEach(imgUrl => {
                                 const imgWrap = document.createElement('div');
                                 imgWrap.className = 'gallery-item portrait';
@@ -1923,38 +1859,6 @@
                                 clusterEl.appendChild(imgWrap);
                             });
                             galleryContainer.appendChild(clusterEl);
-                        } else if (item.type === 'figure-grid') {
-                            const gridEl = document.createElement('div');
-                            gridEl.className = 'gallery-figure-grid';
-                            item.images.forEach(imgData => {
-                                const figureEl = document.createElement('div');
-                                figureEl.className = 'gallery-figure';
-                                const imgEl = document.createElement('img');
-                                imgEl.src = imgData.url;
-                                imgEl.alt = 'Process Figure';
-                                figureEl.appendChild(imgEl);
-                                if (imgData.caption) {
-                                    const capEl = document.createElement('div');
-                                    capEl.className = 'gallery-figcaption';
-                                    capEl.innerText = imgData.caption;
-                                    figureEl.appendChild(capEl);
-                                }
-                                gridEl.appendChild(figureEl);
-                            });
-                            galleryContainer.appendChild(gridEl);
-                        } else if (item.type === 'masonry') {
-                            const masonryEl = document.createElement('div');
-                            masonryEl.className = 'gallery-masonry';
-                            item.images.forEach(imgUrl => {
-                                const imgWrap = document.createElement('div');
-                                imgWrap.className = 'gallery-item portrait';
-                                const imgEl = document.createElement('img');
-                                imgEl.src = imgUrl;
-                                imgEl.alt = data.title + ' Masonry Image';
-                                imgWrap.appendChild(imgEl);
-                                masonryEl.appendChild(imgWrap);
-                            });
-                            galleryContainer.appendChild(masonryEl);
                         } else if (item.type === 'album') {
                             const albumEl = document.createElement('div');
                             albumEl.className = 'gallery-thumbnail-card';
@@ -1974,28 +1878,6 @@
                             });
                             
                             galleryContainer.appendChild(albumEl);
-                        } else if (item.type === 'split-group') {
-                            const splitEl = document.createElement('div');
-                            splitEl.className = 'gallery-split-group';
-                            
-                            const textEl = document.createElement('div');
-                            textEl.className = 'gallery-text';
-                            textEl.innerText = item.text;
-                            
-                            const imgWrap = document.createElement('div');
-                            imgWrap.className = 'gallery-images';
-                            
-                            item.images.forEach(imgUrl => {
-                                const isPdf = imgUrl.toLowerCase().endsWith('.pdf');
-                                const mediaEl = document.createElement(isPdf ? 'iframe' : 'img');
-                                mediaEl.src = imgUrl;
-                                if (!isPdf) mediaEl.alt = data.title + ' Group Image';
-                                imgWrap.appendChild(mediaEl);
-                            });
-                            
-                            splitEl.appendChild(textEl);
-                            splitEl.appendChild(imgWrap);
-                            galleryContainer.appendChild(splitEl);
                         }
                     });
 
@@ -2075,28 +1957,6 @@
                                 clusterEl.appendChild(imgWrap);
                             });
                             galleryContainer.appendChild(clusterEl);
-                        } else if (item.type === 'split-group') {
-                            const splitEl = document.createElement('div');
-                            splitEl.className = 'gallery-split-group';
-                            
-                            const textEl = document.createElement('div');
-                            textEl.className = 'gallery-text';
-                            textEl.innerText = item.text;
-                            
-                            const imgWrap = document.createElement('div');
-                            imgWrap.className = 'gallery-images';
-                            
-                            item.images.forEach(imgUrl => {
-                                const isPdf = imgUrl.toLowerCase().endsWith('.pdf');
-                                const mediaEl = document.createElement(isPdf ? 'iframe' : 'img');
-                                mediaEl.src = imgUrl;
-                                if (!isPdf) mediaEl.alt = data.title + ' Group Image';
-                                imgWrap.appendChild(mediaEl);
-                            });
-                            
-                            splitEl.appendChild(textEl);
-                            splitEl.appendChild(imgWrap);
-                            galleryContainer.appendChild(splitEl);
                         }
                     });
 
