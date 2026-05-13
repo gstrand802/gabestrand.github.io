@@ -5,20 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gabe Strand | Portfolio</title>
     
-    <!-- Open Graph / Link Preview Meta Tags (For iMessage, Social Media, etc.) -->
     <meta property="og:title" content="Gabe Strand | Portfolio">
     <meta property="og:description" content="Architecture and Computational Design by Gabe Strand">
     <meta property="og:image" content="citysketchscan.png">
     <meta property="og:type" content="website">
     
-    <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Gabe Strand | Portfolio">
     <meta name="twitter:description" content="Architecture and Computational Design by Gabe Strand">
     <meta name="twitter:image" content="citysketchscan.png">
 
     <style>
-        /* Base & Variables */
         :root {
             --bg-color: #001f3f;
             --text-color: #f7f7f5;
@@ -49,7 +46,6 @@
             overflow: hidden; 
         }
         
-        /* Typography */
         h1, h2, h3, h4 {
             margin: 0;
             font-weight: 400;
@@ -69,7 +65,6 @@
             display: block;
         }
 
-        /* Navigation */
         header {
             display: flex;
             justify-content: space-between;
@@ -131,7 +126,6 @@
             display: none;
         }
 
-        /* Fixed Main Background */
         .main-background-fixed {
             position: fixed;
             top: 0;
@@ -181,7 +175,6 @@
             transition: opacity 0.1s ease;
         }
 
-        /* Hero Section */
         .hero {
             position: relative;
             height: calc(100vh - 85px);
@@ -225,10 +218,8 @@
             text-transform: uppercase;
         }
 
-        /* Works Section */
         .works-section {
             padding: 4rem 2rem;
-            border-bottom: 1px solid var(--border-color);
         }
 
         .works-header {
@@ -237,7 +228,6 @@
             margin-bottom: 3rem;
         }
 
-        /* 2x2 Grid Layout for Featured Works */
         .works-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -307,7 +297,69 @@
             font-size: 0.9rem;
         }
 
-        /* Process Section -> Rebranded to Studies */
+        /* Unhighlighted Projects Section */
+        .index-section {
+            padding: 0 2rem 4rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .index-list {
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .index-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .index-item:hover {
+            background-color: rgba(255,255,255,0.05);
+        }
+
+        .index-left {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .index-number {
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .index-title {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            font-weight: 400;
+            color: var(--text-color);
+        }
+
+        .index-right {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .index-type {
+            font-size: 0.85rem;
+            color: #aaa;
+            text-transform: none;
+        }
+
+        .index-year {
+            font-size: 0.9rem;
+            color: #999;
+        }
+
         .process-section {
             padding: 4rem 2rem;
             border-bottom: 1px solid var(--border-color);
@@ -338,7 +390,7 @@
             cursor: pointer;
             transition: background-color 0.2s ease;
             position: relative;
-            padding-right: 140px; /* Buffer space for preview image */
+            padding-right: 140px; 
         }
 
         .process-item:hover {
@@ -416,7 +468,6 @@
             max-width: 90%;
         }
 
-        /* About Section */
         .about-section {
             display: grid;
             grid-template-columns: 1fr 2fr;
@@ -515,7 +566,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Footer */
         footer {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -538,9 +588,6 @@
             color: var(--text-color);
         }
 
-        /* -------------------------------------
-           Modals (Fixed Background Style)
-           ------------------------------------- */
         .project-modal {
             position: fixed;
             top: 0;
@@ -623,7 +670,6 @@
             scroll-behavior: smooth;
         }
 
-        /* Fixed strictly to top to prevent iOS sticky bounding bugs */
         .modal-header {
             display: flex;
             justify-content: space-between;
@@ -678,7 +724,6 @@
         }
 
         .modal-title {
-            /* Reduced font size by exactly 30% from the original design */
             font-size: clamp(2.1rem, 5.6vw, 5.6rem);
             line-height: 1;
             margin-bottom: 3rem;
@@ -766,7 +811,6 @@
             white-space: pre-wrap;
         }
 
-        /* Minimalist List-Style Album Link */
         .album-list-item {
             grid-column: 1 / -1;
             display: flex;
@@ -836,7 +880,6 @@
             display: block;
         }
 
-        /* Standard Cluster (now fluid to edge) */
         .gallery-cluster {
             grid-column: span 2;
             display: grid;
@@ -861,7 +904,6 @@
             grid-column: span 1 !important;
         }
 
-        /* Lightbox Overlay */
         .lightbox {
             display: none;
             position: fixed;
@@ -939,7 +981,6 @@
         .lightbox-prev { left: 2rem; }
         .lightbox-next { right: 2rem; }
 
-        /* Modal Theming */
         .project-modal.theme-dark {
             color: #fff;
         }
@@ -965,7 +1006,6 @@
         .project-modal.theme-dark .modal-gallery img {
             box-shadow: 0 15px 35px rgba(0,0,0,0.4);
         }
-        /* Album specific dark overrides */
         .project-modal.theme-dark .album-list-item {
             border-color: rgba(255,255,255,0.15);
         }
@@ -996,7 +1036,6 @@
             box-shadow: none; 
         }
 
-        /* Responsive Mobile Layout Adjustments */
         @media (max-width: 768px) {
             .main-background-fixed img.hero-slide {
                 object-fit: contain !important; 
@@ -1030,8 +1069,16 @@
                 justify-content: space-between;
                 gap: 1rem;
             }
-            
-            /* Process Section Ordering for Mobile */
+            .index-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .index-right {
+                width: 100%;
+                justify-content: space-between;
+                gap: 1rem;
+            }
             .process-content {
                 display: flex;
                 flex-direction: column;
@@ -1099,7 +1146,7 @@
                 padding-right: 0;
             }
             .process-preview-media {
-                display: none; /* Hide on mobile to prevent clutter */
+                display: none; 
             }
             .modal-meta-grid {
                 grid-template-columns: 1fr 1fr;
@@ -1114,14 +1161,11 @@
                 object-position: center 20%;
                 background-color: transparent;
             }
-            
-            /* Guaranteed Mobile Grid Reset (Prevents Layout Blowouts) */
             .modal-gallery {
                 grid-template-columns: 1fr !important;
                 gap: 1.5rem !important;
                 padding: 0 !important;
             }
-            
             .modal-gallery > div,
             .modal-gallery .gallery-item {
                 grid-column: 1 / -1 !important;
@@ -1130,19 +1174,16 @@
                 padding: 0 !important;
                 max-width: 100vw !important;
             }
-
             .modal-gallery img {
                 height: auto;
                 object-fit: contain; 
             }
-            
             .gallery-cluster {
                 grid-template-columns: 1fr !important;
                 padding: 0 !important;
                 margin-top: 1rem !important;
                 gap: 1.5rem !important;
             }
-
             .lightbox-close {
                 top: 1rem; right: 1rem;
             }
@@ -1183,12 +1224,14 @@
             <div class="logo">GABE STRAND</div>
             <nav>
                 <a href="#works">Works</a>
+                <a href="#index">Index</a>
                 <a href="#studies">Studies</a>
                 <a href="#about">About</a>
             </nav>
             <button id="mobile-menu-toggle" class="mobile-menu-btn">Menu</button>
             <div id="mobile-dropdown" class="mobile-dropdown">
                 <a href="#works" class="dropdown-link">Works</a>
+                <a href="#index" class="dropdown-link">Index</a>
                 <a href="#studies" class="dropdown-link">Studies</a>
                 <a href="#about" class="dropdown-link">About</a>
             </div>
@@ -1205,29 +1248,17 @@
         <section id="works" class="works-section">
             <div class="works-header">
                 <span class="meta-label">Featured Works</span>
-                <span class="meta-label">04</span>
+                <span class="meta-label">02</span>
             </div>
             
             <div class="works-list">
-                <div class="work-item" data-id="modern">
-                    <div class="work-image">
-                        <img src="modern-home-cover.jpg" alt="Modern Home">
-                    </div>
-                    <div class="work-info">
-                        <div class="work-title-group">
-                            <span>01</span>
-                            <span class="work-title">Modern Home</span>
-                        </div>
-                        <span class="work-year">2025</span>
-                    </div>
-                </div>
                 <div class="work-item" data-id="biophilic">
                     <div class="work-image">
                         <img src="02biophilic-overlay-geroimage-main-page.jpg" alt="Biophillic Overlay">
                     </div>
                     <div class="work-info">
                         <div class="work-title-group">
-                            <span>02</span>
+                            <span>01</span>
                             <span class="work-title">Biophillic Overlay</span>
                         </div>
                         <span class="work-year">2025</span>
@@ -1239,22 +1270,39 @@
                     </div>
                     <div class="work-info">
                         <div class="work-title-group">
-                            <span>03</span>
+                            <span>02</span>
                             <span class="work-title">Boston Public Garden: Three Graphic Installations</span>
                         </div>
                         <span class="work-year">2025</span>
                     </div>
                 </div>
-                <div class="work-item" data-id="parametric">
-                    <div class="work-image">
-                        <img src="parametricurbanism.png" alt="Parametric Urbanism">
+            </div>
+        </section>
+
+        <section id="index" class="index-section">
+            <div class="works-header" style="margin-bottom: 1.5rem;">
+                <span class="meta-label">Index / Other Works</span>
+                <span class="meta-label">02</span>
+            </div>
+            <div class="index-list">
+                <div class="index-item" data-id="modern">
+                    <div class="index-left">
+                        <span class="index-number">03</span>
+                        <span class="index-title">Modern Home</span>
                     </div>
-                    <div class="work-info">
-                        <div class="work-title-group">
-                            <span>04</span>
-                            <span class="work-title">Parametric Urbanism</span>
-                        </div>
-                        <span class="work-year">2025</span>
+                    <div class="index-right">
+                        <span class="index-type">BIM Coordination</span>
+                        <span class="index-year">2025</span>
+                    </div>
+                </div>
+                <div class="index-item" data-id="parametric">
+                    <div class="index-left">
+                        <span class="index-number">04</span>
+                        <span class="index-title">Parametric Urbanism</span>
+                    </div>
+                    <div class="index-right">
+                        <span class="index-type">Computational Design</span>
+                        <span class="index-year">2025</span>
                     </div>
                 </div>
             </div>
@@ -1356,6 +1404,7 @@
             <div class="footer-col">
                 <strong>Navigation</strong>
                 <p><a href="#works">Works</a></p>
+                <p><a href="#index">Index</a></p>
                 <p><a href="#studies">Studies</a></p>
                 <p><a href="#about">About</a></p>
             </div>
@@ -1456,7 +1505,6 @@
         </div>
     </div>
 
-    <!-- Lightbox Overlay -->
     <div id="lightbox" class="lightbox">
         <button class="lightbox-close" id="lightbox-close">Close</button>
         <button class="lightbox-nav lightbox-prev" id="lightbox-prev">&#10094;</button>
@@ -1469,7 +1517,6 @@
     </div>
 
     <script>
-        // Main Page Apple-style Scroll Fade Effect
         const mainOverlay = document.getElementById('main-overlay-fixed');
         const mainHeader = document.getElementById('main-header');
         
@@ -1494,7 +1541,6 @@
             }
         });
 
-        // Hero Image Slideshow Logic
         const heroSlides = document.querySelectorAll('.hero-slide');
         let currentSlide = 0;
 
@@ -1504,7 +1550,6 @@
             heroSlides[currentSlide].classList.add('active');
         }, 6000);
 
-        // Project Data
         const projects = {
             'modern': {
                 title: 'Modern Home',
@@ -1604,7 +1649,6 @@
             }
         };
 
-        // Studies Data (Formerly Processes)
         const studiesData = {
             'lighting': {
                 title: 'Lighting Studies',
@@ -1645,16 +1689,16 @@
         const modalOverlay = document.getElementById('modal-overlay');
         const modalHeader = document.getElementById('modal-header');
         const closeModalBtn = document.getElementById('close-modal');
-        const workItems = document.querySelectorAll('.work-item');
         
-        // Process Modal Variables
+        // Selectors for both Featured Works and Index items
+        const workItems = document.querySelectorAll('.work-item, .index-item');
+        
         const processModal = document.getElementById('process-modal');
         const processScrollArea = document.getElementById('process-modal-scroll-area');
         const processModalOverlay = document.getElementById('process-modal-overlay');
         const processModalHeader = document.getElementById('process-modal-header');
         const closeProcessModalBtn = document.getElementById('close-process-modal');
         
-        // Lightbox Variables
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const lightboxCaption = document.getElementById('lightbox-caption');
@@ -1666,7 +1710,6 @@
         let currentAlbumImages = [];
         let currentAlbumIndex = 0;
 
-        // Lightbox Functions
         function openLightbox(images, index) {
             currentAlbumImages = images;
             currentAlbumIndex = index;
@@ -1702,7 +1745,6 @@
             updateLightbox();
         });
 
-        // Lightbox Swipe Support for Mobile
         let touchstartX = 0;
         let touchendX = 0;
         
@@ -1716,18 +1758,15 @@
         }, {passive: true});
 
         function handleSwipe() {
-            const threshold = 50; // minimum distance to be considered a swipe
+            const threshold = 50; 
             if (touchendX < touchstartX - threshold) {
-                // Swiped Left - go Next
                 if (lightboxNextBtn.style.display !== 'none') lightboxNextBtn.click();
             }
             if (touchendX > touchstartX + threshold) {
-                // Swiped Right - go Previous
                 if (lightboxPrevBtn.style.display !== 'none') lightboxPrevBtn.click();
             }
         }
 
-        // Close lightbox with Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && lightbox.classList.contains('active')) {
                 closeLightbox();
@@ -1738,7 +1777,6 @@
             }
         });
 
-        // Mobile Dropdown Menu Logic
         const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
         const mobileDropdown = document.getElementById('mobile-dropdown');
         const dropdownLinks = document.querySelectorAll('.dropdown-link');
@@ -1753,7 +1791,6 @@
             });
         });
 
-        // Apple-style Scroll Fade Effect for Project Modal
         scrollArea.addEventListener('scroll', () => {
             const scrollTop = scrollArea.scrollTop;
             const windowHeight = window.innerHeight;
@@ -1775,7 +1812,6 @@
             }
         });
 
-        // Process Modal Scroll Effect
         processScrollArea.addEventListener('scroll', () => {
             const scrollTop = processScrollArea.scrollTop;
             const windowHeight = window.innerHeight;
@@ -1797,7 +1833,6 @@
             }
         });
 
-        // Open Process Modals (Now Studies)
         const processItems = document.querySelectorAll('.process-item');
 
         processItems.forEach(item => {
@@ -1806,7 +1841,6 @@
                 const data = studiesData[processId];
 
                 if (data) {
-                    // Apply visual theme
                     processModal.classList.remove('theme-dark', 'theme-light');
                     if (data.theme) {
                         processModal.classList.add(`theme-${data.theme}`);
@@ -1835,7 +1869,6 @@
                         heroImg.style.objectPosition = 'center';
                     }
 
-                    // Reset and carefully clear old video state
                     if (window.processVideoTimeout) clearTimeout(window.processVideoTimeout);
                     activeHeroVideo.pause();
                     activeHeroVideo.removeAttribute('src'); 
@@ -1857,7 +1890,6 @@
                             playPromise.catch(e => console.error("Autoplay prevented by browser:", e));
                         }
 
-                        // Seamless instant loop
                         activeHeroVideo.onended = () => {
                             currentVideoIndex = (currentVideoIndex + 1) % data.heroVideos.length;
                             activeHeroVideo.src = data.heroVideos[currentVideoIndex];
@@ -1946,14 +1978,13 @@
             });
         });
 
-        // Populate and open Project modal
+        // Event listener mapped to BOTH Featured Works and Index Items
         workItems.forEach(item => {
             item.addEventListener('click', function() {
                 const projectId = this.getAttribute('data-id');
                 const data = projects[projectId];
 
                 if (data) {
-                    // Apply visual theme
                     modal.classList.remove('theme-dark', 'theme-light');
                     if (data.theme) {
                         modal.classList.add(`theme-${data.theme}`);
@@ -2036,9 +2067,6 @@
                             textWrap.appendChild(titleEl);
                             textWrap.appendChild(subtitleEl);
                             
-                            albumEl.appendChild(imgWrap);
-                            albumEl.appendChild(textWrap);
-                            
                             albumEl.addEventListener('click', () => {
                                 openLightbox(item.images, 0);
                             });
@@ -2057,18 +2085,15 @@
             });
         });
 
-        // Close project modal
         closeModalBtn.addEventListener('click', () => {
             modal.classList.remove('active');
             document.body.classList.remove('modal-open');
         });
 
-        // Close process modal
         closeProcessModalBtn.addEventListener('click', () => {
             processModal.classList.remove('active');
             document.body.classList.remove('modal-open');
             
-            // Stop and clear videos when closing
             const activeHeroVideo = document.getElementById('process-modal-hero-video');
             if (activeHeroVideo) {
                 activeHeroVideo.pause();
